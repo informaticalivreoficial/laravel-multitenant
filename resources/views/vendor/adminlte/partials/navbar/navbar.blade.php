@@ -16,6 +16,9 @@
 
     {{-- Navbar right links --}}
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link" href="{{route('web.home')}}" title="Ver Site" target="_blank"><i class="fas fa-desktop"></i></a>
+        </li>
         {{-- Custom right links --}}
         @yield('content_top_nav_right')
 

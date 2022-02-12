@@ -13,17 +13,14 @@
     @yield('css')
 @stop
 
-@section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
+@section('classes_body'){{ ($auth_type ?? 'login') . '-page login-body' }}@stop
 
 @section('body')
     <div class="{{ $auth_type ?? 'login' }}-box">
-
+        
         {{-- Logo --}}
-        <div class="{{ $auth_type ?? 'login' }}-logo">
-            <a href="{{ $dashboard_url }}">
-                <img src="{{ asset(config('adminlte.logo_img')) }}" height="50">
-                {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
-            </a>
+        <div class="login-logo mt-5">
+        <img width="{{env('LOGOMARCA_GERENCIADOR_WIDTH')}}" height="{{env('LOGOMARCA_GERENCIADOR_HEIGHT')}}" src="{{$configuracoes->getlogoadmin()}}" alt="{{$configuracoes->nomedosite}}" class="elevation-3">
         </div>
 
         {{-- Card Box --}}

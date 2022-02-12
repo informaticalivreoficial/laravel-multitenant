@@ -121,7 +121,7 @@ return [
     |
     */
 
-    'classes_body' => '',
+    'classes_body' => 'text-sm',
     'classes_brand' => '',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
@@ -236,6 +236,24 @@ return [
         'text' => 'Painel de Controle',
         'url'  => 'admin',
         'icon' => 'fas fa-tachometer-alt',
+        ],
+        [
+            'text' => 'Usuários',            
+            'icon' => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Clientes',
+                    'url'  => 'admin/usuarios',
+                ],
+                [
+                    'text' => 'Time',
+                    'url'  => 'admin/usuarios/time',
+                ],
+                [
+                    'text' => 'Criar Novo',
+                    'url'  => 'admin/usuarios/create',
+                ]
+            ]
         ],
         [
             'text' => 'Posts',            
@@ -364,6 +382,56 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'Summernote' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/summernote/summernote-bs4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/summernote/lang/summernote-pt-BR.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/summernote/summernote-bs4.min.css',
+                ],
+            ],
+        ],
+        'EkkoLightbox' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/ekko-lightbox/ekko-lightbox.min.js',
+                ],                
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/ekko-lightbox/ekko-lightbox.css',
+                ],
+            ],
+        ],
+        'Toastr' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/toastr/toastr.min.js',
+                ],                
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/toastr/toastr.css',
                 ],
             ],
         ],
