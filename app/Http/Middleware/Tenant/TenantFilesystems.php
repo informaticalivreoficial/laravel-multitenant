@@ -25,7 +25,7 @@ class TenantFilesystems
     public function setFileSystemsRoot()
     {
         $tenant = app(ManangerTenant::class)->getTenant();
-
+        
         config()->set([
             'filesystems.disks.public.root' => config('filesystems.disks.public.root') . "/{$tenant->uuid}",
             'filesystems.disks.public.url' => config('filesystems.disks.public.url') . "/{$tenant->uuid}",

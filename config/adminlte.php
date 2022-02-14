@@ -277,6 +277,48 @@ return [
                 ]
             ]
         ],
+        [
+            'text' => 'Planos',            
+            'icon' => 'fas fa-fw fa-pen',
+            'submenu' => [
+                [
+                    'text' => 'Listar Planos',
+                    'url'  => 'admin/planos',
+                ],
+                [
+                    'text' => 'Cadastrar Plano',
+                    'url'  => 'admin/planos/create',
+                ],
+            ]
+        ],
+        [
+            'text' => 'Perfis',            
+            'icon' => 'fas fa-fw fa-pen',
+            'submenu' => [
+                [
+                    'text' => 'Listar Perfis',
+                    'url'  => 'admin/perfis',
+                ],
+                [
+                    'text' => 'Cadastrar Perfil',
+                    'url'  => 'admin/perfis/create',
+                ],
+            ]
+        ],
+        [
+            'text' => 'Permissões',            
+            'icon' => 'fas fa-fw fa-lock',
+            'submenu' => [
+                [
+                    'text' => 'Listar Permissões',
+                    'url'  => 'admin/permissoes',
+                ],
+                [
+                    'text' => 'Cadastrar Permissão',
+                    'url'  => 'admin/permissoes/create',
+                ],
+            ]
+        ],
         
     ],
 

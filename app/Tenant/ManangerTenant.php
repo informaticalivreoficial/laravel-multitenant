@@ -12,7 +12,9 @@ class ManangerTenant
     }
 
     public function getTenant(): Tenant
-    {
+    {        
+        session()->put('tenant', auth()->user()->tenant);
+        
         return auth()->user()->tenant;
-    }    
+    } 
 }

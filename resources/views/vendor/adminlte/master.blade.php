@@ -14,7 +14,7 @@
 
     {{-- Title --}}
     <title>
-        Gerenciador - {{$configuracoes->nomedosite}}
+        Gerenciador - {{--session('tenant')['name']--}}
         {{--@yield('title_prefix', config('adminlte.title_prefix', ''))
         @yield('title', config('adminlte.title', 'AdminLTE 3'))
         @yield('title_postfix', config('adminlte.title_postfix', ''))--}}

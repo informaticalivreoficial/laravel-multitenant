@@ -20,7 +20,7 @@
         
         {{-- Logo --}}
         <div class="login-logo mt-5">
-        <img width="{{env('LOGOMARCA_GERENCIADOR_WIDTH')}}" height="{{env('LOGOMARCA_GERENCIADOR_HEIGHT')}}" src="{{$configuracoes->getlogoadmin()}}" alt="{{$configuracoes->nomedosite}}" class="elevation-3">
+        <img width="{{env('LOGOMARCA_GERENCIADOR_WIDTH')}}" height="{{env('LOGOMARCA_GERENCIADOR_HEIGHT')}}" src="{{--$configuracoes->getlogoadmin()--}}" alt="{{--$configuracoes->nomedosite--}}" class="elevation-3">
         </div>
 
         {{-- Card Box --}}
