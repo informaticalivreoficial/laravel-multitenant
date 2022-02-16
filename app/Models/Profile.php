@@ -9,6 +9,8 @@ class Profile extends Model
 {
     use HasFactory;
     
+    //protected $table = 'profiles'; 
+    
     protected $fillable = [
         'name',
         'content',
@@ -25,7 +27,7 @@ class Profile extends Model
 
     public function plans()
     {
-        $this->belongsToMany(Plan::class);
+        return $this->belongsToMany(Plan::class);
     }
 
     /**

@@ -9,8 +9,8 @@ class Plan extends Model
 {
     use HasFactory;
 
-    protected $table = 'plans';
-
+    //protected $table = 'plans'; 
+    
     protected $fillable = [
         'name',
         'content',
@@ -29,7 +29,12 @@ class Plan extends Model
     */
     public function profiles()
     {
-        $this->belongsToMany(Profile::class);
+        return $this->belongsToMany(Profile::class);
+    }
+
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class);
     }
 
     /**

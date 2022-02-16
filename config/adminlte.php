@@ -191,7 +191,7 @@ return [
     'dashboard_url' => 'home',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => 'register',
+    'register_url' => 'cadastro',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
@@ -238,6 +238,37 @@ return [
         'icon' => 'fas fa-tachometer-alt',
         ],
         [
+            'text' => 'Configurações',
+            'url'  => 'admin/configuracoes',
+            'icon' => 'fas fa-cog',
+        ],
+        [
+            'text' => 'Empresas',
+            'url'  => 'admin/tenants',
+            'icon' => 'fas fa-building',
+            'can'  =>  'tenants',
+        ],
+        [
+            'text' => 'Cargos',
+            'url'  => 'admin/cargos',
+            'icon' => 'fas fa-address-card',
+            'can'  =>  'roles',
+        ],
+        [
+            'text' => 'Permissões',            
+            'icon' => 'fas fa-fw fa-lock',
+            'submenu' => [
+                [
+                    'text' => 'Listar Permissões',
+                    'url'  => 'admin/permissoes',
+                ],
+                [
+                    'text' => 'Cadastrar Permissão',
+                    'url'  => 'admin/permissoes/create',
+                ],
+            ]
+        ],
+        [
             'text' => 'Usuários',            
             'icon' => 'fas fa-fw fa-users',
             'submenu' => [
@@ -252,6 +283,24 @@ return [
                 [
                     'text' => 'Criar Novo',
                     'url'  => 'admin/usuarios/create',
+                ]
+            ]
+        ],
+        [
+            'text' => 'Imóveis',            
+            'icon' => 'fas fa-fw fa-home',
+            'submenu' => [
+                [
+                    'text' => 'Ver Todos',
+                    'url'  => 'admin/imoveis/index',
+                ], 
+                [
+                    'text' => 'Cadastrar Imóvel',
+                    'url'  => 'admin/imoveis/create',
+                ],               
+                [
+                    'text' => 'Categorias',
+                    'url'  => 'admin/imoveis/categorias',
                 ]
             ]
         ],
@@ -279,7 +328,8 @@ return [
         ],
         [
             'text' => 'Planos',            
-            'icon' => 'fas fa-fw fa-pen',
+            'icon' => 'fas fa-fw fa-list-alt',
+            'can'  =>  'plans',
             'submenu' => [
                 [
                     'text' => 'Listar Planos',
@@ -293,7 +343,8 @@ return [
         ],
         [
             'text' => 'Perfis',            
-            'icon' => 'fas fa-fw fa-pen',
+            'icon' => 'fas fa-fw fa-address-book',
+            'can'  =>  'profiles',
             'submenu' => [
                 [
                     'text' => 'Listar Perfis',
@@ -305,20 +356,19 @@ return [
                 ],
             ]
         ],
+        
         [
-            'text' => 'Permissões',            
-            'icon' => 'fas fa-fw fa-lock',
-            'submenu' => [
-                [
-                    'text' => 'Listar Permissões',
-                    'url'  => 'admin/permissoes',
-                ],
-                [
-                    'text' => 'Cadastrar Permissão',
-                    'url'  => 'admin/permissoes/create',
-                ],
-            ]
+            'text' => 'Parceiros',
+            'url'  => 'admin/parceiros',
+            'icon' => 'fas fa-puzzle-piece',
+            'can'  =>  'parceiros',
         ],
+        [
+            'text' => 'Banner Slides',
+            'url'  => 'admin/slides',
+            'icon' => 'fas fa-film',
+            'can'  =>  'slides',
+        ], 
         
     ],
 

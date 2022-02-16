@@ -5,22 +5,33 @@ use App\Http\Controllers\Admin\{
     CatPostController,    
     PlanController,
     PostController,
+    TenantController,
     UserController
 };
 use App\Http\Controllers\Admin\ACL\{    
     PerfilController,
     PermissionController,
     PermissionPerfilController,
-    PlanProfileController
+    PlanProfileController,
+    RoleController
 };
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Web\ClienteController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
 
-    Route::get('/', [WebController::class, 'home'])->name('home');
+    Route::get('/', [ClienteController::class, 'home'])->name('home');
 
-    Route::get('cliente/cadastro', [RegisterController::class, 'register'])->name('cadastro');
+    //****************************** Planos ************************************/
+    Route::get('/planos', [ClienteController::class, 'planos'])->name('planos');
+    Route::get('/plano/{slug}', [ClienteController::class, 'plano'])->name('plano');
+    Route::get('/plano/{slug}/assinar', [ClienteController::class, 'assinar'])->name('assinar');
+
+    //Route::get('cliente/cadastro', [RegisterController::class, 'register'])->name('cadastro');
 
     //****************************** Blog ***********************************************/
     Route::get('/blog/artigo/{slug}', [WebController::class, 'artigo'])->name('blog.artigo');
@@ -33,6 +44,22 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 
     Route::get('/', [AdminController::class, 'home'])->name('home');
 
+    //******************* Tenants ************************************************/
+    Route::match(['post', 'get'], 'tenants/fetchCity', [TenantController::class, 'fetchCity'])->name('tenant.fetchCity');
+    Route::put('tenants/{tenant}', [TenantController::class, 'update'])->name('tenant.update');
+    Route::get('tenants/{tenant}/edit', [TenantController::class, 'edit'])->name('tenant.edit');
+    Route::get('tenants', [TenantController::class, 'index'])->name('tenant.index');
+
+    //******************* Slides ************************************************/
+    Route::get('slides/set-status', [SlideController::class, 'slideSetStatus'])->name('slides.slideSetStatus');
+    Route::get('slides/delete', [SlideController::class, 'delete'])->name('slides.delete');
+    Route::delete('slides/deleteon', [SlideController::class, 'deleteon'])->name('slides.deleteon');
+    Route::put('slides/{slide}', [SlideController::class, 'update'])->name('slides.update');
+    Route::get('slides/{slide}/edit', [SlideController::class, 'edit'])->name('slides.edit');
+    Route::get('slides/create', [SlideController::class, 'create'])->name('slides.create');
+    Route::post('slides/store', [SlideController::class, 'store'])->name('slides.store');
+    Route::get('slides', [SlideController::class, 'index'])->name('slides.index');
+
     //********************* Categorias para Posts *******************************/
     Route::get('categorias/delete', [CatPostController::class, 'delete'])->name('categorias.delete');
     Route::delete('categorias/deleteon', [CatPostController::class, 'deleteon'])->name('categorias.deleteon');
@@ -41,6 +68,13 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::match(['post', 'get'],'posts/categorias/create/{catpai}', [CatPostController::class, 'create'])->name('categorias.create');
     Route::post('posts/categorias/store', [CatPostController::class, 'store'])->name('categorias.store');
     Route::get('posts/categorias', [CatPostController::class, 'index'])->name('categorias.index');
+
+    //********************** Regras ************************************************/
+    Route::put('cargos/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::get('cargos/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('cargos/store', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('cargos/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::get('cargos', [RoleController::class, 'index'])->name('roles');
 
     //********************** Permissoes ************************************************/
     Route::put('permissoes/{id}', [PermissionController::class, 'update'])->name('permissoes.update');
@@ -75,7 +109,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::post('planos/{idPlano}/perfis/store', [PlanProfileController::class, 'store'])->name('planos.perfis.store');
     Route::get('planos/{idPlano}/perfis/create', [PlanProfileController::class, 'create'])->name('planos.perfis.create');
     Route::get('planos/{idPlano}/perfis', [PlanProfileController::class, 'perfis'])->name('planos.perfis');
-    Route::get('perfis/{idPerfil}/planos', [PlanProfileController::class, 'profiles'])->name('perfis.planos');
+    //Route::get('perfis/{idPlano}/perfis', [PlanProfileController::class, 'profiles'])->name('perfis.planos');
 
     //********************** Blog ************************************************/
     Route::get('posts/set-status', [PostController::class, 'postSetStatus'])->name('posts.postSetStatus');
@@ -114,4 +148,17 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 
 });
 
-Auth::routes();
+// Registration Routes...
+Route::get('cadastro', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('cadastro', [RegisterController::class, 'register']);
+
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+//Auth::routes();

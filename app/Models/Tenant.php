@@ -19,39 +19,21 @@ class Tenant extends Model
         'name', 
         'status',
         'ano_de_inicio',
+        'slug',
         'cnpj',
         'ie',
         'dominio',
         'template',
+        //Subscription
+        'subscription_id', 'subscription', 'expires_at', 'subscription_active', 'subscription_suspended',
         //Imagens
-        'logomarca',
-        'logomarca_admin',        
-        'logomarca_footer',
-        'favicon',        
-        'metaimg',
-        'imgheader',
-        'marcadagua',
+        'logomarca', 'logomarca_admin', 'logomarca_footer', 'favicon', 'metaimg', 'imgheader', 'marcadagua',
         //SMTP
-        'smtp_host',
-        'smtp_port',
-        'smtp_user',
-        'smtp_pass',
+        'smtp_host', 'smtp_port', 'smtp_user', 'smtp_pass',
         //Contato
-        'telefone1',
-        'telefone2',
-        'telefone3',
-        'whatsapp',
-        'skype',
-        'email',
-        'email1',
+        'telefone', 'celular', 'whatsapp', 'skype', 'email', 'email1',
         //Endereço
-        'cep',
-        'rua',
-        'num',
-        'complemento',
-        'bairro',
-        'uf',
-        'cidade',
+        'cep', 'rua', 'num', 'complemento', 'bairro', 'uf', 'cidade',
         //Social links
         'facebook',
         'twitter',
@@ -87,6 +69,11 @@ class Tenant extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 
     /**

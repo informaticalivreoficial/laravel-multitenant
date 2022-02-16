@@ -35,9 +35,11 @@ class User extends FormRequest
      */
     public function rules()
     {
+        $id = $this->segment(3);
+        
         return [
-            //'Type' => 'required|array',
-            'name' => 'required|min:3|max:191',
+            'name' => ['required', 'string', 'min:3', 'max:191'],
+            'email' => ['required', 'string', 'email', 'min:3', 'max:191', "unique:users,email,{$id},id"],
             'nasc' => 'required|date_format:d/m/Y',
             'genero' => 'required|in:masculino,feminino',
             'estado_civil' => 'required|in:casado,separado,solteiro,divorciado,viuvo',
@@ -62,7 +64,7 @@ class User extends FormRequest
             // 'cidade' => 'required',
             
             // Access
-            'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
+            //'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
             'password' => (empty($this->request->all()['id']) ? 'required' : ''),
             
             // Contact

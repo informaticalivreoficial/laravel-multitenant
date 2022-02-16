@@ -15,14 +15,26 @@ class CreateTenantsTable extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('uuid');
+            $table->unsignedBigInteger('plan_id'); // Plano ID 
+            $table->uuid('uuid');            
             $table->string('name')->unique();
-            $table->integer('status')->default('0');
+            $table->string('social_name')->nullable();
+            $table->string('alias_name')->nullable();
+            $table->string('slug')->nullable();
+            $table->boolean('status')->default(false);
             $table->integer('ano_de_inicio')->nullable();            
             $table->string('cnpj')->nullable();
             $table->string('ie')->nullable();
             $table->string('dominio')->nullable();
             $table->string('template')->nullable();
+
+            /** subscription */
+            $table->string('subscription_id')->nullable(); // gatway id
+            $table->date('subscription')->nullable(); // Data de inicio 
+            $table->date('expires_at')->nullable(); // Data de Expiração            
+            $table->boolean('subscription_active')->default(false); // Assinatura Ativa 
+            $table->boolean('subscription_suspended')->default(false); // Assinatura Cancelada 
+            
 
             /** imagens */
             $table->string('logomarca')->nullable();
@@ -40,9 +52,8 @@ class CreateTenantsTable extends Migration
             $table->string('smtp_pass')->nullable();
             
             /** contact */
-            $table->string('telefone1')->nullable();
-            $table->string('telefone2')->nullable();
-            $table->string('telefone3')->nullable();
+            $table->string('telefone')->nullable();
+            $table->string('celular')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('skype')->nullable();
             $table->string('email')->nullable();
@@ -70,6 +81,8 @@ class CreateTenantsTable extends Migration
             
             /** seo */
             $table->text('descricao')->nullable();
+            $table->text('notasadicionais')->nullable();
+            $table->text('politicas_de_privacidade')->nullable();
             $table->text('mapa_google')->nullable();
             $table->text('metatags')->nullable();
             $table->string('rss')->nullable();
@@ -78,6 +91,8 @@ class CreateTenantsTable extends Migration
             $table->date('sitemap_data')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('CASCADE');
         });
     }
 

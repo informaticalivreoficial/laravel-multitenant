@@ -16,11 +16,11 @@
 @section('auth_body')
     <form action="{{ $register_url }}" method="post">
         {{ csrf_field() }}
-
+        <p>Plano: {{ session('plano')->name ?? '' }}</p>
         {{-- Name field --}}
         <div class="input-group mb-3">
             <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
-                   value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
+                   value="{{ old('name') }}" placeholder="Nome do responsável" autofocus>
             <div class="input-group-append">
                 <div class="input-group-text">
                     <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
@@ -47,6 +47,11 @@
                     <strong>{{ $errors->first('email') }}</strong>
                 </div>
             @endif
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="text" name="empresa" class="form-control"
+                   value="{{ old('empresa') }}" placeholder="Empresa" autofocus> 
         </div>
 
         {{-- Password field --}}

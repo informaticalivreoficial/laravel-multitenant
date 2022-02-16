@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePerfilsTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,18 @@ class CreatePerfilsTable extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->text('content')->nullable();
             $table->integer('status')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('plan_profile', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('profile_id')->constrained('profiles');
+            $table->foreignId('plan_id')->constrained('plans');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
@@ -28,7 +36,8 @@ class CreatePerfilsTable extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::dropIfExists('profiles');
+    {        
+        Schema::dropIfExists('plan_profile');
+        Schema::dropIfExists('profiles');        
     }
 }

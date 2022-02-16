@@ -16,5 +16,11 @@ class TenantObserver
     public function creating(Tenant $tenant)
     {
         $tenant->uuid = (string) Str::uuid();
+        $tenant->slug = (string) Str::slug($tenant->name);
+    }
+
+    public function updating(Tenant $tenant)
+    {
+        $tenant->slug = (string) Str::slug($tenant->name);
     }
 }

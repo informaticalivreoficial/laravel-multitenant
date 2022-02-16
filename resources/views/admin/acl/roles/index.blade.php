@@ -1,24 +1,27 @@
 @extends('adminlte::page')
 
-@section('title', "Vincular perfil ao plano {$plano->name}")
+@section('title', "Gerenciar Cargos")
 
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1><i class="fas fa-search mr-2"></i> Vincular perfil ao plano {{$plano->name}}</h1>
+        <h1><i class="fas fa-search mr-2"></i> Cargos</h1>
     </div>
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">                    
             <li class="breadcrumb-item"><a href="{{route('home')}}">Painel de Controle</a></li>
-            <li class="breadcrumb-item"><a href="{{route('planos.perfis',['idPlano' => $plano->id])}}">Permissões do perfil</a></li>
-            <li class="breadcrumb-item active">Vincular Perfil</li>
+            <li class="breadcrumb-item active">Cargos</li>
         </ol>
     </div>
 </div>
 @stop
 
 @section('content')
-    <div class="card">       
+    <div class="card">
+        <div class="card-header text-right">
+            <a href="{{route('roles.create')}}" class="btn btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Novo</a>
+        </div>
+        <!-- /.card-header -->
         <div class="card-body">
             <div class="row">
                 <div class="col-12">                
@@ -29,31 +32,33 @@
                     @endif
                 </div>            
             </div>
-            @if(!empty($perfis) && $perfis->count() > 0)
+            @if(!empty($roles) && $roles->count() > 0)
                 <table id="example1" class="table table-bordered table-striped projects">
                     <thead>
                         <tr>
-                            <th width="50">#</th>
-                            <th>Permissão</th>               
+                            <th>Cargo</th>
+                            <th>Assinantes</th>
+                            <th>Valor</th>
+                            <th class="text-center">Views</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody> 
-                        <form action="{{route('planos.perfis.store',['idPlano' => $plano->id])}}" method="post">
-                        @csrf
-                            @foreach($perfis as $perfil)                        
-                                <tr>                       
-                                    <td>
-                                        <input type="checkbox" name="profiles[]" value="{{$perfil->id}}">    
-                                    </td>
-                                    <td>{{$perfil->name}}</td>                          
-                                </tr>                            
-                            @endforeach
-                            <tr>
-                                <td colspan="3" class="text-center">
-                                    <button type="submit" class="btn btn-success text-white">Vincular</button>
-                                </td>
-                            </tr>
-                        </form>
+                        @foreach($roles as $perfil)                        
+                        <tr>                       
+                            <td>{{$perfil->name}}</td>
+                            <td></td>
+                            <td class="text-center"></td>
+                            <td>
+                                <input type="checkbox" data-onstyle="success" data-offstyle="warning" data-size="mini" class="toggle-class" data-id="{{ $perfil->id }}" data-toggle="toggle" data-style="slow" data-on="<i class='fas fa-check'></i>" data-off="<i style='color:#fff !important;' class='fas fa-exclamation-triangle'></i>" {{ $perfil->status == true ? 'checked' : ''}}>
+                                <a href="{{route('perfis.permissoes',['idPerfil' => $perfil->id])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-lock"></i></a>
+                                <a href="{{ route('perfis.edit', [ 'id' => $perfil->id ]) }}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
+                                <a target="_blank" href="{{--route('web.plano',['slug' => $plan->slug])--}}" class="btn btn-xs btn-info text-white"><i class="fas fa-search"></i></a>
+                                <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$perfil->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
+                                
+                            </td>
+                        </tr>                            
+                        @endforeach
                     </tbody>                
                 </table>
             @else
@@ -67,7 +72,7 @@
             @endif
         </div>
         <div class="card-footer paginacao">  
-            {{ $perfis->links() }}
+            {{ $roles->links() }}
         </div>
     </div>
     <!-- /.card -->   

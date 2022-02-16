@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UserACLTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,10 +10,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Storage;
 use App\Support\Cropper;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, UserACLTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -38,26 +40,12 @@ class User extends Authenticatable
         'profissao',
         'renda',
         'profissao_empresa',
-        'cep',
-        'rua',
-        'num',
-        'complemento',
-        'bairro',
-        'uf',
-        'cidade',
-        'telefone',
-        'celular',
-        'whatsapp',
-        'skype',
-        'facebook',
-        'twitter',
-        'instagram',
-        'linkedin',
-        'vimeo',
-        'youtube',
-        'fliccr',
-        'soundclound',
-        'snapchat',
+        //Endereço
+        'cep', 'rua', 'num', 'complemento', 'bairro', 'uf', 'cidade',
+        //Contato
+        'telefone', 'celular', 'whatsapp', 'skype',
+        //Redes Sociais
+        'facebook', 'twitter', 'instagram', 'linkedin', 'vimeo', 'youtube', 'fliccr', 'soundclound', 'snapchat',
         'tipo_de_comunhao',
         'nome_conjuje',
         'genero_conjuje',
@@ -95,6 +83,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    // protected function tenantScope(Builder $query)
+    // {
+    //     $query->where('tenant_id', auth()->user()->tenant_id);
+    // }
 
     /**
      * Relacionamentos

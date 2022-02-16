@@ -17,6 +17,7 @@ class TenantTableSeeder extends Seeder
     {
         DB::table('tenants')->insert([
             [
+                'plan_id' => 1,
                 'uuid' => (string) Str::uuid(),
                 'name' => 'Admin',    
                 //Endereço

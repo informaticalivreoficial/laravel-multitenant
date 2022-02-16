@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tenant;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Services\TenantService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -66,14 +67,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $tenant = Tenant::create([
-            'name' => Str::slug($data['name'])
-        ]);
+        if(!$plan = session('plan')){
+            return Redirect::route('web.planos');
+        }
 
-        return $tenant->users()->create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $tenantService = app(TenantService::class);
+        $user = $tenantService->make($plan, $data);
+        
+        return $user;
     }
 }

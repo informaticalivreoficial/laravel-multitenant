@@ -42,11 +42,11 @@
                         </tr>
                     </thead>
                     <tbody> 
-                        @foreach($perfis as $permissao)                        
+                        @foreach($perfis as $perfil)                        
                         <tr>                       
-                            <td>{{$permissao->name}}</td>
+                            <td>{{$perfil->name}}</td>
                             <td>
-                                <a href="{{route('perfis.permissoes.desvincular',['idPerfil' => $perfil->id, 'idPermission' => $permissao->id])}}" class="btn btn-xs btn-danger text-white"><i class="fas fa-trash"></i></a>                                
+                                <a href="{{route('planos.perfis.desvincular',['idPlano' => $plano->id, 'idPerfil' => $perfil->id])}}" class="btn btn-xs btn-danger text-white"><i class="fas fa-trash"></i></a>                                
                             </td>
                         </tr>                            
                         @endforeach
@@ -63,7 +63,7 @@
             @endif
         </div>
         <div class="card-footer paginacao">  
-            {{-- $perfis->links() --}}
+            {{ $perfis->links() }}
         </div>
     </div>
     <!-- /.card -->   

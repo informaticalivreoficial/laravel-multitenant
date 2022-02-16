@@ -14,10 +14,18 @@ class CreatePermissionsTable extends Migration
     public function up()
     {
         Schema::create('permissions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->text('content')->nullable();
             $table->integer('status')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('permission_profile', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('permission_id')->constrained('permissions');
+            $table->foreignId('profile_id')->constrained('profiles');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
@@ -29,6 +37,7 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('permission_profile');
         Schema::dropIfExists('permissions');
     }
 }
