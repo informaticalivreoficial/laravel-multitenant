@@ -37,24 +37,17 @@
                     <thead>
                         <tr>
                             <th>Cargo</th>
-                            <th>Assinantes</th>
-                            <th>Valor</th>
-                            <th class="text-center">Views</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody> 
-                        @foreach($roles as $perfil)                        
+                        @foreach($roles as $role)                        
                         <tr>                       
-                            <td>{{$perfil->name}}</td>
-                            <td></td>
-                            <td class="text-center"></td>
+                            <td>{{$role->name}}</td>
                             <td>
-                                <input type="checkbox" data-onstyle="success" data-offstyle="warning" data-size="mini" class="toggle-class" data-id="{{ $perfil->id }}" data-toggle="toggle" data-style="slow" data-on="<i class='fas fa-check'></i>" data-off="<i style='color:#fff !important;' class='fas fa-exclamation-triangle'></i>" {{ $perfil->status == true ? 'checked' : ''}}>
-                                <a href="{{route('perfis.permissoes',['idPerfil' => $perfil->id])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-lock"></i></a>
-                                <a href="{{ route('perfis.edit', [ 'id' => $perfil->id ]) }}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
-                                <a target="_blank" href="{{--route('web.plano',['slug' => $plan->slug])--}}" class="btn btn-xs btn-info text-white"><i class="fas fa-search"></i></a>
-                                <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$perfil->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
+                                <a href="{{route('role.permissoes',['idRole' => $role->id])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-lock"></i></a>
+                                <a href="{{ route('roles.edit', [ 'id' => $role->id ]) }}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
+                                <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$role->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
                                 
                             </td>
                         </tr>                            

@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Services\TenantService;
+use App\Tenant\Events\TenantCreated;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -41,7 +41,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware(['guest', 'check.selected.plan']);
     }
 
     /**
@@ -67,13 +67,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if(!$plan = session('plan')){
-            return Redirect::route('web.planos');
+        if (!$plan = session('plan')) {
+            return redirect()->route('web.home');
         }
 
         $tenantService = app(TenantService::class);
         $user = $tenantService->make($plan, $data);
-        
+
+        event(new TenantCreated($user));
+
         return $user;
     }
 }

@@ -12,8 +12,10 @@ use App\Http\Controllers\Admin\ACL\{
     PerfilController,
     PermissionController,
     PermissionPerfilController,
+    PermissionRoleController,
     PlanProfileController,
-    RoleController
+    RoleController,
+    RoleUserController
 };
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -69,14 +71,28 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::post('posts/categorias/store', [CatPostController::class, 'store'])->name('categorias.store');
     Route::get('posts/categorias', [CatPostController::class, 'index'])->name('categorias.index');
 
-    //********************** Regras ************************************************/
+    //***************************** Cargos ******************************************************/
     Route::put('cargos/{id}', [RoleController::class, 'update'])->name('roles.update');
     Route::get('cargos/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::post('cargos/store', [RoleController::class, 'store'])->name('roles.store');
     Route::get('cargos/create', [RoleController::class, 'create'])->name('roles.create');
     Route::get('cargos', [RoleController::class, 'index'])->name('roles');
 
-    //********************** Permissoes ************************************************/
+    //********************** Permissoes X Cargos ************************************************/
+    Route::get('cargo/{idRole}/permissoes/{idPermission}/desvincular', [PermissionRoleController::class, 'desvincular'])->name('role.permissoes.desvincular');
+    Route::post('cargo/{idRole}/permissoes/store', [PermissionRoleController::class, 'store'])->name('role.permissoes.store');
+    Route::get('cargo/{idRole}/permissoes/create', [PermissionRoleController::class, 'create'])->name('role.permissoes.create');
+    Route::get('cargo/{idRole}/permissoes', [PermissionRoleController::class, 'permissions'])->name('role.permissoes');
+    Route::get('permissoes/{idPermission}/cargos', [PermissionRoleController::class, 'roles'])->name('permissoes.roles');
+
+    //********************** Cargos X User ************************************************/
+    Route::get('users/{idUser}/roles/{idRole}/desvincular', [RoleUserController::class, 'desvincular'])->name('users.roles.desvincular');
+    Route::post('users/{idUser}/roles/store', [RoleUserController::class, 'store'])->name('users.roles.store');
+    Route::get('users/{idUser}/roles/create', [RoleUserController::class, 'create'])->name('users.roles.create');
+    Route::get('users/{idUser}/roles', [RoleUserController::class, 'roles'])->name('users.roles');
+    //Route::get('perfis/{idPlano}/perfis', [PlanProfileController::class, 'profiles'])->name('perfis.planos');
+
+    //****************************** Permissoes ************************************************/
     Route::put('permissoes/{id}', [PermissionController::class, 'update'])->name('permissoes.update');
     Route::get('permissoes/edit/{id}', [PermissionController::class, 'edit'])->name('permissoes.edit');
     Route::post('permissoes/store', [PermissionController::class, 'store'])->name('permissoes.store');
@@ -149,16 +165,16 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 });
 
 // Registration Routes...
-Route::get('cadastro', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('cadastro', [RegisterController::class, 'register']);
+// Route::get('cadastro', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Route::post('cadastro', [RegisterController::class, 'register']);
 
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+// Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('login', [LoginController::class, 'login']);
+// Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+// Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+// Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+// Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+// Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-//Auth::routes();
+Auth::routes();

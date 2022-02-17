@@ -1,16 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', 'Cadastrar Gargo')
+@section('title', 'Editar Cargo')
 
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1>Cadastrar Cargo</h1>
+        <h1>Editar Cargo</h1>
     </div>
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Painel de Controle</a></li>
-            <li class="breadcrumb-item active">Cadastrar Cargo</li>
+            <li class="breadcrumb-item"><a href="{{route('roles')}}">Cargos</a></li>
+            <li class="breadcrumb-item active">Editar Cargo</li>
         </ol>
     </div>
 </div>
@@ -29,6 +30,12 @@
                         @endmessage
                     @endforeach
                 @endif
+
+                @if(session()->exists('message'))
+                    @message(['color' => session()->get('color')])
+                    {{ session()->get('message') }}
+                    @endmessage
+                @endif
             </div>            
         </div>
         <div class="row">
@@ -43,8 +50,9 @@
                     </div>
                     
                     <div class="card-body">
-                        <form action="{{ route('roles.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
-                        @csrf   
+                        <form action="{{ route('roles.update', ['id' => $role->id]) }}" method="post" enctype="multipart/form-data" autocomplete="off">
+                        @csrf  
+                        @method('PUT') 
                         <div class="tab-content" id="custom-tabs-four-tabContent">
                             <div class="tab-pane fade show active" id="custom-tabs-conteudo" role="tabpanel" aria-labelledby="custom-tabs-conteudo-tab">
                                                        
@@ -52,18 +60,18 @@
                                     <div class="col-8">
                                         <div class="form-group">
                                             <label class="labelforms"><b>*Cargo:</b></label>
-                                            <input class="form-control" name="name" placeholder="Cargo" value="{{old('name')}}">
+                                            <input class="form-control" name="name" placeholder="Cargo" value="{{old('name') ?? $role->name}}">
                                         </div>
                                     </div>  
                                     <div class="col-4">
                                         <label class="labelforms" style="color: #fff;"><b>s</b></label>
-                                        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="nav-icon fas fa-check mr-2"></i> Cadastrar Agora</button>
+                                        <button type="submit" class="btn btn-success btn-block btn-lg"><i class="nav-icon fas fa-check mr-2"></i> Atualizar Agora</button>
                                     </div> 
                                 </div>                                
                                 <div class="row">                                    
                                     <div class="col-12">   
                                         <label class="labelforms"><b>Descrição:</b></label>
-                                        <textarea class="form-control" rows="5" name="description">{{ old('description') }}</textarea>                                                    
+                                        <textarea class="form-control" rows="5" name="description">{{ old('description') ?? $role->description }}</textarea>                                                    
                                     </div>
                                 </div> 
                             </div> 

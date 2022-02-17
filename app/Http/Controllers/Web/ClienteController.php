@@ -32,8 +32,12 @@ class ClienteController extends Controller
 
     public function assinar($slug)
     {
-        $plano = Plan::where('slug', $slug)->first();
-        session()->put('plano', $plano);
-        return Redirect::route('register');
+        if (!$plan = Plan::where('slug', $slug)->first()) {
+            return redirect()->back();
+        }
+
+        session()->put('plan', $plan);
+
+        return redirect()->route('register');        
     }
 }

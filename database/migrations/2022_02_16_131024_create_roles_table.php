@@ -14,7 +14,7 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->timestamps();
@@ -24,9 +24,9 @@ class CreateRolesTable extends Migration
          * Pivo table: permissions x roles
          */
         Schema::create('permission_role', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('permission_id');
-            $table->unsignedBigInteger('role_id');
+            $table->increments('id');
+            $table->unsignedInteger('permission_id');
+            $table->unsignedInteger('role_id');
 
             $table->foreign('permission_id')
                         ->references('id')
@@ -37,6 +37,25 @@ class CreateRolesTable extends Migration
                         ->on('roles')
                         ->onDelete('cascade');
         });
+
+        /**
+         * Pivo table: roles x users
+         */
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('user_id');
+
+            $table->foreign('role_id')
+                        ->references('id')
+                        ->on('roles')
+                        ->onDelete('cascade');
+            $table->foreign('user_id')
+                        ->references('id')
+                        ->on('users')
+                        ->onDelete('cascade');
+        });
+        
     }
 
     /**
@@ -46,6 +65,8 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('role_user'); 
+        Schema::dropIfExists('permission_role');        
         Schema::dropIfExists('roles');
     }
 }

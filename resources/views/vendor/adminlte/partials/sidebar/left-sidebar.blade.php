@@ -2,7 +2,7 @@
 
     {{-- Sidebar brand logo --}}
     <a href="#" class="brand-link text-center navbar-light">                    
-        <img width="{{env('LOGOMARCA_GERENCIADOR_WIDTH')}}" height="{{env('LOGOMARCA_GERENCIADOR_HEIGHT')}}" src="{{--session('tenant')->getlogoadmin()--}}" alt="{{session('tenant')['name']}}" class="elevation-3">
+        <img width="{{env('LOGOMARCA_GERENCIADOR_WIDTH')}}" height="{{env('LOGOMARCA_GERENCIADOR_HEIGHT')}}" src="{{--session('tenant')->getlogoadmin()--}}" alt="{{--session('tenant')['name']--}}" class="elevation-3">
     </a>
     @php
         if(!empty(\Illuminate\Support\Facades\Auth::user()->avatar) &&

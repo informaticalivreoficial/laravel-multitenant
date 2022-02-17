@@ -14,7 +14,7 @@ class CreatePermissionsTable extends Migration
     public function up()
     {
         Schema::create('permissions', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name');
             $table->text('content')->nullable();
             $table->integer('status')->nullable();
@@ -22,9 +22,9 @@ class CreatePermissionsTable extends Migration
         });
 
         Schema::create('permission_profile', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('permission_id')->constrained('permissions');
-            $table->foreignId('profile_id')->constrained('profiles');
+            $table->increments('id');
+            $table->unsignedInteger('permission_id')->constrained('permissions');
+            $table->unsignedInteger('profile_id')->constrained('profiles');
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

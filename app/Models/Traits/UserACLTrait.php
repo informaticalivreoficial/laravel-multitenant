@@ -37,6 +37,20 @@ trait UserACLTrait
         return $permissions;
     }
 
+    public function permissionsRole(): array
+    {
+        $roles = $this->roles()->with('permissions')->get();
+
+        $permissions = [];
+        foreach ($roles as $role) {
+            foreach ($role->permissions as $permission) {
+                array_push($permissions, $permission->name);
+            }
+        }
+
+        return $permissions;
+    }
+
     public function hasPermission(string $permissionName): bool
     {
         return in_array($permissionName, $this->permissions());

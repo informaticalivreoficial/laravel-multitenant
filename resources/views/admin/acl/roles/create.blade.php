@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Cadastrar Gargo')
+@section('title', 'Cadastrar Cargo')
 
 @section('content_header')
 <div class="row mb-2">
@@ -10,6 +10,7 @@
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Painel de Controle</a></li>
+            <li class="breadcrumb-item"><a href="{{route('roles')}}">Cargos</a></li>
             <li class="breadcrumb-item active">Cadastrar Cargo</li>
         </ol>
     </div>

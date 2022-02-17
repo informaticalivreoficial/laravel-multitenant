@@ -14,7 +14,7 @@ class CreateProfilesTable extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name');
             $table->text('content')->nullable();
             $table->integer('status')->nullable();
@@ -22,9 +22,9 @@ class CreateProfilesTable extends Migration
         });
 
         Schema::create('plan_profile', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('profile_id')->constrained('profiles');
-            $table->foreignId('plan_id')->constrained('plans');
+            $table->increments('id');
+            $table->unsignedInteger('profile_id')->constrained('profiles');
+            $table->unsignedInteger('plan_id')->constrained('plans');
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

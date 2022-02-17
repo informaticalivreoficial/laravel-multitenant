@@ -9,12 +9,18 @@ use Illuminate\Database\Eloquent\Scope;
 
 class TenantScope implements Scope
 {
+    /**
+     * Apply the scope to a given Eloquent query builder.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $builder
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return void
+     */
     public function apply(Builder $builder, Model $model)
     {
-        if(app()->runningInConsole()){
-            return;
-        }
-        $tenant = app(ManangerTenant::class)->getTenantIdentify();
-        $builder->where('tenant_id', $tenant);
+        $identify = app(ManangerTenant::class)->getTenantIdentify();
+
+        if ($identify)
+            $builder->where('tenant_id', $identify);
     }
 }

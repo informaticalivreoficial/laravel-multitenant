@@ -95,6 +95,7 @@
                     <div class="card-footer">
                       <div class="text-right"> 
                         <input type="checkbox" data-onstyle="success" data-offstyle="warning" data-size="mini" class="toggle-class" data-id="{{ $user->id }}" data-toggle="toggle" data-style="slow" data-on="<i class='fas fa-check'></i>" data-off="<i style='color:#fff !important;' class='fas fa-exclamation-triangle'></i>" {{ $user->status == true ? 'checked' : ''}}> 
+                        <a href="{{route('users.roles',['idUser' => $user->id])}}" class="btn btn-xs btn-warning text-white"><i class="fas fa-address-card"></i></a>
                         @php
                         if($user->id != Auth::user()->id){
                         @endphp 

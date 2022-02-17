@@ -7,10 +7,15 @@ use App\Tenant\Scopes\TenantScope;
 
 Trait TenantTrait
 {
-    public static function boot()
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
     {
         parent::boot();
+        static::observe(TenantObserver::class);
         static::addGlobalScope(new TenantScope);
-        static::observe(new TenantObserver);
     }
 }

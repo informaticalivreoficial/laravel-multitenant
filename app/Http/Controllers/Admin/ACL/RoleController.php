@@ -29,7 +29,7 @@ class RoleController extends Controller
         
         return Redirect::route('roles.edit', [
             'id' => $criarRole->id,
-        ])->with(['color' => 'success', 'message' => 'Regra cadastrada com sucesso!']);
+        ])->with(['color' => 'success', 'message' => 'Cargo cadastrado com sucesso!']);
     }
 
     public function edit($id)
@@ -48,6 +48,6 @@ class RoleController extends Controller
 
         return Redirect::route('roles.edit', [
             'id' => $roleUpdate->id,
-        ])->with(['color' => 'success', 'message' => 'Regra atualizada com sucesso!']);
+        ])->with(['color' => 'success', 'message' => 'Cargo atualizado com sucesso!']);
     } 
 }
