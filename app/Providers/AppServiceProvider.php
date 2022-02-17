@@ -10,6 +10,10 @@ use App\Observers\{
     PlanObserver,
     TenantObserver
 };
+use App\Repositories\Contracts\ImovelRepositoryInterface;
+use App\Repositories\Contracts\TenantRepositoryInterface;
+use App\Repositories\ImovelRepository;
+use App\Repositories\TenantRepository;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -24,7 +28,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            TenantRepositoryInterface::class,
+            TenantRepository::class
+        );
+        $this->app->bind(
+            ImovelRepositoryInterface::class,
+            ImovelRepository::class
+        );
     }
 
     /**

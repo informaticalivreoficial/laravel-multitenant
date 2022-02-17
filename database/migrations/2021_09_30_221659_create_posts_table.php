@@ -34,7 +34,7 @@ class CreatePostsTable extends Migration
             
             $table->foreign('autor')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('categoria')->references('id')->on('cat_post')->onDelete('CASCADE');
-            $table->foreign('tenant_id')->references('id')->on('tenants');
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('CASCADE');
         });
     }
 
