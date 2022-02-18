@@ -35,8 +35,7 @@ class UserRepository
     {
         $tenant = app(ManangerTenant::class)->getTenantIdentify();
         return $this->entity
-                    ->where('admin', true)
-                    ->orWhere('editor', true)
+                    
                     ->where('tenant_id', $tenant)
                     ->paginate(12);
     }

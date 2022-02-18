@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\{
     CatPostController,    
     PlanController,
     PostController,
+    TenantClientConfigController,
     TenantController,
     UserController
 };
@@ -17,10 +18,7 @@ use App\Http\Controllers\Admin\ACL\{
     RoleController,
     RoleUserController
 };
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPasswordController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Web\ClienteController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +43,14 @@ Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
 Route::prefix('admin')->middleware('auth')->group( function(){
 
     Route::get('/', [AdminController::class, 'home'])->name('home');
+
+    //******************************* Sitemap *********************************************/
+    Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('admin.gerarxml');
+
+    //****************************** Configurações ***************************************/
+    Route::match(['post', 'get'], 'configuracoes/fetchCity', [TenantClientConfigController::class, 'fetchCity'])->name('configuracoes.fetchCity');
+    Route::put('configuracoes/{config}', [TenantClientConfigController::class, 'update'])->name('configuracoes.update');
+    Route::get('configuracoes', [TenantClientConfigController::class, 'editar'])->name('configuracoes.editar');
 
     //******************* Tenants ************************************************/
     Route::match(['post', 'get'], 'tenants/fetchCity', [TenantController::class, 'fetchCity'])->name('tenant.fetchCity');
