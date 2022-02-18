@@ -19,7 +19,7 @@ class ImovelRepository implements ImovelRepositoryInterface
         return $this->entity->paginate($per_page);
     }
 
-    public function getImovelById(string $id)
+    public function getImovelById(int $id)
     {
         return $this->entity
                         ->where('id', $id)

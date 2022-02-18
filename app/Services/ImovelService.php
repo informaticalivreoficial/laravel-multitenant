@@ -17,4 +17,9 @@ class ImovelService
     {
         return $this->repository->getAllImoveis($per_page);
     }
+
+    public function getImovelById(int $id)
+    {
+        return $this->repository->getImovelById($id);
+    }
 }

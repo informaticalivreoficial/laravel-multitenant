@@ -24,4 +24,13 @@ class ImovelController extends Controller
 
         return ImovelResource::collection($imoveis);
     }
+
+    public function show($id)
+    {
+        if (!$imovel = $this->imovelService->getImovelById($id)) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+
+        return new ImovelResource($imovel);
+    }
 }
