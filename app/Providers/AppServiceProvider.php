@@ -10,6 +10,7 @@ use App\Observers\{
     PlanObserver,
     TenantObserver
 };
+
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
