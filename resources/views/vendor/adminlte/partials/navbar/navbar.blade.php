@@ -12,6 +12,9 @@
 
         {{-- Custom left links --}}
         @yield('content_top_nav_left')
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{route('assinatura')}}" class="nav-link" style="color: #007AFF;"><i class="fas fa-check-square"></i> Assinatura</a>
+        </li>
     </ul>
 
     {{-- Navbar right links --}}

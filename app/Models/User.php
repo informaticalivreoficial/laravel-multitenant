@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Cashier\Billable;
 use Illuminate\Support\Facades\Storage;
 use App\Support\Cropper;
-use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
+    use Billable;
     use HasApiTokens, HasFactory, Notifiable, UserACLTrait;
 
     /**
@@ -84,17 +85,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Scope a query to only include popular users.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    // protected function tenantScope(Builder $query)
-    // {
-    //     $query->where('tenant_id', auth()->user()->tenant_id);
-    // }
-
+    
     /**
      * Relacionamentos
     */

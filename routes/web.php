@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ACL\{
     RoleController,
     RoleUserController
 };
+use App\Http\Controllers\Assinaturas\AssinaturaController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Web\ClienteController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,12 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 
     //******************************* Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('admin.gerarxml');
+
+    //******************************* Assinatura *********************************************/
+    Route::get('assinar-plano/invoice/{invoice}', [AssinaturaController::class, 'downloadInvoice'])->name('assinatura.downloadInvoice');
+    Route::post('assinar-plano/store', [AssinaturaController::class, 'store'])->name('assinatura.store');
+    Route::get('/assinar-plano/checkout', [AssinaturaController::class, 'index'])->name('assinatura.index');
+    Route::get('/assinatura', [AssinaturaController::class, 'assinatura'])->name('assinatura')->middleware(['subscribed']);
 
     //****************************** Configurações ***************************************/
     Route::match(['post', 'get'], 'configuracoes/fetchCity', [TenantClientConfigController::class, 'fetchCity'])->name('configuracoes.fetchCity');

@@ -233,9 +233,9 @@ return [
 
         // Sidebar items:
         [
-        'text' => 'Painel de Controle',
-        'url'  => 'admin',
-        'icon' => 'fas fa-tachometer-alt',
+            'text' => 'Painel de Controle',
+            'url'  => 'admin',
+            'icon' => 'fas fa-tachometer-alt',
         ],
         [
             'text' => 'Configurações',
