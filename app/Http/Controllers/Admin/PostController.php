@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['subscribed']);
+    }
+
     public function index(Request $request)
     {
         if($request->segments()[2] == 'artigos'){

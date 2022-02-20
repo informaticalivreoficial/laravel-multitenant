@@ -64,11 +64,10 @@ $config1 = [
     <div class="row">            
         <div class="col-12">
             <div class="card card-teal card-outline card-outline-tabs">
-
                 <div class="card-header p-0 border-bottom-0">
                     <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">INFORMAÇÕES GERAIS</a>
+                            <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="false">INFORMAÇÕES GERAIS</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">REDES SOCIAIS</a>
@@ -83,9 +82,9 @@ $config1 = [
                             <a class="nav-link" id="custom-tabs-four-imagens-tab" data-toggle="pill" href="#custom-tabs-four-imagens" role="tab" aria-controls="custom-tabs-four-imagens" aria-selected="false">IMAGENS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="custom-tabs-four-seo-tab" data-toggle="pill" href="#custom-tabs-four-seo" role="tab" aria-controls="custom-tabs-four-mapas" aria-selected="false">SEO</a>
+                            <a class="nav-link" id="custom-tabs-four-seo-tab" data-toggle="pill" href="#custom-tabs-four-seo" role="tab" aria-controls="custom-tabs-four-seo" aria-selected="false">SEO</a>
                         </li>
-                        <li class="nav-item bg-teal">
+                       <li class="nav-item bg-teal">
                             <a class="nav-link j_modal_suporte" data-id="{{$config->id}}" data-toggle="modal" data-target="#modal-suporte" href="javascript:void(0)" aria-selected="false">SUPORTE</a>
                         </li>
                     </ul>
@@ -489,7 +488,8 @@ $config1 = [
                                     </div>
                                 </div>
                             </div> 
-                        </div>                                
+                        </div> 
+                                                       
                     </div>
                 </div>
                 <!-- /.card -->

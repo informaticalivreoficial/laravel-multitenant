@@ -82,7 +82,7 @@ class Tenant extends Model
     public function getmetaimg()
     {
         $image = $this->metaimg;        
-        if(empty($this->metaimg) || !File::exists('../public/storage/' . $image)) {
+        if(empty($this->metaimg) || !File::exists('../public/storage/tenants/'. $this->uuid . '/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
         return Storage::url(Cropper::thumb($this->metaimg, env('METAIMG_WIDTH'), env('METAIMG_HEIGHT')));
@@ -91,7 +91,7 @@ class Tenant extends Model
     public function getlogomarca()
     {
         $image = $this->logomarca;        
-        if(empty($this->logomarca) || !File::exists('../public/storage/' . $image)) {
+        if(empty($this->logomarca) || !File::exists('../public/storage/tenants/' . $this->uuid . '/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
         return Storage::url(Cropper::thumb($this->logomarca, env('LOGOMARCA_WIDTH'), env('LOGOMARCA_HEIGHT')));

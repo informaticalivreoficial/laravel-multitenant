@@ -8,7 +8,9 @@ use Illuminate\Support\Str;
 use App\Models\Cidades;
 use App\Models\Estados;
 use App\Models\Tenant;
+use App\Support\Cropper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TenantController extends Controller
 {
@@ -38,7 +40,7 @@ class TenantController extends Controller
         }
 
         return view('admin.tenants.edit', [
-            'empresa' => $empresa,
+            'config' => $empresa,
             'estados' => $estados,
             'cidades' => $cidades
         ]);
@@ -50,23 +52,21 @@ class TenantController extends Controller
             return redirect()->back();
         }
 
-        $data = $request->all();
-
+        //$data = $request->all();
+        //dd($data);
         if(!empty($request->file('logomarca'))){
-            $empresa->logomarca = $request->file('logomarca')->storeAs('tenants/'.$empresa->uuid, Str::slug($request->name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('logomarca')->extension());
-            $empresa->save();
+            Storage::delete($empresa->logomarca);
+            Cropper::flush($empresa->logomarca);
+            $empresa->logomarca = '';
         }
 
-        // if ($request->hasFile('logo') && $request->logo->isValid()) {
+        $empresa->fill($request->all());
 
-        //     if (Storage::exists($tenant->logo)) {
-        //         Storage::delete($tenant->logo);
-        //     }
+        if(!empty($request->file('logomarca'))){
+            $empresa->logomarca = $request->file('logomarca')->storeAs('tenants/'.$empresa->uuid, 'logomarca-'.Str::slug($request->name)  . '.' . $request->file('logomarca')->extension());
+        }
 
-        //     $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}");
-        // }
-
-        $empresa->update($data);
+        //$empresa->update($data);
 
         return redirect()->route('tenant.edit', [
             'tenant' => $empresa->id,
