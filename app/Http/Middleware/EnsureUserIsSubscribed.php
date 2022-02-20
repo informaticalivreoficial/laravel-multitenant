@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EnsureUserIsSubscribed
 {
@@ -15,10 +17,13 @@ class EnsureUserIsSubscribed
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {
-        if ($request->user() && ! $request->user()->subscribed('default')) {
+    {  
+        if(Carbon::now()->diffInDays(Carbon::parse(Auth::user()->tenant->subscription)) > 30 && $request->user() && !$request->user()->subscribed('default')){
             return redirect()->route('assinatura.index');
-        }
+        }      
+        // if ($request->user() && !$request->user()->subscribed('default')) {
+        //     return redirect()->route('assinatura.index');
+        // }
 
         return $next($request);
     }

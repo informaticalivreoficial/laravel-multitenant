@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Assinar Plano')
+@section('title', 'Sua Assinatura')
 
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1><i class="fas fa-check-square mr-2"></i> Assinar Plano</h1>
+        <h1><i class="fas fa-check-square mr-2"></i> Sua Assinatura</h1>
     </div>
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">                    
             <li class="breadcrumb-item"><a href="{{route('home')}}">Painel de Controle</a></li>
-            <li class="breadcrumb-item active">Assinar Plano</li>
+            <li class="breadcrumb-item active">Sua Assinatura</li>
         </ol>
     </div>
 </div>
@@ -21,35 +21,53 @@
     <div class="card-header">
         <div class="row">
             <div class="col-12 my-2">
-                <p>Preencha o formulário com suas informações de pagamento</p>
-            </div>                
+                <h2><b>Plano Atual:</b> {{Auth::user()->tenant->plan->name}}<span style="font-size: 11px;">(Avaliação)</span></h2>                
+            </div>           
         </div>
     </div> 
-    <div class="card-body  py-5">
+    <div class="card-body">
         <div class="row">
-            <div class="col-12">                
+            <div class="col-12 my-2">
+                <p>
+                    <b>Data Início:</b>  {{\Carbon\Carbon::parse(Auth::user()->tenant->subscription)->format('d/m/Y')}}<br>
+                    <b>Situação:</b>
+                    @if (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->tenant->subscription)) > 30)
+                        <span class="text-danger">Expirado <i class="fas fa-frown"></i></span>
+                    @else
+                        <span class="text-success">Ativa <i class="fas fa-smile"></i> expira em 
+                        {{\Carbon\Carbon::parse(Auth::user()->tenant->expires_at)->diffInDays(\Carbon\Carbon::parse(Auth::user()->tenant->subscription))}} dias</span>
+                    @endif
+                    <br>
+                </p>
+            </div>                
+        </div>
+        <div class="row">
+            <div class="col-12"> 
                 <div class="alert alert-danger alert-dismissible" id="show-errors" style="display: none;"></div>
             </div>            
         </div>
 
         <div class="row">
-            <div class="col-12">                    
+            <div class="col-md-6 offset-md-3">                    
                 <form action="{{ route('assinatura.store') }}" method="post" id="form">
                     @csrf
                     <div class="row">
-                        <div class="col-12 col-md-5 col-lg-5 mb-2">
+                        <div class="col-12 text-center">
+                            <p style="font-size: 14px;font-weight:bold;">Assine agora e tenha acesso a todos os recursos do sistema!</p>
+                        </div>
+                        <div class="col-12">
                             <div class="form-group">
                                 <label class="labelforms text-muted"><b>*Nome no cartão</b></label>
                                 <input type="text" class="form-control" id="card-holder-name" placeholder="Nome no cartão" name="card-holder-name">
                             </div>
                         </div>
-                        <div class="col-12 col-md-7 col-lg-7 mb-2">
+                        <div class="col-12">
                             <div class="form-group">
-                                <label class="labelforms" style="color: #fff;">s</label>
+                                <label class="labelforms text-muted"><b>*Número do cartão</b></label>
                                 <div id="card-element"></div>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-12">
                             <button id="card-buttom" data-secret="{{ $intent->client_secret }}" type="submit" class="btn btn-sm btn-block btn-info">Enviar</button>
                         </div>
                     </div>    
@@ -122,9 +140,12 @@
                 }
             );
             if (error) {
-                console.log(error)
-                showErrors.style.display = 'block'
-                showErrors.innerText = (error.type == 'validation_error') ? error.message : 'Dados inválidos, verifique e tente novamente!'
+                //console.log(error)
+                //showErrors.style.display = 'block'
+                if(cardHolderName.value == ''){
+                    toastr.error("Digite o nome");
+                }
+                showErrors.innerText = (error.type == 'validation_error') ? toastr.error(error.message) : 'Dados inválidos, verifique e tente novamente!'
                 cardButton.classList.remove('cursor-not-allowed')
                 return;
             }

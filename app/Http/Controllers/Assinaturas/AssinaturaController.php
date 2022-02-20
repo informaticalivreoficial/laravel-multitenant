@@ -25,6 +25,7 @@ class AssinaturaController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request->token);
         $request->user()
                 ->newSubscription('default', 'price_1KUe5XDBiPn8lCt8AXN1L9E9')
                 ->create($request->token);
@@ -39,7 +40,7 @@ class AssinaturaController extends Controller
         $invoices = $user->invoices();
 
         $subscription = $user->subscription('default');
-
+        //dd($invoices);
         return view('admin.assinaturas.assinatura', compact('invoices', 'user', 'subscription'));
     }
 

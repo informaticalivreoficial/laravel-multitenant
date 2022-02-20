@@ -21,7 +21,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-12 my-2">
-                    <h2><b>Plano Atual:</b> Plano Prime</h2>
+                    <h2><b>Plano Atual:</b> {{$user->tenant->plan->name}}</h2>
                 </div>                
             </div>
         </div>        
@@ -40,18 +40,34 @@
             <div class="row">
                 <div class="col-12">                    
                     <p>
-                        <b>Data Início:</b>  10/02/2022<br>
-                        <b>Data Expiração:</b>  13/03/2022<br>
-                        <b>Situação:</b> <span class="text-success">Ativa <i class="fas fa-smile"></i></span><br> 
-                        <b>Cancelar Assinatura?</b> <br> 
-                        Se realmente quer desistir, e cancelar sua assinatura para não ter mais acesso 
-                        a todos os recursos disponíveis, basta <b><a href="http://">(Clicar Aqui!)</a></b> e cancelar a assinatura!
+                        <b>Data Início:</b>  {{\Carbon\Carbon::parse($user->tenant->subscription)->format('d/m/Y')}}<br>
+                        <b>Situação:</b> 
+                            @if (Auth::user()->subscription('default')->ended())
+                                <span class="text-success">Expirado <i class="fas fa-smile"></i></span>
+                            @else
+                                <span class="text-success">Ativa <i class="fas fa-smile"></i></span>
+                            @endif
+                        <br> 
+                        
+                        @if (Auth::user()->subscription('default'))
+                            @if (Auth::user()->subscription('default')->onGracePeriod())
+                                <a href="{{route('assinatura.resume')}}"><b>Reativar Assinatura</b></a>
+                            @else
+                                <b>Cancelar Assinatura?</b> <br> 
+                                Se realmente quer desistir, e cancelar sua assinatura para não ter mais acesso 
+                                a todos os recursos disponíveis, basta <b><a href="{{route('assinatura.cancel')}}">(Clicar Aqui!)</a></b> e cancelar a assinatura!
+                            @endif                        
+                        @else
+                            [Assinar Plano Premium]
+                        @endif 
+
                     </p>
                 </div>
             </div>
             @if (!empty($invoices && $invoices->count() > 0))
                 <div class="row">
                     <div class="col-12 table-responsive">
+                        <h3><i class="fas fa-history"></i> Histórico</h3>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -65,11 +81,16 @@
                             </thead>
                         <tbody>
                         @foreach ($invoices as $invoice)
+                        {{--dd($invoice->lines->data[0]['period']->end)--}}
                             <tr>
                                 <td>Plano Premium</td>
-                                <td>{{\Carbon\Carbon::parse($invoice->date())->format('d/m/Y')}}</td>
-                                <td>10/02/2022</td>
-                                <td><span class="text-success">Ativo</span></td>
+                                <td>{{\Carbon\Carbon::createFromTimestamp($invoice->lines->data[0]['period']->start)->format('d/m/Y')}}</td>
+                                <td>{{\Carbon\Carbon::createFromTimestamp($invoice->lines->data[0]['period']->end)->format('d/m/Y')}}</td>
+                                <td>
+                                    @if ($invoice->status == 'paid')
+                                    <span class="text-success">Aprovado</span>
+                                    @endif
+                                </td>
                                 <td>{{str_replace('.', ',',$invoice->total())}}</td>
                                 <td><a href="{{route('assinatura.downloadInvoice',['invoice' => $invoice->id])}}">Baixar</a></td>
                             </tr>
@@ -91,17 +112,5 @@
 @stop
 
 @section('js')
-   <script>
-       $(function () {           
-           
-           $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-           
-         
-         
-        });
-    </script>
+  
 @endsection
