@@ -32,6 +32,7 @@ $config1 = [
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Painel de Controle</a></li>
+            <li class="breadcrumb-item"><a href="{{route('tenant.index')}}">Empresas</a></li>
             <li class="breadcrumb-item active">Configurações</li>
         </ol>
     </div><!-- /.col -->
@@ -58,7 +59,7 @@ $config1 = [
     </div>            
 </div>
 
-<form action="{{ route('configuracoes.update', ['config' => $config->id]) }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('tenant.update', ['tenant' => $config->id]) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">            
@@ -338,20 +339,14 @@ $config1 = [
                                 <hr>
                                 <div class="col-12 col-md-6 col-lg-4"> 
                                     <div class="form-group">
-                                        <label class="labelforms"><b>Telefone 1:</b></label>
-                                        <input type="text" class="form-control text-muted" placeholder="Telefone 1 com DDD" name="telefone1" value="{{old('telefone1') ?? $config->telefone1}}">
+                                        <label class="labelforms"><b>Telefone Fixo:</b></label>
+                                        <input type="text" class="form-control text-muted" placeholder="Telefone fixo com DDD" name="telefone" value="{{old('telefone') ?? $config->telefone}}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-4"> 
                                     <div class="form-group">
-                                        <label class="labelforms"><b>Telefone 2:</b></label>
-                                        <input type="text" class="form-control text-muted" placeholder="Telefone 2 com DDD" name="telefone2" value="{{old('telefone2') ?? $config->telefone2}}">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6 col-lg-4"> 
-                                    <div class="form-group">
-                                        <label class="labelforms"><b>Telefone 3:</b></label>
-                                        <input type="text" class="form-control text-muted" placeholder="Telefone 3 com DDD" name="telefone3" value="{{old('telefone3') ?? $config->telefone3}}">
+                                        <label class="labelforms"><b>Telefone Móvel:</b></label>
+                                        <input type="text" class="form-control text-muted" placeholder="Telefone móvel com DDD" name="celular" value="{{old('celular') ?? $config->celular}}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-4"> 
@@ -520,7 +515,7 @@ $config1 = [
                 <div class="col-sm-12 mt-2">
                     <div class="form-group">
                         <input type="hidden" name="username" value="{{ Auth::user()->name }}"/>
-                        <input type="hidden" name="sitename" value="{{$config->nomedosite}}"/>
+                        <input type="hidden" name="sitename" value="{{$config->name}}"/>
                         <input type="hidden" name="email" value="{{ Auth::user()->email }}"/>
                         <textarea class="form-control noclear" rows="5" name="mensagem"></textarea>                                          
                     </div>
@@ -543,6 +538,9 @@ $config1 = [
 <!--tags input-->
 <link rel="stylesheet" href="{{url(asset('backend/plugins/jquery-tags-input/jquery.tagsinput.css'))}}" />
 <style>
+    iframe{
+        width: 100% !important;
+    }
     div.tagsinput span.tag {
         background: #65CEA7 !important;
         border-color: #65CEA7;

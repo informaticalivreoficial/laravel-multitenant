@@ -17,6 +17,7 @@ class CreateImovelsTable extends Migration
             $table->increments('id');
             $table->boolean('venda')->nullable();
             $table->boolean('locacao')->nullable();
+            $table->boolean('destaque')->default('0');
             $table->string('categoria');
             $table->string('tipo');
             $table->integer('status')->default('0');
@@ -51,9 +52,10 @@ class CreateImovelsTable extends Migration
             $table->string('anodeconstrucao')->nullable();
             $table->integer('area_total')->nullable();
             $table->integer('area_util')->nullable();
-            $table->integer('medidas')->nullable();
+            $table->string('medidas')->nullable();
             $table->integer('latitude')->nullable();
             $table->integer('longitude')->nullable();
+            $table->string('legendaimgcapa')->nullable();
 
             /** address */                       
             $table->boolean('exibirendereco')->nullable();            
@@ -67,10 +69,15 @@ class CreateImovelsTable extends Migration
 
             /** structure */
             $table->boolean('ar_condicionado')->nullable();
+            $table->boolean('areadelazer')->nullable();
             $table->boolean('aquecedor_solar')->nullable();
             $table->boolean('bar')->nullable();
+            $table->boolean('banheirosocial')->nullable();
+            $table->boolean('brinquedoteca')->nullable();
             $table->boolean('biblioteca')->nullable();
+            $table->boolean('balcaoamericano')->nullable();
             $table->boolean('churrasqueira')->nullable();
+            $table->boolean('condominiofechado')->nullable();
             $table->boolean('estacionamento')->nullable();
             $table->boolean('cozinha_americana')->nullable();
             $table->boolean('cozinha_planejada')->nullable();
@@ -79,6 +86,9 @@ class CreateImovelsTable extends Migration
             $table->boolean('espaco_fitness')->nullable();
             $table->boolean('escritorio')->nullable();
             $table->boolean('banheira')->nullable();
+            $table->boolean('geradoreletrico')->nullable();
+            $table->boolean('interfone')->nullable();
+            $table->boolean('jardim')->nullable();
             $table->boolean('lareira')->nullable();
             $table->boolean('lavabo')->nullable();
             $table->boolean('lavanderia')->nullable();
@@ -86,15 +96,22 @@ class CreateImovelsTable extends Migration
             $table->boolean('mobiliado')->nullable();
             $table->boolean('vista_para_mar')->nullable();
             $table->boolean('piscina')->nullable();
+            $table->boolean('quadrapoliesportiva')->nullable();
             $table->boolean('sauna')->nullable();
+            $table->boolean('salaodejogos')->nullable();
+            $table->boolean('salaodefestas')->nullable();
+            $table->boolean('sistemadealarme')->nullable();
+            $table->boolean('saladetv')->nullable();
             $table->boolean('ventilador_teto')->nullable();
             $table->boolean('armarionautico')->nullable();
             $table->boolean('fornodepizza')->nullable();
             $table->boolean('portaria24hs')->nullable();
+            $table->boolean('permiteanimais')->nullable();
+            $table->boolean('pertodeescolas')->nullable();
             $table->boolean('quintal')->nullable();
-            $table->boolean('zeladoria')->nullable();
-            $table->boolean('legendaimgcapa')->nullable();
+            $table->boolean('zeladoria')->nullable();            
             $table->boolean('exibirmarcadagua')->nullable(); 
+            $table->boolean('varandagourmet')->nullable(); 
             
             $table->bigInteger('views')->default('0');
 

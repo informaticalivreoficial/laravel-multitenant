@@ -20,7 +20,18 @@ class UserRepository
         return $this->entity
                     ->orderBy('created_at', 'DESC')
                     ->orderBy('status', 'ASC')
-                    ->where('client', '1')
+                    ->where('client', 1)
+                    ->where('tenant_id', $tenant)
+                    ->paginate(25);
+    }
+
+    public function getClientesAll()
+    {
+        $tenant = app(ManangerTenant::class)->getTenantIdentify();
+        return $this->entity
+                    ->orderBy('created_at', 'DESC')
+                    ->orderBy('status', 'ASC')
+                    ->where('client', 1)
                     ->where('tenant_id', $tenant)
                     ->paginate(25);
     }
@@ -34,8 +45,10 @@ class UserRepository
     public function getUsersTeam()
     {
         $tenant = app(ManangerTenant::class)->getTenantIdentify();
-        return $this->entity
-                    
+        return $this->entity      
+                    ->orderBy('created_at', 'DESC')
+                    ->orderBy('status', 'ASC')
+                    ->where('admin', 1)              
                     ->where('tenant_id', $tenant)
                     ->paginate(12);
     }

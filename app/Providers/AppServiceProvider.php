@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Models\{
+    Imovel,
     Plan,
     Tenant
 };
 use App\Observers\{
+    ImovelObserver,
     PlanObserver,
     TenantObserver
 };
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Imovel::observe(ImovelObserver::class);
         Plan::observe(PlanObserver::class);
         Tenant::observe(TenantObserver::class);
 

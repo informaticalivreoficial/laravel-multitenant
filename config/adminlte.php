@@ -292,15 +292,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Ver Todos',
-                    'url'  => 'admin/imoveis/index',
+                    'url'  => 'admin/imoveis',
                 ], 
                 [
                     'text' => 'Cadastrar Imóvel',
                     'url'  => 'admin/imoveis/create',
-                ],               
-                [
-                    'text' => 'Categorias',
-                    'url'  => 'admin/imoveis/categorias',
                 ]
             ]
         ],

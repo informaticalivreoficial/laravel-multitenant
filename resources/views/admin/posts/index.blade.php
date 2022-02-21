@@ -109,7 +109,6 @@
 
 
 @section('css')
-
 <link href="{{url(asset('backend/plugins/bootstrap-toggle/bootstrap-toggle.min.css'))}}" rel="stylesheet">
 @stop
 

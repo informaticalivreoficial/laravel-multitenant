@@ -71,6 +71,11 @@ class Tenant extends Model
         return $this->hasMany(User::class);
     }
 
+    public function imoveis()
+    {
+        return $this->hasMany(Imovel::class);
+    }
+
     public function plan()
     {
         return $this->belongsTo(Plan::class);
@@ -82,7 +87,7 @@ class Tenant extends Model
     public function getmetaimg()
     {
         $image = $this->metaimg;        
-        if(empty($this->metaimg) || !File::exists('../public/storage/tenants/'. $this->uuid . '/' . $image)) {
+        if(empty($this->metaimg) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
         return Storage::url(Cropper::thumb($this->metaimg, env('METAIMG_WIDTH'), env('METAIMG_HEIGHT')));
@@ -91,7 +96,7 @@ class Tenant extends Model
     public function getlogomarca()
     {
         $image = $this->logomarca;        
-        if(empty($this->logomarca) || !File::exists('../public/storage/tenants/' . $this->uuid . '/' . $image)) {
+        if(empty($this->logomarca) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
         return Storage::url(Cropper::thumb($this->logomarca, env('LOGOMARCA_WIDTH'), env('LOGOMARCA_HEIGHT')));

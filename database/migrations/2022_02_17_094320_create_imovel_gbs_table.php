@@ -18,6 +18,7 @@ class CreateImovelGbsTable extends Migration
             $table->unsignedInteger('imovel');
             $table->string('path');
             $table->boolean('cover')->nullable();
+            $table->boolean('marcadagua')->nullable();
             $table->timestamps();
 
             $table->foreign('imovel')->references('id')->on('imoveis')->onDelete('CASCADE');

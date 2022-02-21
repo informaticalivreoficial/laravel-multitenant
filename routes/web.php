@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\Admin\{
     AdminController,
-    CatPostController,    
+    CatPostController,
+    ImovelController,
     PlanController,
     PostController,
     TenantClientConfigController,
@@ -33,7 +34,20 @@ Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
     Route::get('/plano/{slug}', [ClienteController::class, 'plano'])->name('plano');
     Route::get('/plano/{slug}/assinar', [ClienteController::class, 'assinar'])->name('assinar');
 
-    //Route::get('cliente/cadastro', [RegisterController::class, 'register'])->name('cadastro');
+    /** Página de Locação */
+    Route::get('/quero-alugar', 'WebController@locacao')->name('locacao');
+
+    /** Página de Locaçãp - Específica de um imóvel */
+    Route::get('/quero-alugar/{slug}', 'WebController@rentProperty')->name('rentProperty');
+
+    /** Página de Compra */
+    Route::get('/quero-comprar', 'WebController@venda')->name('venda');
+
+    /** Página de Compra - Específica de um imóvel */
+    Route::get('/quero-comprar/{slug}', [WebController::class, 'buyProperty'])->name('buyProperty');  
+    
+    /** Página de Experiências */
+    Route::get('/experiencias', 'WebController@experience')->name('experience');
 
     //****************************** Blog ***********************************************/
     Route::get('/blog/artigo/{slug}', [WebController::class, 'artigo'])->name('blog.artigo');
@@ -77,6 +91,21 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('slides/create', [SlideController::class, 'create'])->name('slides.create');
     Route::post('slides/store', [SlideController::class, 'store'])->name('slides.store');
     Route::get('slides', [SlideController::class, 'index'])->name('slides.index');
+
+    /** Imóveis */
+    Route::match(['post', 'get'], 'imoveis/destaque', [ImovelController::class, 'destaqueMark'])->name('imoveis.destaque');
+    Route::get('imoveis/marcadagua', [ImovelController::class, 'imageWatermark'])->name('imoveis.marcadagua');
+    Route::match(['post', 'get'], 'imoveis/fetchCity', [ImovelController::class, 'fetchCity'])->name('imoveis.fetchCity');
+    Route::get('imoveis/delete', [ImovelController::class, 'delete'])->name('imoveis.delete');
+    Route::delete('imoveis/deleteon', [ImovelController::class, 'deleteon'])->name('imoveis.deleteon');
+    Route::post('imoveis/image-set-cover', [ImovelController::class, 'imageSetCover'])->name('imoveis.imageSetCover');
+    Route::get('imoveis/set-status', [ImovelController::class, 'imovelSetStatus'])->name('imoveis.imovelSetStatus');
+    Route::delete('imoveis/image-remove', [ImovelController::class, 'imageRemove'])->name('imoveis.imageRemove');
+    Route::put('imoveis/{imovel}', [ImovelController::class, 'update'])->name('imoveis.update');
+    Route::get('imoveis/{imovel}/edit', [ImovelController::class, 'edit'])->name('imoveis.edit');
+    Route::get('imoveis/create', [ImovelController::class, 'create'])->name('imoveis.create');
+    Route::post('imoveis/store', [ImovelController::class, 'store'])->name('imoveis.store');
+    Route::get('imoveis', [ImovelController::class, 'index'])->name('imoveis.index');
 
     //********************* Categorias para Posts *******************************/
     Route::get('categorias/delete', [CatPostController::class, 'delete'])->name('categorias.delete');
