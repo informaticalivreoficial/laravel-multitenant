@@ -21,13 +21,23 @@ use App\Http\Controllers\Admin\ACL\{
 };
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Assinaturas\AssinaturaController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Web\ClienteController;
+use App\Http\Controllers\Web\Site\SiteController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
+Route::group([
+    'namespace' => 'Web', 
+    'as' => 'web.'
+], function () {
+
+    //CLIENTE
+    Route::get('/{tenantSlug}', [SiteController::class, 'home'])->name('home');
+    Route::get('/{tenantSlug}/atendimento', [SiteController::class, 'atendimento'])->name('atendimento');
+
 
     Route::get('/', [ClienteController::class, 'home'])->name('home');
+    
 
     //****************************** Planos ************************************/
     Route::get('/planos', [ClienteController::class, 'planos'])->name('planos');
