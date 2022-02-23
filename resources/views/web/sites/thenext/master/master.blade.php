@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <title>The Nest - Real Estate HTML Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    <!-- External CSS libraries -->
+    {!! $head ?? '' !!}
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+   
     <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/bootstrap.min.css'))}}">
     <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/animate.min.css'))}}">
     <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/bootstrap-submenu.css'))}}">
@@ -20,29 +22,27 @@
     <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/magnific-popup.css'))}}">
     <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/slick.css'))}}">
 
-    <!-- Custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/initial.css'))}}">
     <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/style.css'))}}">
     <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/skins/green-light.css'))}}">
 
-    <!-- Favicon icon -->
+    @hasSection('css')
+        @yield('css')
+    @endif 
+
     <link rel="shortcut icon" href="{{$tenant->getfaveicon()}}" type="image/x-icon" >
 
-    <!-- Google fonts -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPlayfair+Display:400,700%7CRoboto:100,300,400,400i,500,700">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link rel="stylesheet" type="text/css" href="css/ie10-viewport-bug-workaround.css">
-
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script type="text/javascript" src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]><script type="text/javascript" src="{{url(asset('frontend/'.$tenant->template.'/js/ie8-responsive-file-warning.js'))}}"></script><![endif]-->
+    <script src="{{url(asset('frontend/'.$tenant->template.'/js/ie-emulation-modes-warning.js'))}}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="js/html5shiv.min.js"></script>
-    <script type="text/javascript" src="js/respond.min.js"></script>
+    <script type="text/javascript" src="{{url(asset('frontend/'.$tenant->template.'/js/html5shiv.min.js'))}}"></script>
+    <script type="text/javascript" src="{{url(asset('frontend/'.$tenant->template.'/js/respond.min.js'))}}"></script>
     <![endif]-->
 </head>
 <body>
@@ -53,15 +53,19 @@
         <div class="row">
             <div class="col-7 col-sm-7 col-md-7 col-lg-6">
                 <div class="list-inline">
-                    <a href="tel:1-8X0-666-8X88" class="n-575">
-                        <i class="fa fa-phone"></i>{{$tenant->whatsapp}}
-                    </a>
-                    <a href="tel:info@themevessel.com">
-                        <i class="fa fa-envelope"></i>{{$tenant->email}}
-                    </a>
+                    @if ($tenant->whatsapp)
+                        <a href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}" class="n-575">
+                            <i class="fa fa-whatsapp"></i>{{$tenant->whatsapp}}
+                        </a>
+                    @endif
+                    @if ($tenant->email)
+                        <a href="mailto:{{$tenant->email}}">
+                            <i class="fa fa-envelope"></i>{{$tenant->email}}
+                        </a>
+                    @endif                    
                 </div>
             </div>
-            <div class="col-5 col-sm-5 col-md-5 col-lg-6">
+            <!--<div class="col-5 col-sm-5 col-md-5 col-lg-6">
                 <ul class="top-social-media pull-right">
                     <li>
                         <a href="login.html" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
@@ -70,7 +74,7 @@
                         <a href="signup.html" class="sign-in"><i class="fa fa-user"></i> Register</a>
                     </li>
                 </ul>
-            </div>
+            </div>-->
         </div>
     </div>
 </header>
@@ -80,8 +84,8 @@
 <header class="main-header  header-shrink ">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a href="index.html" class="logo">
-                <img src="img/logos/logo.png" alt="logo">
+            <a href="{{route('web.home',$tenant->slug)}}" class="logo">
+                <img src="{{$tenant->getlogomarca()}}" alt="{{$tenant->name}}">
             </a>
             <button class="navbar-toggler" id="drawer" type="button">
                 <span class="fa fa-bars"></span>
@@ -100,56 +104,8 @@
                             <li><a class="dropdown-item" href="index-5.html">Index 5</a></li>
                             <li><a class="dropdown-item" href="index-6.html">Index 6</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Properties
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Property List</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-list-rightside.html">Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-list-leftside.html">Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-list-fullwidth.html">Fullwidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Property Grid</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-grid-rightside.html">Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-grid-leftside.html">Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-grid-fullwidth.html">Fullwidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Map View</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-map-rightside-list.html">Map List 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-leftside-list.html">Map List 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-rightside-grid.html">Map Grid 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-leftside-grid.html">Map Grid 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-full.html">Map FullWidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Property Detail</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-details.html">Property Detail 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-details-2.html">Property Detail 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-details-3.html">Property Detail 3</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Agents
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="agent-listing-grid.html">Agent grid</a></li>
-                            <li><a class="dropdown-item" href="agent-listing-grid-sidebar.html">Agent Grid sidebarbar</a></li>
-                            <li><a class="dropdown-item" href="agent-listing-row.html">Agent list</a></li>
-                            <li><a class="dropdown-item" href="agent-listing-row-sidebar.html">Agent List Sidebarbar</a></li>
-                            <li><a class="dropdown-item" href="agent-single.html">Agent Detail</a></li>
-                        </ul>
-                    </li>
+                    </li>                    
+                    
                     <li class="nav-item"><a class="nav-link" href="{{route('web.atendimento',['tenantSlug' => $tenant->slug])}}">Atendimento</a></li>
                     <li class="nav-item submit-property-button">
                         <a href="submit-property.html" class="button btn-3">
@@ -171,7 +127,7 @@
     </div>
     <div class="sidebar-inner">
         <div class="sidebar-logo">
-            <img src="img/logos/logo.png" alt="sidebarlogo">
+            <img src="{{$tenant->getlogomarca()}}" alt="{{$tenant->name}}">
         </div>
         <div class="sidebar-navigation">
             <h3 class="heading">Pages</h3>
@@ -394,123 +350,117 @@
 
 @yield('content')
 
+<!-- Intro section start -->
+<div class="intro-section">
+    <div class="intro-section-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-7 col-sm-12">
+                    <h3>Quer vender ou alugar seu imóvel?</h3>
+                </div>
+                <div class="col-lg-3 col-md-5 col-sm-12">
+                    <a class="btn-2 btn-white" href="{{route('web.atendimento',$tenant->slug)}}">
+                        <span>Entrar em contato</span> <i class="arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Intro section end -->
+
 <footer class="main-footer clearfix">
     <div class="container">
         <!-- Footer info-->
         <div class="footer-info">
             <div class="row">
                 <!-- About us -->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
                     <div class="footer-item fi2">
                         <div class="main-title-2">
-                            <h1>Contact Us</h1>
+                            <h1>Atendimento</h1>
+                            <p>{{$tenant->descricao}}</p>
                         </div>
                         <ul class="personal-info">
-                            <li>
-                                <i class="fa fa-map-marker"></i>
-                                Address: 360 Harvest St, North Subract, London. United States Of Amrica.
-                            </li>
-                            <li>
-                                <i class="fa fa-envelope"></i>
-                                Email:<a href="mailto:sales@hotelempire.com">info@themevessel.com</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-phone"></i>
-                                Phone: <a href="tel:+55-417-634-7071">+0477 85X6 552</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-fax"></i>
-                                Fax: +0487 85X6 224
-                            </li>
+                            @if ($tenant->rua)
+                                <li>
+                                    <i class="fa fa-map-marker"></i>
+                                    {{$tenant->rua}}
+                                    {{($tenant->num ? ', '.$tenant->num : '')}}  
+                                    {!!($tenant->bairro ? '<br> '.$tenant->bairro : '')!!}  
+                                    {{($tenant->cidade ? ', '.getCidade($tenant->cidade, 'cidades') : '')}} 
+                                </li> 
+                            @endif
+                            @if ($tenant->email)
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    <a href="mailto:{{$tenant->email}}">{{$tenant->email}}</a>
+                                </li>
+                            @endif
+                            @if ($tenant->email1)
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    <a href="mailto:{{$tenant->email1}}">{{$tenant->email1}}</a>
+                                </li>
+                            @endif
+                            @if ($tenant->telefone)
+                                <li>
+                                    <i class="fa fa-phone"></i>
+                                    <a href="tel:{{$tenant->telefone}}">{{$tenant->telefone}}</a>
+                                    @if ($tenant->celular)
+                                        <a href="tel:{{$tenant->celular}}"> {{$tenant->celular}}</a>
+                                    @endif
+                                </li>
+                            @endif                            
+                            @if ($tenant->whatsapp)
+                                <li>
+                                    <i class="fa fa-whatsapp"></i>
+                                    <a target="_blank" href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}">{{$tenant->whatsapp}}</a>
+                                </li>
+                            @endif                            
                         </ul>
                     </div>
                 </div>
                 <!-- Links -->
-                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                     <div class="footer-item">
                         <div class="main-title-2">
                             <h1>Links</h1>
                         </div>
                         <ul class="links">
                             <li>
-                                <a href="index.html">Home</a>
+                                <a href="index.html">Início</a>
                             </li>
                             <li>
-                                <a href="about.html">About Us</a>
+                                <a href="about.html">Blog</a>
                             </li>
                             <li>
-                                <a href="contact.html">Contact Us</a>
+                                <a href="contact.html">Imóveis</a>
                             </li>
                             <li>
-                                <a href="blog-single-sidebar-right.html">Blog</a>
+                                <a href="blog-single-sidebar-right.html">Financiamento</a>
                             </li>
                             <li>
-                                <a href="blog-single-sidebar-right.html">Services</a>
+                                <a href="blog-single-sidebar-right.html">Busca</a>
                             </li>
                             <li>
-                                <a href="properties-list-rightside.html">Properties Listing</a>
+                                <a href="properties-list-rightside.html">Cadastrar Imóvel</a>
                             </li>
                             <li>
-                                <a href="properties-details.html">Properties Details</a>
+                                <a href="properties-details.html">Atendimento</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <!-- Recent cars -->
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="footer-item popular-posts">
-                        <div class="main-title-2">
-                            <h1>Popular Posts</h1>
-                        </div>
-                        <div class="d-flex mb-3 popular-posts-box">
-                            <a class="pr-3" href="properties-details.html">
-                                <img src="img/properties/small-properties-2.jpg" alt="small-photo" class="flex-shrink-0 me-3">
-                            </a>
-                            <div class="detail align-self-center">
-                                <h4>
-                                    <a href="properties-details.html">Modern Family Home</a>
-                                </h4>
-                                <div class="listing-post-meta">
-                                    Sep 18, 2021 | <a href="#">$470,00</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3 popular-posts-box">
-                            <a class="pr-3" href="properties-details.html">
-                                <img src="img/properties/small-properties-1.jpg" alt="small-photo" class="flex-shrink-0 me-3">
-                            </a>
-                            <div class="detail align-self-center">
-                                <h4>
-                                    <a href="properties-details.html">Sweet Family Home</a>
-                                </h4>
-                                <div class="listing-post-meta">
-                                    Aug 18, 2020 | <a href="#">$485,00</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex popular-posts-box">
-                            <a class="pr-3" href="properties-details.html">
-                                <img src="img/properties/small-properties-3.jpg" alt="small-photo" class="flex-shrink-0 me-3">
-                            </a>
-                            <div class="detail align-self-center">
-                                <h4>
-                                    <a href="properties-details.html">Beautful Single Home</a>
-                                </h4>
-                                <div class="listing-post-meta">
-                                    Aug Feb, 2021 | <a href="#">$850,00</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <!-- Subscribe -->
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <div class="footer-item">
                         <div class="main-title-2">
-                            <h1>Subscribe</h1>
+                            <h1>Inscreva-se</h1>
                         </div>
                         <div class="newsletter clearfix">
-                            <p>Sign Up for Our Newsletter to get Latest Updates and Offers. Subscribe to receive news in your inbox. Lorem Ipsum</p>
+                            <p>Receba direto no seu e-mail, nossas dicas e novidades sobre compra, venda e locação de imóveis!</p>
                             <form class="form-inline d-flex" action="#">
                                 <input class="form-control" type="email" id="email" placeholder="Email Address...">
                                 <button class="btn button-theme" type="submit"><i class="fa fa-paper-plane"></i></button>
@@ -525,35 +475,25 @@
         <div class="container">
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-12 col-sm-12">
-                    <p>&copy;  2021 <a href="http://themevessel.com/" target="_blank">Theme Vessel</a>. All Rights Reserved.</p>
+                    <p>&copy;  {{$tenant->ano_de_inicio}} {{$tenant->name}}. Todos os direitos reservados.</p>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <ul class="social-list clearfix">
-                        <li>
-                            <a href="#" class="facebook-bg">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="twitter-bg">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="linkedin-bg">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="google-bg">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="rss-bg">
-                                <i class="fa fa-rss"></i>
-                            </a>
-                        </li>
+                        @if ($tenant->facebook)
+                            <li><a target="_blank" class="facebook-bg" href="{{$tenant->facebook}}"><i class="fa fa-facebook"></i></a></li>
+                        @endif
+                        @if ($tenant->twitter)
+                            <li><a target="_blank" class="twitter-bg" href="{{$tenant->twitter}}"><i class="fa fa-twitter"></i></a></li>
+                        @endif
+                        @if ($tenant->instagram)
+                            <li><a target="_blank" class="instagram-bg" href="{{$tenant->instagram}}"><i class="fa fa-instagram"></i></a></li>
+                        @endif
+                        @if ($tenant->linkedin)
+                            <li><a target="_blank" class="linkedin-bg" href="{{$tenant->linkedin}}"></a><i class="fa fa-linkedin"></i></li>
+                        @endif
+                        @if ($tenant->youtube)
+                            <li><a target="_blank" class="youtube-bg" href="{{$tenant->youtube}}"><i class="fa fa-youtube"></i></a></li>
+                        @endif 
                     </ul>
                 </div>
             </div>
@@ -583,9 +523,9 @@
 <script src="{{url(asset('frontend/'.$tenant->template.'/js/sidebar.js'))}}"></script>
 <script src="{{url(asset('frontend/'.$tenant->template.'/js/app.js'))}}"></script>
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="{{url(asset('frontend/'.$tenant->template.'/js/ie10-viewport-bug-workaround.js'))}}"></script>
-<!-- Custom javascript -->
-<script src="{{url(asset('frontend/'.$tenant->template.'/js/ie10-viewport-bug-workaround.js'))}}"></script>
+@hasSection('js')
+    @yield('js')
+@endif
+
 </body>
 </html>

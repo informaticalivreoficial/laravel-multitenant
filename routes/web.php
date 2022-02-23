@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\{
     ImovelController,
     PlanController,
     PostController,
+    SlideController,
     TenantClientConfigController,
     TenantController,
     UserController
@@ -22,21 +23,37 @@ use App\Http\Controllers\Admin\ACL\{
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Assinaturas\AssinaturaController;
 use App\Http\Controllers\Web\ClienteController;
+use App\Http\Controllers\Web\Site\SendEmailController;
 use App\Http\Controllers\Web\Site\SiteController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+
+// Route::get('404.error', function(){
+//     return 'Endereço Inválido';
+// })->name('404.error');
+//imoveis-em-ubatuba-imobiliaria-ubatuba-com-negocios-imobiliarios
+
+Route::group([
+    'prefix' => 'gerenciador'
+], function () {   
+   
+    Route::get('/', [AdminController::class, 'home'])->name('home');
+    
+});
 
 Route::group([
     'namespace' => 'Web', 
     'as' => 'web.'
 ], function () {
-
+    
     //CLIENTE
     Route::get('/{tenantSlug}', [SiteController::class, 'home'])->name('home');
     Route::get('/{tenantSlug}/atendimento', [SiteController::class, 'atendimento'])->name('atendimento');
+    Route::match(['post', 'get'], '/{tenantSlug}/sendEmail', [SendEmailController::class, 'sendEmail'])->name('sendEmail');
 
 
-    Route::get('/', [ClienteController::class, 'home'])->name('home');
+    //Route::get('/', [ClienteController::class, 'home'])->name('home');
     
 
     //****************************** Planos ************************************/
@@ -59,6 +76,9 @@ Route::group([
     /** Página de Experiências */
     Route::get('/experiencias', 'WebController@experience')->name('experience');
 
+    //** FEED */    
+    Route::get('/{tenantSlug}/feed', [RssFeedController::class, 'feed'])->name('feed');
+
     //****************************** Blog ***********************************************/
     Route::get('/blog/artigo/{slug}', [WebController::class, 'artigo'])->name('blog.artigo');
     Route::get('/blog/categoria/{slug}', [WebController::class, 'categoria'])->name('blog.categoria');
@@ -68,7 +88,7 @@ Route::group([
 
 Route::prefix('admin')->middleware('auth')->group( function(){
 
-    Route::get('/', [AdminController::class, 'home'])->name('home');
+    Route::get('/home', [AdminController::class, 'home'])->name('home');
 
     //******************************* Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('admin.gerarxml');

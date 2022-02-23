@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Web\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Web\Atendimento;
+use App\Mail\Web\AtendimentoRetorno;
 
 class SendEmailController extends Controller
 {

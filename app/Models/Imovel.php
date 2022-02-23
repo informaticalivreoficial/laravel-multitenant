@@ -187,7 +187,7 @@ class Imovel extends Model
             return url(asset('backend/assets/images/image.jpg'));
         }
 
-        return Storage::url(Cropper::thumb($cover['path'], 1366, 768));
+        return Storage::url(Cropper::thumb($cover['path'], 1440, 960));
     }
 
     public function nocover()

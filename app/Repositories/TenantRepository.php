@@ -25,4 +25,9 @@ class TenantRepository implements TenantRepositoryInterface
                         ->where('uuid', $uuid)
                         ->first();
     }
+
+    public function getTenantBySlug(string $tenantSlug)
+    {
+        return $this->entity->where('slug', $tenantSlug)->first();
+    }
 }

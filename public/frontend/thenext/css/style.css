@@ -4820,6 +4820,10 @@ strong {
     color: #3b589e !important;
 }
 
+.instagram:hover {
+    color: #a13d4d !important;
+}
+
 .twitter:hover {
     color: #56d7fe !important;
 }
@@ -4840,6 +4844,10 @@ strong {
     background: #3b589e;
 }
 
+.instagram-bg {
+    background: #a13d4d;
+}
+
 .twitter-bg {
     background: #56d7fe;
 }
@@ -4855,6 +4863,10 @@ strong {
 /** FACEBOOK BG AREA START **/
 .facebook-bg:hover {
     background: #3b589e!important;
+}
+
+.instagram-bg:hover {
+    background: #a13d4d!important;
 }
 
 .twitter-bg:hover {

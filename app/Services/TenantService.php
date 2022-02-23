@@ -22,6 +22,11 @@ class TenantService
         return $this->repository->getAllTenants($per_page);
     }
 
+    public function getTenantBySlug(string $tenantSlug)
+    {
+        return $this->repository->getTenantBySlug($tenantSlug);
+    }
+
     public function getTenantByUuid(string $uuid)
     {
         return $this->repository->getTenantByUuid($uuid);

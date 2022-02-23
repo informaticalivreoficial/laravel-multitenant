@@ -2,29 +2,29 @@ $(function () {
     'use strict';
 
     // Showing page loader
-    $(window).load(function () {
-        setTimeout(function () {
-            $(".page_loader").fadeOut("fast");
-        }, 100)
-        $('link[id="style_sheet"]').attr('href', 'css/skins/default.css');
-        $('.logo img').attr('src', 'img/logos/logo.png');
+    // $(window).load(function () {
+    //     setTimeout(function () {
+    //         $(".page_loader").fadeOut("fast");
+    //     }, 100)
+    //     $('link[id="style_sheet"]').attr('href', 'css/skins/default.css');
+    //     $('.logo img').attr('src', 'img/logos/logo.png');
 
-        // Filterizr initialization
-        if($('.filtr-container').length > 0) {
-            $(function () {
-                $('.filtr-container').filterizr(
-                    {
-                        delay: 1
-                    }
-                );
-            });
-        }
+    //     // Filterizr initialization
+    //     if($('.filtr-container').length > 0) {
+    //         $(function () {
+    //             $('.filtr-container').filterizr(
+    //                 {
+    //                     delay: 1
+    //                 }
+    //             );
+    //         });
+    //     }
 
-        $('.filters-listing-navigation li').click(function() {
-            $('.filters-listing-navigation .filtr').removeClass('active');
-            $(this).addClass('active');
-        });
-    });
+    //     $('.filters-listing-navigation li').click(function() {
+    //         $('.filters-listing-navigation .filtr').removeClass('active');
+    //         $(this).addClass('active');
+    //     });
+    // });
 
     // WOW animation library initialization
     var wow = new WOW(

@@ -8,7 +8,7 @@
             <div class="breadcrumb-area">
                 <h1>Atendimento</h1>
                 <ul class="breadcrumbs">
-                    <li><a href="{{route('web.home')}}/{{$tenant->slug}}">Home</a></li>
+                    <li><a href="{{route('web.home',$tenant->slug)}}">Home</a></li>
                     <li class="active">Atendimento</li>
                 </ul>
             </div>
@@ -25,24 +25,21 @@
                 <div class="col-lg-7 col-md-12 col-sm-12 col-pad2">
                     <!-- Contact form start -->
                     <div class="contact-form contact-pad">
-                        <form id="contact_form" action="" method="POST" autocomplete="off">
+                        <form class="j_formsubmit" id="contact_form" action="" method="POST" autocomplete="off">
                             @csrf
                             <div class="row">
-                                <div id="js-contact-result"></div>
+                                <div class="col-12">
+                                    <div id="js-contact-result"></div>
+                                </div>                                
                                 <!-- HONEYPOT -->
                                 <input type="hidden" class="noclear" name="tenant_id" value="{{$tenant->id}}" />
                                 <input type="hidden" class="noclear" name="bairro" value="" />
-                                <input type="text" class="noclear" style="display: none;" name="cidade" value="" />
-                                <div class="col-md-6">
-                                    <div class="form-group name">
-                                        <input type="text" name="name" class="form-control" placeholder="Nome">
-                                    </div>
-                                </div>
+                                <input type="text" class="noclear" style="display: none;" name="cidade" value="" />                                
                             </div>
                             <div class="row form_hide">
                                 <div class="col-md-6">
                                     <div class="form-group name">
-                                        <input type="text" name="name" class="form-control" placeholder="Nome">
+                                        <input type="text" name="nome" class="form-control" placeholder="Nome">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -57,7 +54,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group number">
-                                        <input type="text" name="telefone" class="form-control" placeholder="Telefone">
+                                        <input type="text" name="telefone" class="form-control telefonemask" placeholder="Telefone">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -78,74 +75,85 @@
                 <div class="col-lg-5 col-md-12 col-sm-12 col-pad2">
                     <!-- Contact details start -->
                     <div class="contact-details">
-                        <h3>Opening Hours</h3>
+                        <h3>Nossos Canais</h3>
                         <div class="ci-box d-flex">
                             <div class="icon">
                                 <i class="fa fa-map-marker"></i>
                             </div>
-                            <div class="detail align-self-center">
-                                <h4>Office Address</h4>
-                                <p>20/F Green Road, Dhanmondi, Dhaka</p>
-                            </div>
+                            @if ($tenant->rua)
+                                <div class="detail align-self-center">
+                                    <h4>Escritório</h4>
+                                    <p>
+                                       {{$tenant->rua}}
+                                       {{($tenant->num ? ', '.$tenant->num : '')}}  
+                                       {!!($tenant->bairro ? '<br> '.$tenant->bairro : '')!!}  
+                                       {{($tenant->cidade ? ', '.getCidade($tenant->cidade, 'cidades') : '')}} 
+                                    </p>
+                                </div>
+                            @endif
                         </div>
-                        <div class="ci-box d-flex">
-                            <div class="icon">
-                                <i class="fa fa-phone"></i>
+                        @if ($tenant->telefone || $tenant->celular)
+                            <div class="ci-box d-flex">
+                                <div class="icon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div class="detail align-self-center">
+                                    <h4>Telefone</h4>
+                                    <p>
+                                        <a href="tel:{{$tenant->telefone}}">{{$tenant->telefone}} </a>
+                                        @if ($tenant->celular)
+                                        <a href="tel:{{$tenant->celular}}"> {{$tenant->celular}}</a>
+                                        @endif
+                                    </p>
+                                </div>
                             </div>
-                            <div class="detail align-self-center">
-                                <h4>Phone Number</h4>
-                                <p>
-                                    <a href="tel:0477-0477-8556-552">Office: 0477 8556 552</a>
-                                </p>
+                        @endif
+                        @if ($tenant->email)
+                            <div class="ci-box d-flex">
+                                <div class="icon">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="detail align-self-center">
+                                    <h4>Email</h4>
+                                    <p>
+                                        <a href="mailto:{{$tenant->email}}">{{$tenant->email}}</a>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="ci-box d-flex">
-                            <div class="icon">
-                                <i class="fa fa-envelope"></i>
+                        @endif
+                        @if ($tenant->whatsapp)
+                            <div class="ci-box d-flex mb-30">
+                                <div class="icon">
+                                    <i class="fa fa-whatsapp"></i>
+                                </div>
+                                <div class="detail align-self-center">
+                                    <h4>WhatsApp:</h4>
+                                    <p>
+                                        <a target="_blank" href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}">{{$tenant->whatsapp}}</a>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="detail align-self-center">
-                                <h4>Email Address</h4>
-                                <p>
-                                    <a href="mailto:info@themevessel.com">info@themevessel.com</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ci-box d-flex mb-30">
-                            <div class="icon">
-                                <i class="fa fa-fax"></i>
-                            </div>
-                            <div class="detail align-self-center">
-                                <h4>Fax:</h4>
-                                <p>
-                                    <a href="tel:0477-0477-8556-552">0477 8556 552</a>
-                                </p>
-                            </div>
-                        </div>
+                        @endif
 
-                        <h3>Follow Us</h3>
+                        <h3>Siga-nos</h3>
                         <ul class="social-list clearfix">
+                            @if ($tenant->facebook)
+                                <li><a target="_blank" class="facebook-bg" href="{{$tenant->facebook}}"><i class="fa fa-facebook"></i></a></li>
+                            @endif
+                            @if ($tenant->twitter)
+                                <li><a target="_blank" class="twitter-bg" href="{{$tenant->twitter}}"><i class="fa fa-twitter"></i></a></li>
+                            @endif
+                            @if ($tenant->instagram)
+                                <li><a target="_blank" class="instagram-bg" href="{{$tenant->instagram}}"><i class="fa fa-instagram"></i></a></li>
+                            @endif
+                            @if ($tenant->linkedin)
+                                <li><a target="_blank" class="linkedin-bg" href="{{$tenant->linkedin}}"></a><i class="fa fa-linkedin"></i></li>
+                            @endif
+                            @if ($tenant->youtube)
+                                <li><a target="_blank" class="youtube-bg" href="{{$tenant->youtube}}"><i class="fa fa-youtube"></i></a></li>
+                            @endif                            
                             <li>
-                                <a href="#" class="facebook-bg">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="twitter-bg">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="linkedin-bg">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="google-bg">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="rss-bg">
+                                <a target="_blank" href="{{route('web.feed',$tenant->slug)}}" class="rss-bg">
                                     <i class="fa fa-rss"></i>
                                 </a>
                             </li>
@@ -169,6 +177,13 @@
 @endsection
 
 @section('js')
+<script src="{{url(asset('backend/assets/js/jquery.mask.js'))}}"></script>
+<script>
+    $(document).ready(function () { 
+        var $telefone = $(".telefonemask");
+        $telefone.mask('(99) 9999-9999', {reverse: false});               
+    });
+</script>
   <script>
     $(function () {
 
@@ -184,7 +199,7 @@
             var dataString = $(form).serialize();
 
             $.ajax({
-                url: "{{ route('web.sendEmail') }}",
+                url: "{{ route('web.sendEmail',$tenant->slug) }}",
                 data: dataString,
                 type: 'GET',
                 dataType: 'JSON',

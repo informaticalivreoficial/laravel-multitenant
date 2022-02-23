@@ -38,6 +38,8 @@ class Atendimento extends Mailable
             ->markdown('emails.atendimento', [
                 'nome' => $this->data['reply_name'],
                 'email' => $this->data['reply_email'],
+                'telefone' => $this->data['telefone'],
+                'assunto' => $this->data['assunto'],
                 'mensagem' => $this->data['mensagem']
         ]);
     }
