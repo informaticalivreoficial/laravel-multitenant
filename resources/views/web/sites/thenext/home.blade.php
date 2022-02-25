@@ -1,67 +1,42 @@
 @extends("web.sites.{$tenant->template}.master.master")
 
 @section('content')
-<!-- Banner start -->
-<div class="banner" id="banner6">
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item item-bg active">
-                <img class="d-block w-100 h-100" src="img/banner/img-3.jpg" alt="banner-photo">
-                <div class="carousel-caption banner-slider-inner d-flex h-100">
-                    <div class="banner-content container align-self-center text-start">
-                        <h1>{{$tenant->email}} <span>Dream House</span></h1>
-                        <p>Allow us to guide you through the innovative stress free approach in finding your dream Properties.</p>
-                        <a class="btn-2 btn-defaults" href="#" data-animation="animated fadeInUp delay-15s">
-                            <span>Get Started Now</span> <i class="arrow"></i>
-                        </a>
-                        <a class="btn-1 btn-outline-1" href="#" data-animation="animated fadeInUp delay-15s">
-                            <span>Learn More</span> <i class="arrow"></i>
-                        </a>
+
+@if (!empty($slides) && $slides->count() > 0)
+    <div class="banner" id="banner6">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($slides as $key=>$slide)
+                    @php $active = ($key == '0' ? ' active' : '');@endphp
+                    <div class="carousel-item item-bg {{$active}}">
+                        <img class="d-block w-100 h-100" src="{{$slide->getimagem()}}" alt="{{$slide->titulo}}">
+                        <div class="carousel-caption banner-slider-inner d-flex h-100">
+                            <div class="banner-content container align-self-center text-start">
+                                <h1>{{$slide->titulo}}</h1>
+                                @if ($slide->subtitulo)
+                                <p>{{$slide->subtitulo}}</p>
+                                @endif
+                                @if ($slide->botaolabel)
+                                <a class="btn-2 btn-defaults" {{($slide->target == 1 ? 'target="_blank"' : '')}} href="{{$slide->link}}" data-animation="animated fadeInUp delay-15s">
+                                    <span>{{$slide->botaolabel}}</span> <i class="arrow"></i>
+                                </a>
+                                @endif 
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-            <div class="carousel-item item-bg">
-                <img class="d-block w-100 h-100" src="img/banner/img-4.jpg" alt="banner-photo">
-                <div class="carousel-caption banner-slider-inner d-flex h-100">
-                    <div class="banner-content container align-self-center text-center">
-                        <h1>Sweet Home For <span>Small Family</span></h1>
-                        <p>Allow us to guide you through the innovative stress free approach in finding your dream Properties.</p>
-                        <a class="btn-2 btn-defaults" href="#" data-animation="animated fadeInUp delay-15s">
-                            <span>Get Started Now</span> <i class="arrow"></i>
-                        </a>
-                        <a class="btn-1 btn-outline-1" href="#" data-animation="animated fadeInUp delay-15s">
-                            <span>Learn More</span> <i class="arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item item-bg">
-                <img class="d-block w-100 h-100" src="img/banner/img-2.jpg" alt="banner-photo">
-                <div class="carousel-caption banner-slider-inner d-flex h-100">
-                    <div class="banner-content container align-self-center text-end">
-                        <h1>Best Place To <span>Find Home</span></h1>
-                        <p>Allow us to guide you through the innovative stress free approach in finding your dream Properties.</p>
-                        <a class="btn-2 btn-defaults" href="#" data-animation="animated fadeInUp delay-15s">
-                            <span>Get Started Now</span> <i class="arrow"></i>
-                        </a>
-                        <a class="btn-1 btn-outline-1" href="#" data-animation="animated fadeInUp delay-15s">
-                            <span>Learn More</span> <i class="arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-</div>
-<!-- Banner end -->
+@endif
 
 <!-- Search area start -->
 <div class="search-area sr2">
@@ -161,10 +136,12 @@
                             <div class="property-img">
                                 <div class="property-tag button alt featured">Ref.: {{$ivenda->referencia}}</div>
                                 <div class="property-tag button sale">{{$ivenda->tipo}}</div>
-                                <div class="property-price">R$ {{str_replace(',00', '', $ivenda->valor_venda)}}</div>
+                                @if($ivenda->exibivalores == true)
+                                    <div class="property-price">R$ {{str_replace(',00', '', $ivenda->valor_venda)}}</div>
+                                @endif                                
                                 <img src="{{$ivenda->cover()}}" alt="fp" class="img-fluid">
                                 <div class="property-overlay">
-                                    <a href="properties-details.html" class="overlay-link">
+                                    <a href="{{route('web.buyProperty', ['slug' => $ivenda->slug])}}" class="overlay-link">
                                         <i class="fa fa-link"></i>
                                     </a>
                                     <a class="overlay-link property-video" title="Lexus GS F">
@@ -186,11 +163,11 @@
                                 <div class="info">
                                     <!-- title -->
                                     <h1 class="title">
-                                        <a href="properties-details.html">{{$ivenda->titulo}}</a>
+                                        <a href="{{route('web.buyProperty', ['slug' => $ivenda->slug])}}">{{$ivenda->titulo}}</a>
                                     </h1>
                                     <!-- Property address -->
                                     <h3 class="property-address">
-                                        <a href="properties-details.html">
+                                        <a href="{{route('web.buyProperty', ['slug' => $ivenda->slug])}}">
                                             <i class="fa fa-map-marker"></i>{{$ivenda->bairro}} - {{getCidadeNome($ivenda->cidade, 'cidades')}}
                                         </a>
                                     </h3>

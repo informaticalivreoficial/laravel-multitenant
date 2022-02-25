@@ -129,7 +129,7 @@ $config = [
                         <div class="row">  
                             <div class="col-12 mb-1"> 
                                 <div class="form-group">
-                                    <label class="labelforms text-muted"><b>Imagem: </b>(1920X696) pixels</label>
+                                    <label class="labelforms text-muted"><b>Imagem: </b>(1920X1080) pixels</label>
                                     <div class="thumb_user_admin">                                                    
                                         <img id="preview1" src="{{url(asset('backend/assets/images/image.jpg'))}}" alt="{{ old('titulo') }}" title="{{ old('titulo') }}"/>
                                         <input id="img-input" type="file" name="imagem">

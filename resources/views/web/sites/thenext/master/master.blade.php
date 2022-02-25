@@ -84,7 +84,7 @@
 <header class="main-header  header-shrink ">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a href="{{route('web.home',$tenant->slug)}}" class="logo">
+            <a href="{{route('web.home')}}" class="logo">
                 <img src="{{$tenant->getlogomarca()}}" alt="{{$tenant->name}}">
             </a>
             <button class="navbar-toggler" id="drawer" type="button">
@@ -93,20 +93,29 @@
             <div class="navbar-collapse collapse " id="navbar">
                 <ul class="navbar-nav ustify-content-start w-100">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Index
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="imoveisLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Imóveis
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="index.html">Index 1</a></li>
-                            <li><a class="dropdown-item" href="index-2.html">Index 2</a></li>
-                            <li><a class="dropdown-item" href="index-3.html">Index 3</a></li>
-                            <li><a class="dropdown-item" href="index-4.html">Index 4</a></li>
-                            <li><a class="dropdown-item" href="index-5.html">Index 5</a></li>
-                            <li><a class="dropdown-item" href="index-6.html">Index 6</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="imoveisLink">
+                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'venda'])}}">Venda</a></li>
+                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'locacao'])}}">Locação</a></li>
                         </ul>
-                    </li>                    
+                    </li> 
+                    @if (!empty($categoriasMenu) && $categoriasMenu->count() > 0)
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="propriedadesLink" href="javascript:void(0)">Propriedades</a>
+                            <ul class="dropdown-menu" aria-labelledby="propriedadesLink">
+                                @foreach ($categoriasMenu as $catMenu)                                
+                                <li>
+                                    <a class="dropdown-item" href="{{route('web.imoveis.categoria',['categoria' => $catMenu->tipo])}}">{{$catMenu->tipo}}</a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li> 
+                    @endif                 
                     
-                    <li class="nav-item"><a class="nav-link" href="{{route('web.atendimento',['tenantSlug' => $tenant->slug])}}">Atendimento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{--route('web.atendimento')--}}">Lançamento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('web.atendimento')}}">Atendimento</a></li>
                     <li class="nav-item submit-property-button">
                         <a href="submit-property.html" class="button btn-3">
                             Submit Property
@@ -359,7 +368,7 @@
                     <h3>Quer vender ou alugar seu imóvel?</h3>
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-12">
-                    <a class="btn-2 btn-white" href="{{route('web.atendimento',$tenant->slug)}}">
+                    <a class="btn-2 btn-white" href="{{route('web.atendimento')}}">
                         <span>Entrar em contato</span> <i class="arrow"></i>
                     </a>
                 </div>
@@ -519,7 +528,7 @@
 <script src="{{url(asset('frontend/'.$tenant->template.'/js/jquery.filterizr.js'))}}"></script>
 <script src="{{url(asset('frontend/'.$tenant->template.'/js/jquery.magnific-popup.min.js'))}}"></script>
 <script src="{{url(asset('frontend/'.$tenant->template.'/js/slick.min.js'))}}"></script>
-<script src="{{url(asset('frontend/'.$tenant->template.'/js/maps.js'))}}"></script>
+<script src="{{--url(asset('frontend/'.$tenant->template.'/js/maps.js'))--}}"></script>
 <script src="{{url(asset('frontend/'.$tenant->template.'/js/sidebar.js'))}}"></script>
 <script src="{{url(asset('frontend/'.$tenant->template.'/js/app.js'))}}"></script>
 

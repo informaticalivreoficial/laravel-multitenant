@@ -8,15 +8,17 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Support\Cropper;
+use App\Tenant\Traits\TenantTrait;
 
 class Slide extends Model
 {
-    use HasFactory;
+    use HasFactory, TenantTrait;
 
     protected $table = 'slides';
 
     protected $fillable = [
         'titulo',
+        'tenant_id',
         'subtitulo',
         'botaolabel',
         'imagem',
@@ -29,6 +31,14 @@ class Slide extends Model
         'exibir_titulo',
         'categoria'
     ];
+
+    /**
+     * Relacionamentos
+    */
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 
     /**
      * Scopes
@@ -54,7 +64,7 @@ class Slide extends Model
         if(empty($this->imagem) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        return Storage::url(Cropper::thumb($this->imagem, 1920, 696));
+        return Storage::url(Cropper::thumb($this->imagem, 1920, 1080));
     }
 
     public function getUrlImagemAttribute()

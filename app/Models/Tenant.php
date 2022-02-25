@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Support\Cropper;
+use Google\Service\Slides;
 
 class Tenant extends Model
 {
@@ -23,6 +24,7 @@ class Tenant extends Model
         'cnpj',
         'ie',
         'dominio',
+        'subdominio',
         'template',
         //Subscription
         'subscription_id', 'subscription', 'expires_at', 'subscription_active', 'subscription_suspended',
@@ -74,6 +76,11 @@ class Tenant extends Model
     public function imoveis()
     {
         return $this->hasMany(Imovel::class);
+    }
+
+    public function slides()
+    {
+        return $this->hasMany(Slide::class);
     }
 
     public function plan()

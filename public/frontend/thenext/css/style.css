@@ -2051,7 +2051,7 @@ input[type=checkbox]:checked + label:before {
 }
 
 .content-area {
-    padding: 100px 0 70px;
+    padding: 40px 0 70px;
 }
 
 .content-area-2 {

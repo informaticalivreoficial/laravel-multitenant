@@ -1,21 +1,19 @@
 @extends("web.sites.{$tenant->template}.master.master")
 
 @section('content')
-<!-- Sub banner start -->
 <div class="sub-banner" style="background: rgba(0, 0, 0, 0.04) url({{$tenant->gettopodosite()}}) top left repeat;">
     <div class="overlay">
         <div class="container">
             <div class="breadcrumb-area">
                 <h1>Atendimento</h1>
                 <ul class="breadcrumbs">
-                    <li><a href="{{route('web.home',$tenant->slug)}}">Home</a></li>
+                    <li><a href="{{route('web.home')}}">Home</a></li>
                     <li class="active">Atendimento</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<!-- Sub Banner end -->
 
 <!-- Contact 1 start -->
 <div class="contact-1 content-area-7">
@@ -199,7 +197,7 @@
             var dataString = $(form).serialize();
 
             $.ajax({
-                url: "{{ route('web.sendEmail',$tenant->slug) }}",
+                url: "{{ route('web.sendEmail') }}",
                 data: dataString,
                 type: 'GET',
                 dataType: 'JSON',

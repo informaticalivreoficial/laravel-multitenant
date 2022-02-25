@@ -26,6 +26,7 @@ class CreateTenantsTable extends Migration
             $table->string('cnpj')->nullable();
             $table->string('ie')->nullable();
             $table->string('dominio')->nullable();
+            $table->string('subdominio')->nullable();
             $table->string('template')->nullable();
 
             /** subscription */

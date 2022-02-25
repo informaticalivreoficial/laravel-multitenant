@@ -23,4 +23,12 @@ class TenantScope implements Scope
         if ($identify)
             $builder->where('tenant_id', $identify);
     }
+
+    public function applyy(Builder $builder, Model $model)
+    {
+        $identify = app(ManangerTenant::class)->identify();
+
+        if ($identify)
+            $builder->where('tenant_id', $identify);
+    }
 }

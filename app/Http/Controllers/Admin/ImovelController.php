@@ -61,7 +61,7 @@ class ImovelController extends Controller
         $criarImovel = Imovel::create($request->all());
         $criarImovel->fill($request->all());
 
-        //$criarImovel->setSlug();
+        $criarImovel->setSlug();
 
         $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
 
@@ -189,7 +189,7 @@ class ImovelController extends Controller
         $imovel->setVentiladorTetoAttribute($request->ventilador_teto);
 
         $imovel->save();
-        //$imovel->setSlug();
+        $imovel->setSlug();
 
         $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
 

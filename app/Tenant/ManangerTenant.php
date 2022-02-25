@@ -3,21 +3,28 @@
 namespace App\Tenant;
 
 use App\Models\Tenant;
-use Illuminate\Support\Facades\Request;
 
 class ManangerTenant
 {
-    // public function getUrlTenant()
-    // {
-    //     return Request::segment(1);
-    // }
+    public function subdomain()
+    {
+        //subdominio.superimoveis.info
+        $pieces = explode('.', request()->getHost());
+        return $pieces[0];
+    }
 
-    // public function Tenant()
-    // {
-    //     $urlTenant = $this->getUrlTenant();
-    //     $tenant = Tenant::where('slug', $urlTenant)->first();
-    //     return $tenant;
-    // }
+    public function tenant()
+    {
+        $subdominio = $this->subdomain();
+        $tenant = Tenant::where('subdominio', $subdominio)->first();
+        return $tenant;
+    }
+
+    public function identify()
+    {
+        $tenant = $this->tenant();
+        return $tenant->id;
+    }
 
     public function getTenantIdentify()
     {

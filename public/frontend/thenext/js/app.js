@@ -163,9 +163,9 @@ $(function () {
         }
     });
 
-    var videoWidth = $('.sidebar-widget').width();
-    var videoHeight = videoWidth * .61;
-    $('.sidebar-widget iframe').css('height', videoHeight);
+    // var videoWidth = $('.sidebar-widget').width();
+    // var videoHeight = videoWidth * .61;
+    // $('.sidebar-widget iframe').css('height', videoHeight);
 
     // Dropzone initialization
     Dropzone.autoDiscover = false;
@@ -273,7 +273,7 @@ $(function () {
         return false;
     });
 
-    // Comon slick strat
+    // // Comon slick strat
     $('.slick').slick({
         dots: false,
         infinite: true,
@@ -388,17 +388,17 @@ $(function () {
 });
 
 // mCustomScrollbar initialization
-(function ($) {
-    $(window).resize(function () {
-        $('#map').css('height', $(this).height() - 110);
-        if ($(this).width() > 768) {
-            $(".map-content-sidebar").mCustomScrollbar(
-                {theme: "minimal-dark"}
-            );
-            $('.map-content-sidebar').css('height', $(this).height() - 110);
-        } else {
-            $('.map-content-sidebar').mCustomScrollbar("destroy"); //destroy scrollbar
-            $('.map-content-sidebar').css('height', '100%');
-        }
-        }).trigger("resize");
-})(jQuery);
+// (function ($) {
+//     $(window).resize(function () {
+//         $('#map').css('height', $(this).height() - 110);
+//         if ($(this).width() > 768) {
+//             $(".map-content-sidebar").mCustomScrollbar(
+//                 {theme: "minimal-dark"}
+//             );
+//             $('.map-content-sidebar').css('height', $(this).height() - 110);
+//         } else {
+//             $('.map-content-sidebar').mCustomScrollbar("destroy"); //destroy scrollbar
+//             $('.map-content-sidebar').css('height', '100%');
+//         }
+//         }).trigger("resize");
+// })(jQuery);

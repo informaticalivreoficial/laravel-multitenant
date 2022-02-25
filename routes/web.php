@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\ACL\{
 };
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Assinaturas\AssinaturaController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Web\ClienteController;
 use App\Http\Controllers\Web\Site\SendEmailController;
 use App\Http\Controllers\Web\Site\SiteController;
@@ -29,18 +30,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('404.error', function(){
-//     return 'Endereço Inválido';
-// })->name('404.error');
-//imoveis-em-ubatuba-imobiliaria-ubatuba-com-negocios-imobiliarios
+Route::get('404.error', function(){
+    return 'Endereço Inválido';
+})->name('404.error');
 
-Route::group([
-    'prefix' => 'gerenciador'
-], function () {   
+// Route::group([
+//     'prefix' => 'gerenciador'
+// ], function () {   
    
-    Route::get('/', [AdminController::class, 'home'])->name('home');
+//     Route::get('/', [AdminController::class, 'home'])->name('home');
     
-});
+// });
 
 Route::group([
     'namespace' => 'Web', 
@@ -48,12 +48,15 @@ Route::group([
 ], function () {
     
     //CLIENTE
-    Route::get('/{tenantSlug}', [SiteController::class, 'home'])->name('home');
-    Route::get('/{tenantSlug}/atendimento', [SiteController::class, 'atendimento'])->name('atendimento');
-    Route::match(['post', 'get'], '/{tenantSlug}/sendEmail', [SendEmailController::class, 'sendEmail'])->name('sendEmail');
+    Route::get('/', [SiteController::class, 'home'])->name('home');
+    Route::get('/atendimento', [SiteController::class, 'atendimento'])->name('atendimento');
+    Route::get('/sendEmail', [SendEmailController::class, 'sendEmail'])->name('sendEmail');
 
 
     //Route::get('/', [ClienteController::class, 'home'])->name('home');
+
+    //****************************** Imoveis ************************************/
+    Route::get('/imoveis/categoria/{categoria}', [SiteController::class, 'categoriasImovel'])->name('imoveis.categoria');
     
 
     //****************************** Planos ************************************/
@@ -70,8 +73,11 @@ Route::group([
     /** Página de Compra */
     Route::get('/quero-comprar', 'WebController@venda')->name('venda');
 
+    /** Lista todos os imóveis */
+    Route::get('/imoveis/{type}', [SiteController::class, 'imoveisList'])->name('imoveisList');
+
     /** Página de Compra - Específica de um imóvel */
-    Route::get('/quero-comprar/{slug}', [WebController::class, 'buyProperty'])->name('buyProperty');  
+    Route::match(['get', 'post'],'/imoveis/quero-comprar/{slug}', [SiteController::class, 'buyProperty'])->name('buyProperty');  
     
     /** Página de Experiências */
     Route::get('/experiencias', 'WebController@experience')->name('experience');
@@ -88,7 +94,7 @@ Route::group([
 
 Route::prefix('admin')->middleware('auth')->group( function(){
 
-    Route::get('/home', [AdminController::class, 'home'])->name('home');
+    Route::get('/', [AdminController::class, 'home'])->name('home');
 
     //******************************* Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('admin.gerarxml');
@@ -243,7 +249,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 // Route::get('cadastro', [RegisterController::class, 'showRegistrationForm'])->name('register');
 // Route::post('cadastro', [RegisterController::class, 'register']);
 
-// Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('login');
 // Route::post('login', [LoginController::class, 'login']);
 // Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
