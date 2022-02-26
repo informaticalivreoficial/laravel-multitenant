@@ -1,4 +1,17 @@
 <?php
+
+//Pegar somente o embed de vídeo youtube
+function getEmbedYoutube(string $embed = null)
+{
+    if(empty($embed)){
+        return null;
+    }
+
+    $iframe = $embed;
+    $var = explode('src="', $iframe);
+    $var = explode('"',$var['1']);
+    return $var['0'];
+}
 // FUNÇÃO PARA LIMPAR O TELEFONE
 function limpaTelefone($telefone)
 {

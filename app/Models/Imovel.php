@@ -101,6 +101,7 @@ class Imovel extends Model
         'metatags',
         'headline',
         'exibirmarcadagua',
+        'youtube_video',
         'legendaimgcapa',
         'mapadogoogle',
         'experience',

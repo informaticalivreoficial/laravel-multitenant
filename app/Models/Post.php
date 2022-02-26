@@ -54,6 +54,11 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'autor', 'id');
     }
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
     
     public function categoriaObject()
     {

@@ -20,7 +20,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['subscribed']);
+        //$this->middleware(['subscribed']);
     }
 
     public function index(Request $request)
@@ -51,7 +51,7 @@ class PostController extends Controller
     public function create()
     {
         $categorias = CatPost::orderBy('titulo', 'ASC')->get();
-        $users = User::where('admin', '=', '1')->orWhere('editor', '=', '1')->get();
+        $users = User::where('tenant_id', auth()->user()->tenant->id)->where('admin', '=', '1')->orWhere('editor', '=', '1')->get();
         return view('admin.posts.create',[
             'users' => $users,
             'categorias' => $categorias
@@ -86,7 +86,7 @@ class PostController extends Controller
             foreach ($request->allFiles()['files'] as $image) {
                 $postGb = new PostGb();
                 $postGb->post = $criarPost->id;
-                $postGb->path = $image->storeAs($secao.'/' . $criarPost->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                $postGb->path = $image->storeAs($secao.'/'. auth()->user()->tenant->uuid . '/' . $criarPost->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
                 $postGb->save();
                 unset($postGb);
             }
@@ -100,7 +100,7 @@ class PostController extends Controller
     {
         $categorias = CatPost::orderBy('titulo', 'ASC')->where('id_pai', null)->get();
         $editarPost = Post::where('id', $id)->first();
-        $users = User::where('admin', '=', '1')->orWhere('editor', '=', '1')->get();
+        $users = User::where('tenant_id', auth()->user()->tenant->id)->where('admin', '=', '1')->orWhere('editor', '=', '1')->get();
 
         if($editarPost->tipo == 'artigo'){
             $tipo = 'artigos';
@@ -147,7 +147,7 @@ class PostController extends Controller
             foreach ($request->allFiles()['files'] as $image) {
                 $postImage = new PostGb();
                 $postImage->post = $postUpdate->id;
-                $postImage->path = $image->storeAs($secao.'/' . $postUpdate->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                $postImage->path = $image->storeAs($secao.'/' . auth()->user()->tenant->uuid . '/' . $postUpdate->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
                 $postImage->save();
                 unset($postImage);
             }

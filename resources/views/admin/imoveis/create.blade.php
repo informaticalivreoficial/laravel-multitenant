@@ -136,14 +136,14 @@ $config = [
                                                 <option value="Sala Comercial" {{(old('tipo') == 'Sala Comercial' ? 'selected' : '')}}>Sala Comercial</option>
                                                 <option value="Salão de Festa" {{(old('tipo') == 'Salão de Festa' ? 'selected' : '')}}>Salão de Festa</option>
                                                 <option value="Chalé" {{(old('tipo') == 'Chalé' ? 'selected' : '')}}>Chalé</option>
-                                                <option value="Hotel/Pousada" {{(old('tipo') == 'Hotel/Pousada' ? 'selected' : '')}}>Hotel/Pousada</option>
+                                                <option value="Hotel Pousada" {{(old('tipo') == 'Hotel Pousada' ? 'selected' : '')}}>Hotel/Pousada</option>
                                                 <option value="Sítio" {{(old('tipo') == 'Sítio' ? 'selected' : '')}}>Sítio</option>
                                                 <option value="Sobrado" {{(old('tipo') == 'Sobrado' ? 'selected' : '')}}>Sobrado</option>
                                                 <option value="Loja" {{(old('tipo') == 'Loja' ? 'selected' : '')}}>Loja</option>
                                                 <option value="Terreno em Condomínio" {{(old('tipo') == 'Terreno em Condomínio' ? 'selected' : '')}}>Terreno em Condomínio</option>
                                                 <option value="Terreno" {{(old('tipo') == 'Terreno' ? 'selected' : '')}}>Terreno</option>
                                                 <option value="Fazenda" {{(old('tipo') == 'Fazenda' ? 'selected' : '')}}>Fazenda</option>
-                                                <option value="Prédio/Edifício Inteiro" {{(old('tipo') == 'Prédio/Edifício Inteiro' ? 'selected' : '')}}>Prédio/Edifício Inteiro</option>
+                                                <option value="Prédio Edifício Inteiro" {{(old('tipo') == 'Prédio Edifício Inteiro' ? 'selected' : '')}}>Prédio/Edifício Inteiro</option>
                                             </select>
                                         </div>
                                     </div>
@@ -659,13 +659,19 @@ $config = [
                                                 <option value="Lojas e Salas" {{(old('experience') == 'Lojas e Salas' ? 'selected' : '')}}>Lojas e Salas</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                     <div class="col-12 mb-1"> 
                                         <div class="form-group">
                                             <label class="labelforms"><b>MetaTags</b></label>
                                             <input id="tags_1" class="tags" rows="5" name="metatags" value="{{ old('metatags') }}">
                                         </div>
                                     </div>
+                                    <div class="col-12"> 
+                                        <div class="form-group">
+                                            <label class="labelforms"><b>Youtube Vídeo</b></label>
+                                            <textarea id="inputDescription" class="form-control" rows="5" name="youtube_video">{{ old('youtube_video') }}</textarea> 
+                                        </div>
+                                    </div> 
                                     <div class="col-12">   
                                         <label class="labelforms"><b>Mapa do Google</b> <small class="text-info">(Copie o código de incorporação do Google Maps e cole abaixo)</small></label>
                                         <textarea id="inputDescription" class="form-control" rows="5" name="mapadogoogle">{{ old('mapadogoogle') }}</textarea>                                                      

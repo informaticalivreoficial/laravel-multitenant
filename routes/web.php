@@ -76,6 +76,9 @@ Route::group([
     /** Lista todos os imóveis */
     Route::get('/imoveis/{type}', [SiteController::class, 'imoveisList'])->name('imoveisList');
 
+    /** Lista todos os imóveis por categoria */
+    Route::get('/imoveis/categoria/{categoria}', [SiteController::class, 'imoveisCategoria'])->name('imoveisCategoria');
+
     /** Página de Compra - Específica de um imóvel */
     Route::match(['get', 'post'],'/imoveis/quero-comprar/{slug}', [SiteController::class, 'buyProperty'])->name('buyProperty');  
     
@@ -83,12 +86,16 @@ Route::group([
     Route::get('/experiencias', 'WebController@experience')->name('experience');
 
     //** FEED */    
-    Route::get('/{tenantSlug}/feed', [RssFeedController::class, 'feed'])->name('feed');
+    Route::get('/feed', [RssFeedController::class, 'feed'])->name('feed');
+
+    //****************************** Notícias ***********************************************/
+    Route::get('/noticia/{slug}', [SiteController::class, 'noticia'])->name('noticia');
+    Route::get('/noticias/categoria/{slug}', [SiteController::class, 'categoria'])->name('noticia.categoria');
 
     //****************************** Blog ***********************************************/
-    Route::get('/blog/artigo/{slug}', [WebController::class, 'artigo'])->name('blog.artigo');
-    Route::get('/blog/categoria/{slug}', [WebController::class, 'categoria'])->name('blog.categoria');
-    Route::get('/blog', [WebController::class, 'artigos'])->name('blog.artigos');
+    Route::get('/blog/artigo/{slug}', [SiteController::class, 'artigo'])->name('blog.artigo');
+    Route::get('/blog/categoria/{slug}', [SiteController::class, 'categoria'])->name('blog.categoria');
+    Route::get('/blog', [WebController::class, 'artigos'])->name('blog.artigos');    
     Route::match(['get', 'post'],'/blog/pesquisar', [WebController::class, 'searchBlog'])->name('blog.searchBlog');
 });
 

@@ -30,7 +30,7 @@ class Post extends FormRequest
                 'required',
                 'min:3',
                 'max:191',
-                new TenantUnique('posts', $this->segment(2)),
+                new TenantUnique('posts', $this->segment(3)),
             ],
             'autor' => 'required',
             'categoria' => 'required',

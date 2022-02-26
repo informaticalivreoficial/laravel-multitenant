@@ -163,9 +163,9 @@ $(function () {
         }
     });
 
-    // var videoWidth = $('.sidebar-widget').width();
-    // var videoHeight = videoWidth * .61;
-    // $('.sidebar-widget iframe').css('height', videoHeight);
+    var videoWidth = $('.sidebar-widget').width();
+    var videoHeight = videoWidth * .61;
+    $('.sidebar-widget iframe').css('height', videoHeight);
 
     // Dropzone initialization
     Dropzone.autoDiscover = false;
@@ -336,10 +336,7 @@ $(function () {
         autoplaySpeed: 2000,
     });
 
-    // Modal activation
-    $(document).on('click', '.property-video', function () {
-        $('#propertyModal').modal('show');
-    })
+    
 
     resizeModalsContent();
     function resizeModalsContent() {

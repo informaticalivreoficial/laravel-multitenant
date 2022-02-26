@@ -1,6 +1,9 @@
 @extends("web.sites.{$tenant->template}.master.master")
 
 @section('content')
+
+@if (!empty($imoveis) && $imoveis->count() > 0)
+
 <div class="sub-banner" style="background: rgba(0, 0, 0, 0.04) url({{$tenant->gettopodosite()}}) top left repeat;">
     <div class="overlay">
         <div class="container">
@@ -15,7 +18,6 @@
     </div>
 </div>
 
-@if (!empty($imoveis) && $imoveis->count() > 0)
 <div class="properties-section-body content-area">
     <div class="container">
         <div class="row">
@@ -27,25 +29,35 @@
                         <div class="property fp2">
                             <!-- Property img -->
                             <div class="property-img">
-                                <div class="property-tag button alt featured">Featured</div>
-                                <div class="property-tag button sale">For Sale</div>
-                                <div class="property-price">$72.000</div>
-                                <img src="{{$imovel->cover()}}" alt="fp" class="img-fluid">
+                                <div class="property-tag button alt featured">{{$imovel->tipo}}</div>
+                                <div class="property-price">
+                                    @if(!empty($type) && $type == 'venda')
+                                        R$ {{str_replace(',00', '', $imovel->valor_venda)}}                                                        
+                                    @elseif(!empty($type) && $type == 'locacao')
+                                        R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
+                                    @else
+                                        @if($imovel->venda == true && !empty($imovel->valor_venda) && $imovel->valor_locacao == true && !empty($imovel->valor_locacao))                                            
+                                                Venda: R${{ str_replace(',00', '', $imovel->valor_venda) }}<br>
+                                                Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês                                            
+                                        @elseif($imovel->venda == true && !empty($imovel->valor_venda))
+                                                R${{ str_replace(',00', '', $imovel->valor_venda) }}
+                                        @elseif($imovel->locacao == true && !empty($imovel->valor_locacao))
+                                                R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
+                                        @else
+                                            Sob Consulta
+                                        @endif
+                                    @endif
+                                </div>
+                                <img src="{{$imovel->cover()}}" alt="{{$imovel->titulo}}" class="img-fluid">
                                 <div class="property-overlay">
-                                    <a href="properties-details.html" class="overlay-link">
+                                    <a href="{{ route((session('venda') == true || (!empty($type) && $type == 'venda') || ($imovel->locacao == false) ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $imovel->slug]) }}" class="overlay-link">
                                         <i class="fa fa-link"></i>
                                     </a>
-                                    <a class="overlay-link property-video" title="Lexus GS F">
-                                        <i class="fa fa-video-camera"></i>
-                                    </a>
-                                    <div class="property-magnify-gallery">
-                                        <a href="img/properties/properties-1.jpg" class="overlay-link">
-                                            <i class="fa fa-expand"></i>
+                                    @if ($imovel->youtube_video)
+                                        <a class="overlay-link property-video" title="{{$imovel->titulo}}" data-embed="{{getEmbedYoutube($imovel->youtube_video)}}">
+                                            <i class="fa fa-video-camera"></i>
                                         </a>
-
-                                        <a href="img/properties/properties-2.jpg" class="hidden"></a>
-                                        <a href="img/properties/properties-3.jpg" class="hidden"></a>
-                                    </div>
+                                    @endif                                                                        
                                 </div>
                             </div>
                             <!-- Property content -->
@@ -54,51 +66,36 @@
                                 <div class="info">
                                     <!-- title -->
                                     <h1 class="title">
-                                        <a href="properties-details.html">{{$imovel->titulo}}</a>
+                                        <a href="{{ route((session('venda') == true || (!empty($type) && $type == 'venda') || ($imovel->locacao == false) ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $imovel->slug]) }}">{{$imovel->titulo}}</a>
                                     </h1>
                                     <!-- Property address -->
                                     <h3 class="property-address">
-                                        <a href="properties-details.html">
-                                            <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City,
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-map-marker"></i>{{$imovel->bairro}} - {{getCidadeNome($imovel->cidade, 'cidades')}}
                                         </a>
                                     </h3>
                                     <!-- Facilities List -->
                                     <ul class="facilities-list clearfix">
-                                        <li>
-                                            <i class="flaticon-square-layouting-with-black-square-in-east-area"></i>
-                                            <span>4800 sq ft</span>
-                                        </li>
-                                        <li>
-                                            <i class="flaticon-bed"></i>
-                                            <span>3 Beds</span>
-                                        </li>
-                                        <li>
-                                            <i class="flaticon-monitor"></i>
-                                            <span>TV </span>
-                                        </li>
-                                        <li>
-                                            <i class="flaticon-holidays"></i>
-                                            <span> 2 Baths</span>
-                                        </li>
-                                        <li>
-                                            <i class="flaticon-vehicle"></i>
-                                            <span>1 Garage</span>
-                                        </li>
-                                        <li>
-                                            <i class="flaticon-building"></i>
-                                            <span> 3 Balcony</span>
-                                        </li>
+                                        @if ($imovel->area_util)
+                                            <li>
+                                                <i class="flaticon-square-layouting-with-black-square-in-east-area"></i>
+                                                <span>{{$imovel->area_util}}{{$imovel->medidas}}</span>
+                                            </li>
+                                        @endif                                        
+                                        @if ($imovel->dormitorios)
+                                            <li>
+                                                <i class="flaticon-bed"></i>
+                                                <span>{{$imovel->dormitorios}} Dorm</span>
+                                            </li>
+                                        @endif  
+                                        @if ($imovel->banheiros)
+                                            <li>
+                                                <i class="flaticon-holidays"></i>
+                                                <span>{{$imovel->banheiros}} Banh</span>
+                                            </li>
+                                        @endif                                        
                                     </ul>
-                                </div>
-                                <!-- Property footer -->
-                                <div class="property-footer">
-                                <span class="left">
-                                    <a href="#"><i class="fa fa-user"></i>Jhon Doe</a>
-                                </span>
-                                    <span class="right">
-                                    <i class="fa fa-calendar"></i>5 Days ago
-                                </span>
-                                </div>
+                                </div>                               
                             </div>
                         </div>
                         <!-- Property end -->
@@ -111,6 +108,45 @@
         </div>
     </div>
 </div>
+
+
+<!-- Video Modal -->
+<div class="modal property-modal fade" id="propertyModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row modal-raw g-0">
+                    <div class="col-12 modal-left">
+                        <div class="modal-left-content">
+                            <iframe class="modalIframe w-100" src="" allowfullscreen></iframe>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@else
+<div class="properties-section-body content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12"> 
+                <div class="nobottomborder">
+                    <h1>Desculpe não foram encontrados resultados!</h1>
+                    <a class="btn-1 btn-outline-1" href="{{route('web.home')}}">
+                        <span>Voltar ao início</span> <i class="arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endif
 
 @endsection
@@ -118,6 +154,7 @@
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
     <script>
+        // Paginação infinita
         $('ul.pagination').hide();
         $(function() {
             $('.scrolling-pagination').jscroll({
@@ -129,6 +166,17 @@
                     $('ul.pagination').remove();
                 }
             });
-        });   
+        });  
+        
+        // Modal Vídeo
+        $(document).on('click', '.property-video', function () {
+            var embed = $(this).data('embed');
+            $('.modalIframe').prop('src', embed);
+            $('#propertyModal').modal('show');
+        });
+
+        $(".close").click(function(){
+            $('.modalIframe').prop('src', '');
+        });
     </script>    
 @endsection

@@ -234,7 +234,7 @@ return [
         // Sidebar items:
         [
             'text' => 'Painel de Controle',
-            'url'  => 'admin/home',
+            'url'  => 'admin',
             'icon' => 'fas fa-tachometer-alt',
         ],
         [
@@ -311,6 +311,10 @@ return [
                 [
                     'text' => 'Artigos',
                     'url'  => 'admin/posts/artigos',
+                ],
+                [
+                    'text' => 'Notícias',
+                    'url'  => 'admin/posts/noticias',
                 ],
                 [
                     'text' => 'Páginas',

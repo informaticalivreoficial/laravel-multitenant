@@ -107,7 +107,7 @@
                             <ul class="dropdown-menu" aria-labelledby="propriedadesLink">
                                 @foreach ($categoriasMenu as $catMenu)                                
                                 <li>
-                                    <a class="dropdown-item" href="{{route('web.imoveis.categoria',['categoria' => $catMenu->tipo])}}">{{$catMenu->tipo}}</a>
+                                    <a class="dropdown-item" href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}">{{$catMenu->tipo}}</a>
                                 </li>
                                 @endforeach
                             </ul>
