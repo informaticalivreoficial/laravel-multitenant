@@ -102,8 +102,7 @@
                     </div>
                     @endforeach 
                     {{$imoveis->links()}}                   
-                </div>
-                
+                </div>                
             </div>
         </div>
     </div>

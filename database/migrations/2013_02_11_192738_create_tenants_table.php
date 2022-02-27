@@ -86,7 +86,9 @@ class CreateTenantsTable extends Migration
             $table->text('politicas_de_privacidade')->nullable();
             $table->text('mapa_google')->nullable();
             $table->text('metatags')->nullable();
-            $table->string('rss')->nullable();
+            $table->string('analytics_view')->nullable();
+            $table->string('tagmanager_id')->nullable();
+            $table->string('rss')->nullable();            
             $table->date('rss_data')->nullable();
             $table->string('sitemap')->nullable();
             $table->date('sitemap_data')->nullable();

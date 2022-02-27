@@ -20,37 +20,37 @@
 <div class="row">
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <div class="info-box">
-            <span class="info-box-icon bg-info"><a href="{{-- route('vendas.orcamentos') --}}" title="Orçamentos"><i class="fa far fa-file"></i></a></span>
+            <span class="info-box-icon bg-teal"><i class="fa far fa-pen"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text"><b>Orçamentos</b></span>
-                <span class="info-box-text">Pendentes: {{-- $orcamentosPendentes --}}</span>
-                <span class="info-box-text">Concluídos: {{-- $orcamentosConcluidos --}}</span>
-                <span class="info-box-text">Total: {{-- $orcamentosPendentes + $orcamentosConcluidos --}}</span>
+                <span class="info-box-text"><b>Posts</b></span>
+                <span class="info-box-text"><a href="{{route('posts.paginas')}}" title="Produtos">Páginas:</a> {{ $postsPaginas }}</span>
+                <span class="info-box-text"><a href="{{route('posts.artigos')}}" title="Artigos">Artigos:</a> {{ $postsArtigos }}</span>
+                <span class="info-box-text"><a href="{{route('posts.noticias')}}" title="Notícias">Notícias:</a> {{ $postsNoticias }}</span>
             </div>            
         </div>
     </div>
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <div class="info-box">
-            <span class="info-box-icon bg-teal"><a href="{{--route('produtos.index')--}}" title="Produtos"><i class="fa far fa-store"></i></a></span>
+            <span class="info-box-icon bg-teal"><a href="{{--route('produtos.index')--}}" title="Imóveis"><i class="fa far fa-home"></i></a></span>
 
             <div class="info-box-content">
-                <span class="info-box-text"><b>Produtos</b></span>
-                <span class="info-box-text">Disponíveis: {{-- $produtosAvailable --}}</span>
-                <span class="info-box-text">Inativos: {{-- $produtosUnavailable --}}</span>
-                <span class="info-box-text">Total: {{-- $produtosTotal --}}</span>
+                <span class="info-box-text"><b>Imóveis</b></span>
+                <span class="info-box-text">Disponíveis: {{ $imoveisAvailable }}</span>
+                <span class="info-box-text">Inativos: {{ $imoveisUnavailable }}</span>
+                <span class="info-box-text">Total: {{ $imoveisAvailable + $imoveisUnavailable }}</span>
             </div>
         </div>
     </div> 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <div class="info-box">
-            <span class="info-box-icon bg-teal"><a href="{{--route('empresas.index')--}}" title="Empresas"><i class="fa far fa-industry"></i></a></span>
+            <span class="info-box-icon bg-teal"><i class="fa far fa-users"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text"><b>Empresas</b></span>
-                <span class="info-box-text">Ativas: {{-- $empresasAvailable --}}</span>
-                <span class="info-box-text">Inativas: {{-- $empresasUnavailable --}}</span>
-                <span class="info-box-text">Total: {{-- $empresasTotal --}}</span>
+                <span class="info-box-text"><b>Usuários</b></span>
+                <span class="info-box-text"><a href="{{route('users.team')}}" title="Time">Time:</a> {{ $time }}</span>
+                <span class="info-box-text"><a href="{{route('users.index')}}" title="Clientes">Clientes:</a> {{ $usersAvailable + $usersUnavailable }}</span>
+                <span class="info-box-text">Total: {{ $usersAvailable + $usersUnavailable + $time }}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -246,6 +246,10 @@
 </section>
 @stop
 
+@section('footer')
+    <strong>Copyright &copy; {{env('DESENVOLVEDOR_INICIO')}} <a href="{{env('DESENVOLVEDOR_URL')}}">{{env('DESENVOLVEDOR')}}</a>.</strong> Desenvolvido por <a href="https://informaticalivre.com.br">Informática Livre</a>.
+@endsection
+
 @section('css')
 <link rel="stylesheet" href="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.css'))}}">
 <style>
@@ -422,12 +426,17 @@
         var donutDataposts        = {
             labels: [ 
                 'Artigos', 
-                'Páginas'             
+                'Páginas',
+                'Notícias'            
             ],
             datasets: [
                 {
-                data: [{{ $postsArtigos }}, {{ $postsPaginas }}],
-                    backgroundColor : ['#018577', '#BAC431'],
+                    data: [
+                        {{ $postsArtigos }}, 
+                        {{ $postsPaginas }}, 
+                        {{ $postsNoticias }}
+                    ],
+                    backgroundColor : ['#8EC63D', '#60BA47', '#69BD63'],
                 }
             ]
             }

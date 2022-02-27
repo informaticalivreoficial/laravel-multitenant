@@ -37,19 +37,13 @@ class Tenant extends Model
         //Endereço
         'cep', 'rua', 'num', 'complemento', 'bairro', 'uf', 'cidade',
         //Social links
-        'facebook',
-        'twitter',
-        'youtube',
-        'instagram',
-        'linkedin',
-        'vimeo',
-        'fliccr',
-        'soundclound',
-        'snapchat',
+        'facebook', 'twitter', 'youtube', 'instagram', 'linkedin', 'vimeo', 'fliccr', 'soundclound', 'snapchat',
         //Seo
         'descricao',
         'mapa_google',
         'metatags',
+        'analytics_view',
+        'tagmanager_id',
         'rss',
         'rss_data',
         'sitemap',

@@ -24,10 +24,12 @@ use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Assinaturas\AssinaturaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Web\ClienteController;
-use App\Http\Controllers\Web\Site\SendEmailController;
-use App\Http\Controllers\Web\Site\SiteController;
+use App\Http\Controllers\Web\Site\{
+    FilterController,
+    SendEmailController,
+    SiteController
+};
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('404.error', function(){
@@ -46,14 +48,30 @@ Route::group([
     'namespace' => 'Web', 
     'as' => 'web.'
 ], function () {
+
+    /** FILTRO */
+    Route::match(['post', 'get'], '/filtro', [SiteController::class, 'filter'])->name('filter');
+
+    //FILTROS
+    Route::post('main-filter/search', [FilterController::class, 'search'])->name('main-filter.search');
+    Route::post('main-filter/categoria', [FilterController::class, 'categoria'])->name('main-filter.categoria');
+    Route::post('main-filter/tipo', [FilterController::class, 'tipo'])->name('main-filter.tipo');
+    Route::post('main-filter/bairro', [FilterController::class, 'bairro'])->name('main-filter.bairro');
+    Route::post('main-filter/dormitorios', [FilterController::class, 'dormitorios'])->name('main-filter.dormitorios');
+    Route::post('main-filter/suites', [FilterController::class, 'suites'])->name('main-filter.suites');
+    Route::post('main-filter/banheiros', [FilterController::class, 'banheiros'])->name('main-filter.banheiros');
+    Route::post('main-filter/garagem', [FilterController::class, 'garagem'])->name('main-filter.garagem');
+    Route::post('main-filter/price-base', [FilterController::class, 'priceBase'])->name('main-filter.priceBase');
+    Route::post('main-filter/price-limit', [FilterController::class, 'priceLimit'])->name('main-filter.priceLimit');
     
     //CLIENTE
     Route::get('/', [SiteController::class, 'home'])->name('home');
     Route::get('/atendimento', [SiteController::class, 'atendimento'])->name('atendimento');
     Route::get('/sendEmail', [SendEmailController::class, 'sendEmail'])->name('sendEmail');
 
+    //FINANCIAMENTO
+    Route::get('/simulador-financiamento-imovel', [SiteController::class, 'financiamento'])->name('financiamento');
 
-    //Route::get('/', [ClienteController::class, 'home'])->name('home');
 
     //****************************** Imoveis ************************************/
     Route::get('/imoveis/categoria/{categoria}', [SiteController::class, 'categoriasImovel'])->name('imoveis.categoria');
@@ -87,17 +105,23 @@ Route::group([
 
     //** FEED */    
     Route::get('/feed', [RssFeedController::class, 'feed'])->name('feed');
+    Route::get('/politica-de-privacidade', [SiteController::class, 'politica'])->name('politica');
 
     //****************************** Notícias ***********************************************/
     Route::get('/noticia/{slug}', [SiteController::class, 'noticia'])->name('noticia');
     Route::get('/noticias/categoria/{slug}', [SiteController::class, 'categoria'])->name('noticia.categoria');
+    Route::get('/noticias', [SiteController::class, 'noticias'])->name('noticias'); 
+
+    //****************************** Páginas ***********************************************/
+    Route::get('/pagina/{slug}', [SiteController::class, 'pagina'])->name('pagina'); 
 
     //****************************** Blog ***********************************************/
     Route::get('/blog/artigo/{slug}', [SiteController::class, 'artigo'])->name('blog.artigo');
     Route::get('/blog/categoria/{slug}', [SiteController::class, 'categoria'])->name('blog.categoria');
-    Route::get('/blog', [WebController::class, 'artigos'])->name('blog.artigos');    
+    Route::get('/blog/artigos', [SiteController::class, 'artigos'])->name('blog.artigos');    
     Route::match(['get', 'post'],'/blog/pesquisar', [WebController::class, 'searchBlog'])->name('blog.searchBlog');
 });
+
 
 Route::prefix('admin')->middleware('auth')->group( function(){
 
@@ -242,7 +266,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('usuarios/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::get('usuarios/create', [UserController::class, 'create'])->name('users.create');
     Route::post('usuarios/store', [UserController::class, 'store'])->name('users.store');
-    Route::get('usuarios', [UserController::class, 'index'])->name('users.index');
+    Route::get('clientes', [UserController::class, 'index'])->name('users.index');
 
     //*********************** Email **********************************************/
     Route::get('email/suporte', [EmailController::class, 'suporte'])->name('email.suporte');

@@ -97,8 +97,8 @@
                             Imóveis
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="imoveisLink">
-                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'venda'])}}">Venda</a></li>
-                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'locacao'])}}">Locação</a></li>
+                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'venda'])}}">Comprar</a></li>
+                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'locacao'])}}">Alugar</a></li>
                         </ul>
                     </li> 
                     @if (!empty($categoriasMenu) && $categoriasMenu->count() > 0)
@@ -114,13 +114,9 @@
                         </li> 
                     @endif                 
                     
-                    <li class="nav-item"><a class="nav-link" href="{{--route('web.atendimento')--}}">Lançamento</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('web.atendimento')}}">Atendimento</a></li>
-                    <li class="nav-item submit-property-button">
-                        <a href="submit-property.html" class="button btn-3">
-                            Submit Property
-                        </a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{--route('web.atendimento')--}}" title="">Lançamento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('web.atendimento')}}" title="">Atendimento</a></li>                    
+                    <li class="nav-item"><a class="nav-link" href="{{route('web.financiamento')}}" title="">Financiamento</a></li>                    
                 </ul>
             </div>
         </nav>
@@ -438,25 +434,28 @@
                         </div>
                         <ul class="links">
                             <li>
-                                <a href="index.html">Início</a>
+                                <a href="{{route('web.home')}}">Início</a>
                             </li>
                             <li>
-                                <a href="about.html">Blog</a>
+                                <a href="{{route('web.blog.artigos')}}">Blog</a>
                             </li>
                             <li>
-                                <a href="contact.html">Imóveis</a>
+                                <a href="{{route('web.noticias')}}">Notícias</a>
                             </li>
                             <li>
                                 <a href="blog-single-sidebar-right.html">Financiamento</a>
                             </li>
                             <li>
-                                <a href="blog-single-sidebar-right.html">Busca</a>
+                                <a href="blog-single-sidebar-right.html">Busca por referência</a>
                             </li>
                             <li>
                                 <a href="properties-list-rightside.html">Cadastrar Imóvel</a>
                             </li>
                             <li>
-                                <a href="properties-details.html">Atendimento</a>
+                                <a href="{{route('web.atendimento')}}">Atendimento</a>
+                            </li>
+                            <li>
+                                <a href="{{route('web.politica')}}">Política de Privacidade</a>
                             </li>
                         </ul>
                     </div>
@@ -483,10 +482,10 @@
     <div class="copy-right">
         <div class="container">
             <div class="row clearfix">
-                <div class="col-lg-6 col-md-12 col-sm-12">
-                    <p>&copy;  {{$tenant->ano_de_inicio}} {{$tenant->name}}. Todos os direitos reservados.</p>
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <p style="font-size: 14px;">&copy;  {{$tenant->ano_de_inicio}} {{$tenant->name}}. Todos os direitos reservados.</p>
                 </div>
-                <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-lg-4 col-md-12 col-sm-12">
                     <ul class="social-list clearfix">
                         @if ($tenant->facebook)
                             <li><a target="_blank" class="facebook-bg" href="{{$tenant->facebook}}"><i class="fa fa-facebook"></i></a></li>
@@ -504,6 +503,9 @@
                             <li><a target="_blank" class="youtube-bg" href="{{$tenant->youtube}}"><i class="fa fa-youtube"></i></a></li>
                         @endif 
                     </ul>
+                </div>
+                <div class="col-12 text-center my-3">
+                    <a href=""><img src="{{env('DESENVOLVEDOR_LOGO')}}" alt="{{env('DESENVOLVEDOR')}}"></a>
                 </div>
             </div>
         </div>
@@ -535,6 +537,15 @@
 @hasSection('js')
     @yield('js')
 @endif
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{$tenant->tagmanager_id}}"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', {{$tenant->tagmanager_id}});
+</script>
 
 </body>
 </html>

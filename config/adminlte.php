@@ -87,7 +87,7 @@ return [
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
+    'layout_fixed_footer' => true,
     'layout_dark_mode' => null,
 
     /*
@@ -274,7 +274,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Clientes',
-                    'url'  => 'admin/usuarios',
+                    'url'  => 'admin/clientes',
                 ],
                 [
                     'text' => 'Time',
@@ -443,7 +443,7 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

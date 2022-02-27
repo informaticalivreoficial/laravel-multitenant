@@ -14,12 +14,12 @@
                             <div class="banner-content container align-self-center text-start">
                                 <h1>{{$slide->titulo}}</h1>
                                 @if ($slide->subtitulo)
-                                <p>{{$slide->subtitulo}}</p>
+                                    <p>{{$slide->subtitulo}}</p>
                                 @endif
                                 @if ($slide->botaolabel)
-                                <a class="btn-2 btn-defaults" {{($slide->target == 1 ? 'target="_blank"' : '')}} href="{{$slide->link}}" data-animation="animated fadeInUp delay-15s">
-                                    <span>{{$slide->botaolabel}}</span> <i class="arrow"></i>
-                                </a>
+                                    <a class="btn-2 btn-defaults" {{($slide->target == 1 ? 'target="_blank"' : '')}} href="{{$slide->link}}" data-animation="animated fadeInUp delay-15s">
+                                        <span>{{$slide->botaolabel}}</span> <i class="arrow"></i>
+                                    </a>
                                 @endif 
                             </div>
                         </div>
@@ -43,74 +43,101 @@
     <div class="container-fluid">
         <div class="search-area-inner">
             <div class="search-contents ">
-                <form method="GET">
+                <form action="{{ route('web.filter') }}" method="post">
+                    @csrf
                     <div class="row">
-                        <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
                             <div class="form-group">
-                                <select class="selectpicker search-fields" name="area from">
-                                    <option>Area From</option>
-                                    <option>1000</option>
-                                    <option>800</option>
-                                    <option>600</option>
-                                    <option>400</option>
-                                    <option>200</option>
-                                    <option>100</option>
+                                <label for="search" class="labelforms mb-1"><b>Alugar ou Comprar?</b></label>
+                                <select class="selectpicker search-fields" name="filter_search" id="search" title="Escolha..." data-index="1" data-action="{{ route('web.main-filter.search') }}">
+                                    <option value="venda">Comprar</option>
+                                    <option value="locacao">Alugar</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
                             <div class="form-group">
-                                <select class="selectpicker search-fields" name="property status">
-                                    <option>Property Status</option>
-                                    <option>For Sale</option>
-                                    <option>For Rent</option>
+                                <label for="categoria" class="labelforms mb-1"><b>O que você procura?</b></label>
+                                <select class="selectpicker search-fields" name="filter_categoria" id="categoria" title="Escolha..." data-index="2" data-action="{{ route('web.main-filter.categoria') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
                             <div class="form-group">
-                                <select class="selectpicker search-fields" name="location">
-                                    <option>Location</option>
-                                    <option>United States</option>
-                                    <option>United Kingdom</option>
-                                    <option>American Samoa</option>
-                                    <option>Belgium</option>
-                                    <option>Cameroon</option>
-                                    <option>Canada</option>
+                                <label for="tipo" class="labelforms mb-1"><b>Qual o tipo do imóvel?</b></label>
+                                <select class="selectpicker search-fields" name="filter_tipo" id="tipo" title="Escolha..." multiple data-actions-box="true" data-index="3" data-action="{{ route('web.main-filter.tipo') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
                             <div class="form-group">
-                                <select class="selectpicker search-fields" name="bedrooms">
-                                    <option>Bedrooms</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
+                                <label for="bairro" class="labelforms mb-1"><b>Onde você quer?</b></label>
+                                <select class="selectpicker search-fields" name="filter_bairro" id="bairro" multiple data-actions-box="true" data-index="4" data-action="{{ route('web.main-filter.bairro') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                    </div>
+
+                    <div class="row form_advanced" style="display: none;">
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
                             <div class="form-group">
-                                <select class="selectpicker search-fields" name="bathrooms">
-                                    <option>Bathrooms</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
+                                <label for="dormitorios" class="labelforms mb-1"><b>Dormitórios</b></label>
+                                <select class="selectpicker search-fields" name="filter_dormitorios" id="dormitorios" title="Escolha..." data-index="5" data-action="{{ route('web.main-filter.dormitorios') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
                             <div class="form-group">
-                                <button class="search-button">Search</button>
+                                <label for="suites" class="labelforms mb-1"><b>Suítes</b></label>
+                                <select class="selectpicker search-fields" name="filter_suites" id="suites" title="Escolha..." data-index="6" data-action="{{ route('web.main-filter.suites') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
+                            <div class="form-group">
+                                <label for="banheiros" class="labelforms mb-1"><b>Banheiros</b></label>
+                                <select class="selectpicker search-fields" name="filter_banheiros" id="banheiros" title="Escolha..." data-index="7" data-action="{{ route('web.main-filter.banheiros') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
+                            <div class="form-group">
+                                <label for="garagem" class="labelforms mb-1"><b>Garagem</b></label>
+                                <select class="selectpicker search-fields" name="filter_garagem" id="garagem" title="Escolha..." data-index="8" data-action="{{ route('web.main-filter.garagem') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
+                            <div class="form-group">
+                                <label for="base" class="labelforms mb-1"><b>Preço Base</b></label>
+                                <select class="selectpicker search-fields" name="filter_base" id="base" title="Escolha..." data-index="9" data-action="{{ route('web.main-filter.priceBase') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-3 mt-3">
+                            <div class="form-group">
+                                <label for="limit" class="labelforms mb-1"><b>Preço Limite</b></label>
+                                <select class="selectpicker search-fields" name="filter_limit" id="limit" title="Escolha..." data-index="10" data-action="{{ route('web.main-filter.priceLimit') }}">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-lg-9">
+                            <a href="" class="text-front open_filter">Filtro Avançado &darr;</a>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="form-group">
+                                <button class="search-button">Pesquisar</button>
                             </div>
                         </div>
                     </div>
@@ -447,6 +474,13 @@
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
     <script>
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         // Modal Vídeo
         $(document).on('click', '.property-video', function () {
             var embed = $(this).data('embed');
@@ -456,6 +490,74 @@
 
         $(".close").click(function(){
             $('.modalIframe').prop('src', '');
+        });
+
+        $('.open_filter').on('click', function (event) {
+            event.preventDefault();
+
+            box = $(".form_advanced");
+            button = $(this);
+
+            if (box.css("display") !== "none") {
+                button.text("Filtro Avançado ↓");
+            } else {
+                button.text("✗ Fechar");
+            }
+
+            box.slideToggle();
+        });
+
+        $('body').on('change', 'select[name*="filter_"]', function () {
+
+        var search = $(this);
+        var nextIndex = $(this).data('index') + 1;
+
+        $.post(search.data('action'), {search: search.val()}, function(response){
+
+                if(response.status === 'success') {
+
+                    $('select[data-index="' + nextIndex + '"]').empty();
+
+                    $.each(response.data, function(key, value){
+                        $('select[data-index="' + nextIndex + '"]').append(
+                            $('<option>', {
+                                value: value,
+                                text: value
+                            })
+                        );
+                    });
+
+                    $.each($('select[name*="filter_"]'), function(index, element){
+
+                        if($(element).data('index') >= nextIndex + 1){
+                            $(element).empty().append(
+                                $('<option>', {
+                                    text: 'Selecione o filtro anterior',
+                                    disabled: true
+                                })
+                            );
+                        }
+
+                    });
+
+                    $('.selectpicker').selectpicker('refresh');
+                }
+
+                if(response.status === 'fail') {
+
+                    if($(element).data('index') >= nextIndex){
+                        $(element).empty().append(
+                            $('<option>', {
+                                text: 'Selecione o filtro anterior',
+                                disabled: true
+                            })
+                        );
+                    }
+
+                    $('.selectpicker').selectpicker('refresh');
+                }
+
+            }, 'json');
         });
     </script>    
 @endsection

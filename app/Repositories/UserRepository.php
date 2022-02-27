@@ -21,6 +21,9 @@ class UserRepository
                     ->orderBy('created_at', 'DESC')
                     ->orderBy('status', 'ASC')
                     ->where('client', 1)
+                    ->where('admin', 0)
+                    ->where('editor', 0)
+                    ->where('superadmin', 0)
                     ->where('tenant_id', $tenant)
                     ->paginate(25);
     }

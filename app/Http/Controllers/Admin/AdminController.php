@@ -12,6 +12,7 @@ use Spatie\Analytics\Period;
 use App\Models\{
     CatPost,
     Empresa,
+    Imovel,
     Orcamento,
     User,
     Post,
@@ -25,12 +26,27 @@ class AdminController extends Controller
     public function home()
     {
         //Users
-        $time = User::where('admin', 1)->orWhere('editor', 1)->count();
-        $usersAvailable = User::where('client', 1)->available()->count();
-        $usersUnavailable = User::where('client', 1)->unavailable()->count();
+        $time = User::where('admin', 1)
+                        ->orWhere('editor', 1)
+                        ->orWhere('superadmin', 1)
+                        ->where('client', 0)
+                        ->count();
+        $usersAvailable = User::where('client', 1)
+                        ->where('admin', 0)
+                        ->where('editor', 0)
+                        ->where('superadmin', 0)
+                        ->available()
+                        ->count();
+        $usersUnavailable = User::where('client', 1)
+                        ->where('admin', 0)
+                        ->where('editor', 0)
+                        ->where('superadmin', 0)
+                        ->unavailable()
+                        ->count();
         //Artigos
-        $postsArtigos = CatPost::where('tipo', 'artigo')->count();
-        $postsPaginas = CatPost::where('tipo', 'pagina')->count();
+        $postsArtigos = Post::where('tipo', 'artigo')->count();
+        $postsPaginas = Post::where('tipo', 'pagina')->count();
+        $postsNoticias = Post::where('tipo', 'noticia')->count();
         $artigosTop = Post::where('tipo', 'artigo')
                 ->limit(4)
                 ->postson()
@@ -52,10 +68,9 @@ class AdminController extends Controller
         //Orçamentos
         //$orcamentosPendentes = Orcamento::available()->count();   
         //$orcamentosConcluidos = Orcamento::unavailable()->count();   
-        //Produtos
-        //$produtosAvailable = Produto::available()->count();
-        //$produtosUnavailable = Produto::unavailable()->count();
-        //$produtosTotal = Produto::all()->count();
+        //Imóveis
+        $imoveisAvailable = Imovel::available()->count();
+        $imoveisUnavailable = Imovel::unavailable()->count();
         //Empresas
         //$empresasAvailable = Empresa::available()->count();
         //$empresasUnavailable = Empresa::unavailable()->count();
@@ -67,7 +82,7 @@ class AdminController extends Controller
 
         //Analitcs
         $visitasHoje = Analytics::fetchMostVisitedPages(Period::days(1));
-        $visitas365 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(5));
+        //$visitas365 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(5));
         $top_browser = Analytics::fetchTopBrowsers(Period::months(5));
 
         $analyticsData = Analytics::performQuery(
@@ -86,6 +101,7 @@ class AdminController extends Controller
             //Artigos
             'postsArtigos' => $postsArtigos,
             'postsPaginas' => $postsPaginas,
+            'postsNoticias' => $postsNoticias,
             'artigosTop' => $artigosTop,
             'artigostotalviews' => $totalViewsArtigos->VIEWS,
             'paginasTop' => $paginasTop,
@@ -93,10 +109,9 @@ class AdminController extends Controller
             //Orçamentos
             //'orcamentosPendentes' => $orcamentosPendentes,
             //'orcamentosConcluidos' => $orcamentosConcluidos,
-            //Produtos
-            //'produtosAvailable' => $produtosAvailable,
-            //'produtosUnavailable' => $produtosUnavailable,
-            //'produtosTotal' => $produtosTotal,
+            //Imóveis
+            'imoveisAvailable' => $imoveisAvailable,
+            'imoveisUnavailable' => $imoveisUnavailable,
             //Empresas
             //'empresasAvailable' => $empresasAvailable,
             //'empresasUnavailable' => $empresasUnavailable,

@@ -23,6 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\Tenant\TenantFilesystems::class, 
         \App\Http\Middleware\Tenant\TenantUrlCheck::class,        
+        \App\Http\Middleware\Tenant\TenantAnalyticsId::class,        
     ];
 
     /**

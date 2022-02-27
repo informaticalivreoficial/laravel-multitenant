@@ -7,7 +7,6 @@ use App\Models\CatPost;
 use App\Models\Imovel;
 use App\Models\Post;
 use App\Models\Slide;
-use App\Models\Tenant;
 use App\Tenant\ManangerTenant;
 use Carbon\Carbon;
 use App\Support\Seo;
@@ -17,11 +16,13 @@ class SiteController extends Controller
 {
     protected $tenant;
     protected $seo;
+    protected $filter;
 
-    public function __construct(ManangerTenant $tenant)
+    public function __construct(ManangerTenant $tenant, FilterController $filter)
     {
         $this->tenant = $tenant->tenant();
         $this->seo = new Seo();
+        $this->filter = $filter;
     }
     
     public function home()
@@ -56,7 +57,7 @@ class SiteController extends Controller
                             ->get();
         
         $head = $this->seo->render($this->tenant->name ?? 'Super Imóveis',
-        $this->tenant->descricao ?? 'Super Imóveis Sistema Imobiliário',
+            $this->tenant->descricao ?? 'Super Imóveis Sistema Imobiliário',
             route('web.home'),
             $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
         );
@@ -69,6 +70,34 @@ class SiteController extends Controller
             'artigos' => $artigos,
             'head' => $head,
             'slides' => $slides
+        ]);
+    }
+
+    public function politica()
+    {
+        $head = $this->seo->render('Política de Privacidade - ' . $this->tenant->name ?? 'Super Imóveis',
+            'Política de Privacidade - ' . $this->tenant->name,
+            route('web.politica'),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
+
+        return view('web.sites.'.$this->tenant->template.'.politica',[
+            'tenant' => $this->tenant,
+            'head' => $head
+        ]);
+    }
+
+    public function financiamento()
+    {
+        $head = $this->seo->render('Simulador de Financiamento de Imóvel - ' . $this->tenant->name ?? 'Super Imóveis',
+            'Simule aqui os valores do financiamento para lhe auxiliar na decisão de comprar o imóvel dos seus sonhos.',
+            route('web.financiamento'),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
+
+        return view('web.sites.'.$this->tenant->template.'.financiamento',[
+            'tenant' => $this->tenant,
+            'head' => $head
         ]);
     }
 
@@ -111,8 +140,8 @@ class SiteController extends Controller
         }else{
             $head = $this->seo->render($this->tenant->name ?? 'Informática Livre',
                 'Imóvel não encontrado!',
-                route('web.home') ?? 'https://informaticalivre.com/',
-                $this->tenant->getMetaImg() ?? 'https://informaticalivre.com/media/metaimg.jpg'
+                route('web.home') ?? 'https://superimoveis.info/',
+                $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
             );
             return view('web.sites.'.$this->tenant->template.'.imoveis.imovel', [
                 'tenant' => $this->tenant,
@@ -132,6 +161,12 @@ class SiteController extends Controller
             $imoveis = Imovel::orderBy('created_at', 'DESC')->available()->locacao()->paginate(15);
         }        
 
+        $head = $this->seo->render('Notícias' ?? 'Super Imóveis Sistema Imobiliário',
+            'Confira as notícias sobre o mercado imobiliário e atualidades',
+            route('web.noticias'),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
+
         return view('web.sites.'.$this->tenant->template.'.imoveis.index',[
             'tenant' => $this->tenant,
             'imoveis' => $imoveis,
@@ -150,6 +185,41 @@ class SiteController extends Controller
         ]);
     }
 
+    public function filter()
+    {
+        $head = $this->seo->render('Pesquisa de imóveis - ' . $this->tenant->name ?? 'Super Imóveis Sistema Imobiliário',
+            $this->tenant->descricao ?? 'Informática Livre desenvolvimento de sistemas web desde 2005',
+            route('web.filter'),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
+
+        $filter = $this->filter;
+        $itemImoveis = $filter->createQuery('id');
+
+        foreach ($itemImoveis as $imovel) {
+            $imoveis[] = $imovel->id;
+        }
+
+        if (!empty($imoveis)) {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')
+                                ->where('tenant_id', $this->tenant->id)
+                                ->whereIn('id', $imoveis)
+                                ->available()
+                                ->paginate(18);
+        } else {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')
+                                ->where('tenant_id', $this->tenant->id)
+                                ->available()
+                                ->paginate(18);
+        }
+
+        return view('web.sites.'.$this->tenant->template.'.imoveis.filtro', [
+            'tenant' => $this->tenant,
+            'head' => $head,
+            'imoveis' => $imoveis,
+        ]);
+    }
+
     public function categoria(Request $request)
     {
         $categoria = CatPost::where('slug', $request->slug)
@@ -163,16 +233,65 @@ class SiteController extends Controller
                             ->postson()
                             ->paginate(18);
         
-        $head = $this->seo->render($categoria->titulo ?? 'Super Imóveis',
+        $head = $this->seo->render($categoria->titulo ?? 'Super Imóveis Sistema Imobiliário',
             $this->tenant->name . '-' . $categoria->content,
             route(($categoria->tipo == 'artigo' ? 'web.blog.categoria' : 'web.noticia.categoria'), ['slug' => $request->slug]),
-            $this->tenant->getMetaImg() ?? 'https://informaticalivre.com/media/metaimg.jpg'
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
         );
 
         return view('web.sites.'.$this->tenant->template.'.blog.categoria', [
+            'tenant' => $this->tenant,
             'head' => $head,
             'posts' => $posts,
             'categoria' => $categoria,
+        ]);
+    }
+
+    public function artigos()
+    {
+        $posts = Post::orderBy('created_at', 'DESC')
+                        ->where('tipo', '=', 'artigo')
+                        ->where('tenant_id', $this->tenant->id)
+                        ->postson()
+                        ->paginate(18);
+
+        $type = 'artigo';
+
+        $head = $this->seo->render('Blog - Artigos' ?? 'Super Imóveis Sistema Imobiliário',
+            'Confira nossos artigos sobre o mercado imobiliário e atualidades',
+            route('web.blog.artigos'),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
+
+        return view('web.sites.'.$this->tenant->template.'.blog.artigos', [
+            'tenant' => $this->tenant,
+            'type' => $type,
+            'head' => $head,
+            'posts' => $posts,
+        ]);
+    }
+
+    public function noticias()
+    {
+        $posts = Post::orderBy('created_at', 'DESC')
+                        ->where('tipo', '=', 'noticia')
+                        ->where('tenant_id', $this->tenant->id)
+                        ->postson()
+                        ->paginate(18);
+
+        $type = 'noticia';
+
+        $head = $this->seo->render('Notícias' ?? 'Super Imóveis Sistema Imobiliário',
+            'Confira as notícias sobre o mercado imobiliário e atualidades',
+            route('web.noticias'),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
+
+        return view('web.sites.'.$this->tenant->template.'.blog.artigos', [
+            'tenant' => $this->tenant,
+            'type' => $type,
+            'head' => $head,
+            'posts' => $posts,
         ]);
     }
 
@@ -207,7 +326,7 @@ class SiteController extends Controller
         $post->views = $post->views + 1;
         $post->save();
 
-        $head = $this->seo->render($post->titulo ?? 'Informática Livre',
+        $head = $this->seo->render($post->titulo ?? 'Super Imóveis Sistema Imobiliário',
             'Blog - ' . $post->titulo,
             route('web.blog.artigo', ['slug' => $post->slug]),
             $post->cover() ?? $this->tenant->getMetaImg()
@@ -254,7 +373,7 @@ class SiteController extends Controller
         $post->views = $post->views + 1;
         $post->save();
 
-        $head = $this->seo->render($post->titulo ?? 'Informática Livre',
+        $head = $this->seo->render($post->titulo ?? 'Super Imóveis Sistema Imobiliário',
             'Notícia - ' . $post->titulo,
             route('web.noticia', ['slug' => $post->slug]),
             $post->cover() ?? $this->tenant->getMetaImg()
