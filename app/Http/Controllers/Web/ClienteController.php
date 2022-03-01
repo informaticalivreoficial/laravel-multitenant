@@ -22,24 +22,24 @@ class ClienteController extends Controller
 
     public function planos()
     {
-        $planos = Plan::orderBy('valor', 'ASC')->limit(3)->get();
+        $planos = Plan::orderBy('valor', 'ASC')->limit(3)->available()->get();
         return view('web.sites.'.$this->tenant->template.'.cliente.planos',[
             'tenant' => $this->tenant,
             'planos' => $planos
         ]);
     }
 
-    public function plano($slug)
-    {
-        $plano = Plan::where('slug', $slug)->first();
-        return view('web.cliente.plano',[
-            'plano' => $plano
-        ]);
-    }
+    // public function plano($slug)
+    // {
+    //     $plano = Plan::where('slug', $slug)->first();
+    //     return view('web.cliente.plano',[
+    //         'plano' => $plano
+    //     ]);
+    // }
 
     public function assinar($slug)
     {
-        if (!$plan = Plan::where('slug', $slug)->first()) {
+        if (!$plan = Plan::where('slug', $slug)->available()->first()) {
             return redirect()->back();
         }
 

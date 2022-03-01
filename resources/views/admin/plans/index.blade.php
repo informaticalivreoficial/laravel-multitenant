@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1><i class="fas fa-search mr-2"></i> Planos</h1>
+        <h1><i class="fas fa-list-alt mr-2"></i> Planos</h1>
     </div>
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">                    
@@ -39,7 +39,7 @@
                             <th>Plano</th>
                             <th>Assinantes</th>
                             <th>Valor</th>
-                            <th class="text-center">Views</th>
+                            <th>Avaliação</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -47,8 +47,9 @@
                         @foreach($plans as $plan)                        
                         <tr style="{{ ($plan->status == '1' ? '' : 'background: #fffed8 !important;')  }}">                       
                             <td>{{$plan->name}}</td>
-                            <td></td>
-                            <td class="text-center"></td>
+                            <td>{{$plan->tenants->count()}}</td>
+                            <td>R${{$plan->valor}}</td>
+                            <td>{{($plan->avaliacao == 1 ? 'Sim' : 'Não')}}</td>
                             <td>
                                 <input type="checkbox" data-onstyle="success" data-offstyle="warning" data-size="mini" class="toggle-class" data-id="{{ $plan->id }}" data-toggle="toggle" data-style="slow" data-on="<i class='fas fa-check'></i>" data-off="<i style='color:#fff !important;' class='fas fa-exclamation-triangle'></i>" {{ $plan->status == true ? 'checked' : ''}}>
                                 <a href="{{ route('plans.edit', [ 'id' => $plan->id ]) }}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
@@ -158,14 +159,14 @@
             
             $('.toggle-class').on('change', function() {
                 var status = $(this).prop('checked') == true ? 1 : 0;
-                var post_id = $(this).data('id');
+                var plan_id = $(this).data('id');
                 $.ajax({
                     type: 'GET',
                     dataType: 'JSON',
-                    url: '{{ route('posts.postSetStatus') }}',
+                    url: '{{ route('plans.planSetStatus') }}',
                     data: {
                         'status': status,
-                        'id': post_id
+                        'id': plan_id
                     },
                     success:function(data) {
                         

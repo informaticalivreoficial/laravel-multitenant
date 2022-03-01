@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\ACL\{
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Assinaturas\AssinaturaController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Web\ClienteController;
 use App\Http\Controllers\Web\Site\{
     FilterController,
@@ -227,6 +228,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('permissoes/{idPermission}/perfis', [PermissionPerfilController::class, 'profiles'])->name('permissoes.perfis');
 
     //********************** Planos ************************************************/
+    Route::get('planos/set-status', [PlanController::class, 'planSetStatus'])->name('plans.planSetStatus');
     Route::put('planos/{id}', [PlanController::class, 'update'])->name('plans.update');
     Route::get('planos/edit/{id}', [PlanController::class, 'edit'])->name('plans.edit');
     Route::post('planos/store', [PlanController::class, 'store'])->name('plans.store');
@@ -282,7 +284,7 @@ Route::get('cadastro', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('cadastro', [RegisterController::class, 'register']);
 
 Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('login');
-// Route::post('login', [LoginController::class, 'login']);
+Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 // Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
@@ -290,4 +292,4 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 // Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 // Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Auth::routes();
+//Auth::routes();

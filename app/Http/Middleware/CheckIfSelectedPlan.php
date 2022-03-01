@@ -19,7 +19,7 @@ class CheckIfSelectedPlan
         if (!session()->has('plan')) {
             return redirect()->route('web.home');
         }
-
+        
         return $next($request);
     }
 }

@@ -89,6 +89,15 @@ $config = [
                                     </div>                                    
                                     <div class="col-3">
                                         <div class="form-group">
+                                            <label class="labelforms"><b>30 dias de Avaliação?</b></label>
+                                            <select name="avaliacao" class="form-control">
+                                                <option value="1" {{ (old('avaliacao') == '1' ? 'selected' : ($plan->avaliacao == '1' ? 'selected' : '')) }}>Sim</option>
+                                                <option value="0" {{ (old('avaliacao') == '0' ? 'selected' : ($plan->avaliacao == '0' ? 'selected' : '')) }}>Não</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
                                             <label class="labelforms"><b>Status:</b></label>
                                             <select name="status" class="form-control">
                                                 <option value="1" {{ (old('status') == '1' ? 'selected' : ($plan->status == '1' ? 'selected' : '')) }}>Publicado</option>

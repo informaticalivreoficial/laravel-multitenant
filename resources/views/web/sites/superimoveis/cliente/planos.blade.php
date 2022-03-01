@@ -24,7 +24,14 @@
                       <div class="pricing-heading" style="margin-bottom: 10px;">
                           <div class="price">
                               <h6>{{$plano->name}}</h6>
-                              <span class="fz-12 d-block">R$</span><h1 class="mb-0 display-5 fw-bold text-info">{{$plano->valor}}</h1><span class="fz-12 d-block">mensal</span>
+                              <span class="fz-12 d-block">R$</span>
+                              @if ($plano->avaliacao == 1)
+                                <h1 style="text-decoration:line-through;" class="mb-0 display-5 fw-bold text-info">{{$plano->valor}}</h1>
+                                <span style="color: darkgreen;" class="fz-12 d-block">30 dias Grátis</span>
+                              @else
+                                <h1 class="mb-0 display-5 fw-bold text-info">{{$plano->valor}}</h1>
+                                <span class="fz-12 d-block">mensal</span>
+                              @endif                              
                           </div>
                       </div>
                       <div class="pricing-desc my-2">

@@ -12,6 +12,7 @@ class PlanController extends Controller
     public function index()
     {
         $plans = Plan::latest()->paginate(10);
+        
         return view('admin.plans.index',[
             'plans' => $plans
         ]);
@@ -50,4 +51,12 @@ class PlanController extends Controller
             'id' => $planUpdate->id,
         ])->with(['color' => 'success', 'message' => 'Plano atualizado com sucesso!']);
     } 
+
+    public function planSetStatus(Request $request)
+    {        
+        $plan = Plan::find($request->id);
+        $plan->status = $request->status;
+        $plan->save();
+        return response()->json(['success' => true]);
+    }
 }

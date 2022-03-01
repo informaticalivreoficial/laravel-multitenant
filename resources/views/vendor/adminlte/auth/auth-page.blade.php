@@ -1,4 +1,31 @@
-@extends('adminlte::master')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="language" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
+        
+        <meta name="author" content="Renato Montanari"/>
+        <meta name="copyright" content="2020 Super Imóveis Sistema Imobiliário"> 
+        
+        <link rel="stylesheet" href="{{url(asset('frontend/superimoveis/css/all-css-libraries.css'))}}"/>
+        <link rel="stylesheet" href="{{url(asset('frontend/superimoveis/css/style.css'))}}"/>
+        <link rel="stylesheet" href="{{url(asset('backend/assets/css/renato.css'))}}"/>
+
+        @hasSection('css')
+            @yield('css')
+        @endif
+
+        <!-- FAVICON -->
+        <link rel="shortcut icon" href="{{url(asset('frontend/superimoveis/img/faveicon.png'))}}"/>
+        <link rel="apple-touch-icon" href="{{url(asset('frontend/superimoveis/img/faveicon.png'))}}"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="{{url(asset('frontend/superimoveis/img/faveicon.png'))}}"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="{{url(asset('frontend/superimoveis/img/faveicon.png'))}}"/>
+
+
+    </head>
+
+{{--@extends('adminlte::master')--}}
 
 @php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'home') )
 
@@ -13,15 +40,16 @@
     @yield('css')
 @stop
 
+{{--
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page login-body' }}@stop
+--}}
 
-@section('body')
+{{--@section('body')--}}
+<body class="login-body">
+
     <div class="{{ $auth_type ?? 'login' }}-box">
         
-        {{-- Logo --}}
-        <div class="login-logo mt-5">
-        <img width="{{env('LOGOMARCA_GERENCIADOR_WIDTH')}}" height="{{env('LOGOMARCA_GERENCIADOR_HEIGHT')}}" src="{{env('DESENVOLVEDOR_LOGO_ADMIN')}}" alt="{{env('DESENVOLVEDOR')}}" class="elevation-3">
-        </div>
+        
 
         {{-- Card Box --}}
         <div class="card {{ config('adminlte.classes_auth_card', 'card-outline card-primary') }}">
@@ -50,7 +78,9 @@
         </div>
 
     </div>
-@stop
+{{--@stop--}}
+</body>
+</html>
 
 @section('adminlte_js')
     @stack('js')

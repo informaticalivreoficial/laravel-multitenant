@@ -15,7 +15,10 @@ class Plan extends Model
         'name',
         'content',
         'slug',
-        'exibivalores',        
+        'exibivalores',
+        'status',
+        'stripe_id',
+        'avaliacao',        
         'valor',
         'valor_mensal',
         'valor_trimestral',
@@ -40,6 +43,16 @@ class Plan extends Model
     /**
      * Scopes
     */
+    public function scopeAvailable($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function scopeUnavailable($query)
+    {
+        return $query->where('status', 0);
+    }
+    
     public function profilesAvailable()
     {
         $profiles = Profile::whereNotIn('id', function($query){
@@ -49,5 +62,30 @@ class Plan extends Model
         })->paginate();
         
         return $profiles;
+    }
+
+    /**
+     * Accerssors and Mutators
+    */
+    public function setValorAttribute($value)
+    {
+        $this->attributes['valor'] = (!empty($value) ? floatval($this->convertStringToDouble($value)) : null);
+    }
+
+    public function getValorAttribute($value)
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        return number_format($value, 2, ',', '.');
+    }
+
+    private function convertStringToDouble($param)
+    {
+        if(empty($param)){
+            return null;
+        }
+        return str_replace(',', '.', str_replace('.', '', $param));
     }
 }
