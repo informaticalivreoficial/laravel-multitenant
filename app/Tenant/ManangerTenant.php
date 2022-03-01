@@ -6,17 +6,25 @@ use App\Models\Tenant;
 
 class ManangerTenant
 {
-    public function subdomain()
+    // public function subdomain()
+    // {
+    //     //subdominio.superimoveis.info
+    //     $pieces = explode('.', request()->getHost());
+    //     return $pieces[0];
+    // }
+
+    public function domain()
     {
-        //subdominio.superimoveis.info
-        $pieces = explode('.', request()->getHost());
-        return $pieces[0];
+        //superimoveis.info
+        return $pieces = request()->getHost();
     }
 
     public function tenant()
     {
-        $subdominio = $this->subdomain();
-        $tenant = Tenant::where('subdominio', $subdominio)->first();
+        // $subdominio = $this->subdomain();
+        // $tenant = Tenant::where('subdominio', $subdominio)->first();
+        $dominio = $this->domain();
+        $tenant = Tenant::where('dominio', $dominio)->first();
         return $tenant;
     }
 

@@ -103,27 +103,27 @@ class TenantController extends Controller
         $empresa->fill($request->all());
         
         if(!empty($request->file('metaimg'))){
-            $empresa->metaimg = $request->file('metaimg')->storeAs('tenants/'.$empresa->uuid, 'metaimg-'.Str::slug($request->name)  . '.' . $request->file('metaimg')->extension());
+            $empresa->metaimg = $request->file('metaimg')->storeAs('configuracoes/'.$empresa->uuid, 'metaimg-'.Str::slug($request->name)  . '.' . $request->file('metaimg')->extension());
         }
         
         if(!empty($request->file('logomarca'))){
-            $empresa->logomarca = $request->file('logomarca')->storeAs('tenants/'.$empresa->uuid, 'logomarca-'.Str::slug($request->name)  . '.' . $request->file('logomarca')->extension());
+            $empresa->logomarca = $request->file('logomarca')->storeAs('configuracoes/'.$empresa->uuid, 'logomarca-'.Str::slug($request->name)  . '.' . $request->file('logomarca')->extension());
         }
         
         if(!empty($request->file('logomarca_admin'))){
-            $empresa->logomarca_admin = $request->file('logomarca_admin')->storeAs('tenants/'.$empresa->uuid, 'logomarca-admin-'.Str::slug($request->name)  . '.' . $request->file('logomarca_admin')->extension());
+            $empresa->logomarca_admin = $request->file('logomarca_admin')->storeAs('configuracoes/'.$empresa->uuid, 'logomarca-admin-'.Str::slug($request->name)  . '.' . $request->file('logomarca_admin')->extension());
         }
         
         if(!empty($request->file('favicon'))){
-            $empresa->favicon = $request->file('favicon')->storeAs('tenants/'.$empresa->uuid, 'favivon-'.Str::slug($request->name)  . '.' . $request->file('favicon')->extension());
+            $empresa->favicon = $request->file('favicon')->storeAs('configuracoes/'.$empresa->uuid, 'favivon-'.Str::slug($request->name)  . '.' . $request->file('favicon')->extension());
         }
         
         if(!empty($request->file('marcadagua'))){
-            $empresa->marcadagua = $request->file('marcadagua')->storeAs('tenants/'.$empresa->uuid, 'marcadagua-'.Str::slug($request->name)  . '.' . $request->file('marcadagua')->extension());
+            $empresa->marcadagua = $request->file('marcadagua')->storeAs('configuracoes/'.$empresa->uuid, 'marcadagua-'.Str::slug($request->name)  . '.' . $request->file('marcadagua')->extension());
         }
         
         if(!empty($request->file('imgheader'))){
-            $empresa->imgheader = $request->file('imgheader')->storeAs('tenants/'.$empresa->uuid, 'imgheader-'.Str::slug($request->name)  . '.' . $request->file('imgheader')->extension());
+            $empresa->imgheader = $request->file('imgheader')->storeAs('configuracoes/'.$empresa->uuid, 'imgheader-'.Str::slug($request->name)  . '.' . $request->file('imgheader')->extension());
         }
 
         if(!$empresa->save()){

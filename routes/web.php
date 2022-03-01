@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\{
     AdminController,
     CatPostController,
+    EmailController,
     ImovelController,
     PlanController,
     PostController,
@@ -277,12 +278,12 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 });
 
 // Registration Routes...
-// Route::get('cadastro', [RegisterController::class, 'showRegistrationForm'])->name('register');
-// Route::post('cadastro', [RegisterController::class, 'register']);
+Route::get('cadastro', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('cadastro', [RegisterController::class, 'register']);
 
 Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('login');
 // Route::post('login', [LoginController::class, 'login']);
-// Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 // Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 // Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');

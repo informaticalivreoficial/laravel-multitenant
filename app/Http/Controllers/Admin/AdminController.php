@@ -27,17 +27,20 @@ class AdminController extends Controller
     {
         //Users
         $time = User::where('admin', 1)
+                        ->where('tenant_id', auth()->user()->tenant->id)
                         ->orWhere('editor', 1)
                         ->orWhere('superadmin', 1)
                         ->where('client', 0)
                         ->count();
         $usersAvailable = User::where('client', 1)
+                        ->where('tenant_id', auth()->user()->tenant->id)
                         ->where('admin', 0)
                         ->where('editor', 0)
                         ->where('superadmin', 0)
                         ->available()
                         ->count();
         $usersUnavailable = User::where('client', 1)
+                        ->where('tenant_id', auth()->user()->tenant->id)
                         ->where('admin', 0)
                         ->where('editor', 0)
                         ->where('superadmin', 0)
