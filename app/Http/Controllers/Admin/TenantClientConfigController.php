@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ConfiguracoesRequest;
 use App\Models\Cidades;
 use App\Models\Estados;
+use App\Models\Template;
 use App\Models\Tenant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class TenantClientConfigController extends Controller
         $tenant = auth()->user()->tenant;        
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get();
+        $templates = Template::orderBy('created_at', 'DESC')->available()->get();
 
         $sitemap = $tenant->sitemap_data ? Carbon::createFromFormat('Y-m-d', $tenant->sitemap_data) : Carbon::now();
         $datahoje = Carbon::now();
@@ -39,6 +41,7 @@ class TenantClientConfigController extends Controller
             'config' => $tenant,
             'estados' => $estados,
             'cidades' => $cidades,
+            'templates' => $templates,
             'diferenca' => $diferenca,
             'feeddatadiferenca' => $feeddatadiferenca
         ]);

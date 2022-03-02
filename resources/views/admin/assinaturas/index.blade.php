@@ -29,13 +29,14 @@
         <div class="row">
             <div class="col-12 my-2">
                 <p>
+                    {{-- dd() --}}
                     <b>Data Início:</b>  {{\Carbon\Carbon::parse(Auth::user()->tenant->subscription)->format('d/m/Y')}}<br>
                     <b>Situação:</b>
-                    @if (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->tenant->subscription)) > 30)
+                    @if (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->tenant->subscription)) >= 30)
                         <span class="text-danger">Expirado <i class="fas fa-frown"></i></span>
                     @else
                         <span class="text-success">Ativa <i class="fas fa-smile"></i> expira em 
-                        {{\Carbon\Carbon::parse(Auth::user()->tenant->expires_at)->diffInDays(\Carbon\Carbon::parse(Auth::user()->tenant->subscription))}} dias</span>
+                        {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->tenant->expires_at))}} dias</span>
                     @endif
                     <br>
                 </p>

@@ -78,8 +78,6 @@
     </div>
 </section>
 
-
-
 <!-- FAQ Area-->
 <div class="faq--area section-padding-120-70">   
   <div class="container">
@@ -117,10 +115,8 @@
                 </div>
                 <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-bs-parent="#faqaccordian">
                   <div class="card-body">
-                    <p>Após o pagamento do sistema, contratação de hospedagem e domínio nossa equipe entrega seu sistema em até 48hs, 
-                        a grande maioria dos sistemas leva de 3 a 7 dias úteis para ficar pronto. 
-                        Como os sistemas Super Imóveis são personalizados, outro fator que também pode influenciar no prazo 
-                        é o tempo que você irá demorar para aprovar o layout.</p>
+                    <p>Após o cadastro o acesso é imediato, basta configurar as informações da sua empresa e domínio,
+                       caso tenha dúvida nossa equipe está disponóvel para auxiliar.</p>
                   </div>
                 </div>
               </div>
@@ -180,9 +176,8 @@
               <div class="collapse" id="collapseFour" aria-labelledby="headingFour" data-bs-parent="#faqaccordian2">
                 <div class="card-body">
                   <p>
-                      Sim você pode testar o sistema através dos Links:<br>
-                      Painel Gerenciador: <a target="_blank" href="http://demo.superimoveis.info/admin">>> Acesse aqui</a><br>
-                      Web site: <a target="_blank" href="http://demo.superimoveis.info">>> Acesse aqui</a>
+                      Sim você pode testar o sistema gratuitamente por 30 dias escolhendo o plano básico:<br>
+                      Planos: <a target="_blank" href="{{route('web.planos')}}">>> Acesse aqui</a>
                 </p>
                 </div>
               </div>
@@ -196,8 +191,8 @@
               <div class="collapse" id="collapseFive" aria-labelledby="headingFive" data-bs-parent="#faqaccordian2">
                 <div class="card-body">
                   <p>
-                      Não cobramos para implantar seu sistema, após regularização de domínio e hospedagem, nossa
-                      equipe faz toda a configuração necessária para o bom funcionamento do sistema sem custos adicionais.
+                      Não cobramos para implantar seu sistema, após regularização de domínio, nossa
+                      equipe lhe auxilia na configuração necessária para o bom funcionamento do sistema sem custos adicionais.
                   </p>
                 </div>
               </div>
@@ -246,18 +241,18 @@
       <div class="col-12">
       <h4 class="mb-5">Integração com os principais portais</h4>
         <div class="our-partner-slides owl-carousel">
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/1.png')}}" alt="Nuroa"></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/2.png')}}" alt="Zap"></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/3.png')}}" alt="Viva Real"></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/4.png')}}" alt="Imóvel Web"></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/5.png')}}" alt="Dream Casa"></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/6.png')}}" alt="Zip Anúncios"></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/1.png')}}" alt=""></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/2.png')}}" alt=""></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/3.png')}}" alt=""></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/4.png')}}" alt=""></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/5.png')}}" alt=""></div>
-          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/assets/img/partner-img/6.png')}}" alt=""></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/1.png')}}" alt="Nuroa"></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/2.png')}}" alt="Zap"></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/3.png')}}" alt="Viva Real"></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/4.png')}}" alt="Imóvel Web"></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/5.png')}}" alt="Dream Casa"></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/6.png')}}" alt="Zip Anúncios"></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/1.png')}}" alt=""></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/2.png')}}" alt=""></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/3.png')}}" alt=""></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/4.png')}}" alt=""></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/5.png')}}" alt=""></div>
+          <div class="single-partner"><img src="{{url('frontend/'.$tenant->template.'/img/partner-img/6.png')}}" alt=""></div>
         </div>
       </div>
     </div>

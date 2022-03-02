@@ -48,7 +48,7 @@
                   <div class="classynav">
                   <ul id="corenav">
                       <li><a href="{{route('web.home')}}">Início</a></li>                  
-                      <li><a href="index.php?app=blog">Dicas</a></li>
+                      {{--<li><a href="index.php?app=blog">Dicas</a></li>--}}
                       <li><a href="{{route('web.atendimento')}}">Atendimento</a></li>
                       @guest
                             @if (Route::has('web.loja.login'))
@@ -111,28 +111,22 @@
                     <!-- Footer Widget Area-->
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                         <div class="footer-widget-area mb-70">
-                            <h5 class="widget-title">Important Links</h5>
+                            <h5 class="widget-title">Mapa do site</h5>
                             <ul>
-                            <li><a href="#" target="_blank">Termos &amp; Condições</a></li>
-                            <li><a href="#" target="_blank">Licença</a></li>
-                            <li><a href="#" target="_blank">Suporte</a></li>
-                            <li><a href="#" target="_blank">Vídeos</a></li>
-                            <li><a href="#" target="_blank">Blog</a></li>
+                                <li><a href="{{route('web.planos')}}">Planos</a></li>
+                                <li><a href="#">Empresa</a></li>
+                            </ul>
+                            <h5 class="widget-title mt-4">Cliente</h5>
+                            <ul>
+                                <li><a href="{{route('login')}}">Login</a></li>
+                                <li><a href="{{route('web.atendimento')}}">Atendimento</a></li>
                             </ul>
                         </div>
                     </div>          
                     <!-- Footer Widget Area-->
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2">
                         <div class="footer-widget-area mb-70">
-                            <h5 class="widget-title">My Account</h5>
-                            <ul>
-                            <li><a href="#" target="_blank">Community &amp; Forum</a></li>
-                            <li><a href="#" target="_blank">About Licences</a></li>
-                            <li><a href="#" target="_blank">Careers</a></li>
-                            <li><a href="#" target="_blank">Terms &amp; Conditions</a></li>
-                            <li><a href="#" target="_blank">Privacy Policy</a></li>
-                            <li><a href="#" target="_blank">Help &amp; Support</a></li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -149,7 +143,7 @@
                     </div> 
                     <div class="col-12 col-sm-12 col-md-6 col-lg-12 p-lg-2 text-center">            
                         <div class="footer--content-text">
-                            <p class="mb-0" style="font-size: 0.875em;">{{$tenant->name}} ® - Todos os direitos reservados <a href="https://informaticalivre.com.br" target="_blank">By Informática Livre</a></p>
+                            <p class="mb-0" style="font-size: 0.875em;">® {{$tenant->name}} - Todos os direitos reservados.Desenvolvido por <a href="https://informaticalivre.com.br" target="_blank">Informática Livre</a></p>
                         </div>
                     </div>         
                 </div>
@@ -157,8 +151,10 @@
         </footer>        
         
         <script src="{{url(asset('frontend/'.$tenant->template.'/js/jquery.min.js'))}}"></script>
-        <script src="{{url(asset('frontend/'.$tenant->template.'/js/bootstrap.js'))}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+        <script src="{{--url(asset('frontend/'.$tenant->template.'/js/bootstrap.js'))--}}"></script>
         <script src="{{url(asset('frontend/'.$tenant->template.'/js/libs.js'))}}"></script>
+        <script src="{{url(asset('frontend/'.$tenant->template.'/js/app.js'))}}"></script>
 
         @hasSection('js')
             @yield('js')
