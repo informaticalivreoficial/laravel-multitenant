@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\{
     ImovelController,
     PlanController,
     PostController,
+    SitemapController,
     SlideController,
     TenantClientConfigController,
     TenantController,
@@ -30,6 +31,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Web\ClienteController;
 use App\Http\Controllers\Web\Site\{
     FilterController,
+    RssFeedController,
     SendEmailController,
     SiteController
 };

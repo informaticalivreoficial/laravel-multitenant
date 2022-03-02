@@ -1,25 +1,56 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Web\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\{
-    Portifolio,
+    Imovel,
     Post
 };
+use App\Tenant\ManangerTenant;
 
 class RssFeedController extends Controller
 {
+
+    protected $tenant;
+
+    public function __construct(ManangerTenant $tenant)
+    {
+        $this->tenant = $tenant->tenant();
+    }
+
     public function feed()
     {
-        $posts = Post::orderBy('created_at', 'DESC')->where('tipo', 'artigo')->postson()->limit(10)->get();
-        $paginas = Post::orderBy('created_at', 'DESC')->where('tipo', 'pagina')->postson()->limit(10)->get();
-        $projetos = Portifolio::orderBy('created_at', 'DESC')->available()->limit(20)->get();
+        $posts = Post::orderBy('created_at', 'DESC')
+                        ->where('tenant_id', $this->tenant->id)
+                        ->where('tipo', 'artigo')
+                        ->postson()
+                        ->limit(10)
+                        ->get();
+        $paginas = Post::orderBy('created_at', 'DESC')
+                        ->where('tenant_id', $this->tenant->id)
+                        ->where('tipo', 'pagina')
+                        ->postson()
+                        ->limit(10)
+                        ->get();
+        $noticias = Post::orderBy('created_at', 'DESC')
+                        ->where('tenant_id', $this->tenant->id)
+                        ->where('tipo', 'noticia')
+                        ->postson()
+                        ->limit(10)
+                        ->get();
+        $imoveis = Imovel::orderBy('created_at', 'DESC')
+                        ->where('tenant_id', $this->tenant->id)
+                        ->available()
+                        ->limit(50)
+                        ->get();
 
-        return response()->view('web.feed', [
+        return response()->view('web.sites.'.$this->tenant->template.'.feed', [
+            'tenant' => $this->tenant,
             'posts' => $posts,
             'paginas' => $paginas,
-            'projetos' => $projetos
+            'noticias' => $noticias,
+            'imoveis' => $imoveis
         ])->header('Content-Type', 'application/xml');
         
     }

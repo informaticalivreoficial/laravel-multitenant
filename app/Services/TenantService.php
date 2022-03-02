@@ -47,10 +47,14 @@ class TenantService
     {
         return $this->plan->tenants()->create([
             'name' => $this->data['empresa'],
+            'ano_de_inicio' => now()->year,
             'slug' => Str::slug($this->data['empresa']),
+            'subdominio' => Str::slug($this->data['empresa']),
             'email' => $this->data['email'],
             'status' => true,
             'subscription' => now(),
+            'rss_data' => now(),
+            'sitemap_data' => now(),
             'expires_at' => now()->addDays(30),
         ]);
     }
