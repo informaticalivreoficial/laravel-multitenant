@@ -86,16 +86,10 @@ Route::group([
     //****************************** Planos ************************************/
     Route::get('/planos', [ClienteController::class, 'planos'])->name('planos');
     Route::get('/plano/{slug}', [ClienteController::class, 'plano'])->name('plano');
-    Route::get('/plano/{slug}/assinar', [ClienteController::class, 'assinar'])->name('assinar');
-
-    /** Página de Locação */
-    Route::get('/quero-alugar', 'WebController@locacao')->name('locacao');
+    Route::get('/plano/{slug}/assinar', [ClienteController::class, 'assinar'])->name('assinar');    
 
     /** Página de Locaçãp - Específica de um imóvel */
-    Route::get('/quero-alugar/{slug}', 'WebController@rentProperty')->name('rentProperty');
-
-    /** Página de Compra */
-    Route::get('/quero-comprar', 'WebController@venda')->name('venda');
+    Route::get('/quero-alugar/{slug}', [SiteController::class, 'rentProperty'])->name('rentProperty');    
 
     /** Lista todos os imóveis */
     Route::get('/imoveis/{type}', [SiteController::class, 'imoveisList'])->name('imoveisList');

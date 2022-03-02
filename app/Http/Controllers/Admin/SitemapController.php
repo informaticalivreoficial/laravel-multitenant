@@ -33,8 +33,8 @@ class SitemapController extends Controller
             ->setPriority(0.1))
             ->add('/')
             ->add('/blog/artigos')
+            ->add('/noticias')
             ->add('/quem-somos')
-            ->add('/portifolio')
             ->add('/consultoria/produtos')
             ->add('/consultoria/orcamento')            
             ->writeToFile($this->tenant->slug . '_sitemap.xml'); 

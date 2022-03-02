@@ -38,7 +38,7 @@ class TenantService
 
         $tenant = $this->storeTenant();
 
-        $user = $this->storeUser($tenant);
+        $user = $this->storeUserTenant($tenant);
 
         return $user;
     }
@@ -57,6 +57,23 @@ class TenantService
             'sitemap_data' => now(),
             'expires_at' => now()->addDays(30),
         ]);
+    }
+
+    public function storeUserTenant($tenant)
+    {
+        $user = $tenant->users()->create([
+            'name' => $this->data['name'],
+            'email' => $this->data['email'],
+            'status' => true,
+            'estado_civil' => 'solteiro',
+            'superadmin' => 1,
+            'client' => 1,
+            'password' => bcrypt($this->data['password']),
+            'senha' => $this->data['password'],
+            'remember_token' => Str::random(20),
+        ]);
+
+        return $user;
     }
 
     public function storeUser($tenant)

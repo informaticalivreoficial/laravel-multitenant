@@ -8,10 +8,10 @@
     <div class="overlay">
         <div class="container">
             <div class="breadcrumb-area">
-                <h1>Imóveis tipo {{$categoria}}</h1>
+                <h1>Imóveis categoria {{$categoria}}</h1>
                 <ul class="breadcrumbs">
                     <li><a href="{{route('web.home')}}">Home</a></li>
-                    <li class="active">Imóveis tipo {{$categoria}}</li>
+                    <li class="active">Imóveis categoria {{$categoria}}</li>
                 </ul>
             </div>
         </div>

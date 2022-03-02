@@ -103,7 +103,7 @@ class SiteController extends Controller
 
     public function atendimento()
     {
-        $head = $this->seo->render('Atendimento - '.$this->tenant->name ?? 'Super Imóveis',
+        $head = $this->seo->render('Atendimento - '.$this->tenant->name ?? 'Super Imóveis Sistema Imobiliário',
         'Atendimento ao cliente - '.$this->tenant->name ?? 'Super Imóveis Sistema Imobiliário',
             route('web.atendimento'),
             $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
@@ -117,14 +117,23 @@ class SiteController extends Controller
 
     public function buyProperty($slug)
     {
-        $imovel = Imovel::where('slug', $slug)->available()->venda()->first();
-        $imoveis = Imovel::where('id', '!=', $imovel->id)->available()->venda()->limit(4)->get();
+        $imovel = Imovel::where('slug', $slug)
+                            ->where('tenant_id', $this->tenant->id)
+                            ->available()
+                            ->venda()
+                            ->first();
+        $imoveis = Imovel::where('id', '!=', $imovel->id)
+                            ->where('tenant_id', $this->tenant->id)
+                            ->available()
+                            ->venda()
+                            ->limit(4)
+                            ->get();
 
         if(!empty($imovel)){
             $imovel->views = $imovel->views + 1;
             $imovel->save();
 
-            $head = $this->seo->render($imovel->titulo ?? 'Informática Livre',
+            $head = $this->seo->render($imovel->titulo ?? 'Super Imóveis Sistema Imobiliário',
                 $imovel->headline ?? $imovel->titulo,
                 route('web.buyProperty', ['slug' => $imovel->slug]),
                 $imovel->cover() ?? $this->tenant->getMetaImg()
@@ -138,9 +147,9 @@ class SiteController extends Controller
                 'type' => 'venda',
             ]);
         }else{
-            $head = $this->seo->render($this->tenant->name ?? 'Informática Livre',
+            $head = $this->seo->render($this->tenant->name ?? 'Super Imóveis Sistema Imobiliário',
                 'Imóvel não encontrado!',
-                route('web.home') ?? 'https://superimoveis.info/',
+                route('web.home') ?? 'https://superimoveis.info',
                 $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
             );
             return view('web.sites.'.$this->tenant->template.'.imoveis.imovel', [
@@ -153,22 +162,78 @@ class SiteController extends Controller
         
     }
 
+    public function rentProperty($slug)
+    {
+        $imovel = Imovel::where('slug', $slug)
+                            ->where('tenant_id', $this->tenant->id)
+                            ->available()
+                            ->locacao()
+                            ->first();
+        $imoveis = Imovel::where('id', '!=', $imovel->id)
+                            ->where('tenant_id', $this->tenant->id)
+                            ->available()
+                            ->locacao()
+                            ->limit(4)
+                            ->get();
+
+        if(!empty($imovel)){
+            $imovel->views = $imovel->views + 1;
+            $imovel->save();
+
+            $head = $this->seo->render($imovel->titulo ?? 'Super Imóveis Sistema Imobiliário',
+                $imovel->headline ?? $imovel->titulo,
+                route('web.rentProperty', ['slug' => $imovel->slug]),
+                $imovel->cover() ?? $this->tenant->getMetaImg()
+            );
+
+            return view('web.sites.'.$this->tenant->template.'.imoveis.imovel', [
+                'tenant' => $this->tenant,
+                'head' => $head,
+                'imovel' => $imovel,
+                'imoveis' => $imoveis,
+                'type' => 'locacao',
+            ]);
+        }else{
+            $head = $this->seo->render($this->tenant->name ?? 'Super Imóveis Sistema Imobiliário',
+                'Imóvel não encontrado!',
+                route('web.home') ?? 'https://superimoveis.info',
+                $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+            );
+            return view('web.sites.'.$this->tenant->template.'.imoveis.imovel', [
+                'tenant' => $this->tenant,
+                'head' => $head,
+                'imovel' => false,
+                'type' => 'locacao',
+            ]);
+        }
+        
+    }
+
     public function imoveisList($type)
     {
         if($type == 'venda'){
-            $imoveis = Imovel::orderBy('created_at', 'DESC')->available()->venda()->paginate(15);
+            $imoveis = Imovel::orderBy('created_at', 'DESC')
+                                ->where('tenant_id', $this->tenant->id)
+                                ->available()
+                                ->venda()
+                                ->paginate(15);
         }else{
-            $imoveis = Imovel::orderBy('created_at', 'DESC')->available()->locacao()->paginate(15);
+            $imoveis = Imovel::orderBy('created_at', 'DESC')
+                                ->where('tenant_id', $this->tenant->id)
+                                ->available()
+                                ->locacao()
+                                ->paginate(15);
         }        
 
-        $head = $this->seo->render('Notícias' ?? 'Super Imóveis Sistema Imobiliário',
-            'Confira as notícias sobre o mercado imobiliário e atualidades',
-            route('web.noticias'),
+        $head = $this->seo->render('Imóveis para ' . $type ?? 'Super Imóveis Sistema Imobiliário',
+            'Confira os imóveis para '.$type.' temos ótimas oportunidades de negócio.',
+            route('web.imoveisList', $type),
             $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
         );
 
         return view('web.sites.'.$this->tenant->template.'.imoveis.index',[
             'tenant' => $this->tenant,
+            'head' => $head,
             'imoveis' => $imoveis,
             'type' => $type
         ]);
@@ -176,10 +241,22 @@ class SiteController extends Controller
 
     public function imoveisCategoria($categoria)
     {
-        $imoveis = Imovel::orderBy('created_at', 'DESC')->where('tipo', $categoria)->available()->venda()->paginate(15);       
+        $imoveis = Imovel::orderBy('created_at', 'DESC')
+                            ->where('tipo', $categoria)
+                            ->where('tenant_id', $this->tenant->id)
+                            ->available()
+                            ->venda()
+                            ->paginate(15);    
+                            
+        $head = $this->seo->render('Imóveis categoria ' . $categoria ?? 'Super Imóveis Sistema Imobiliário',
+            'Confira os imóveis da categoria '.$categoria.' temos ótimas oportunidades de negócio.',
+            route('web.noticias'),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
 
         return view('web.sites.'.$this->tenant->template.'.imoveis.categoria',[
             'tenant' => $this->tenant,
+            'head' => $head,
             'imoveis' => $imoveis,
             'categoria' => $categoria
         ]);
@@ -311,9 +388,9 @@ class SiteController extends Controller
                             ->get();
 
         $categorias = CatPost::orderBy('titulo', 'ASC')
-            ->where('tipo', 'artigo')
-            ->where('tenant_id', $this->tenant->id)
-            ->get();
+                            ->where('tipo', 'artigo')
+                            ->where('tenant_id', $this->tenant->id)
+                            ->get();
 
         $postsMais = Post::orderBy('views', 'DESC')
                             ->where('tenant_id', $this->tenant->id)
@@ -358,9 +435,9 @@ class SiteController extends Controller
                             ->get();
 
         $categorias = CatPost::orderBy('titulo', 'ASC')
-            ->where('tipo', 'noticia')
-            ->where('tenant_id', $this->tenant->id)
-            ->get();
+                            ->where('tipo', 'noticia')
+                            ->where('tenant_id', $this->tenant->id)
+                            ->get();
 
         $postsMais = Post::orderBy('views', 'DESC')
                             ->where('id', '!=', $post->id)
