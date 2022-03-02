@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Plan;
 use App\Repositories\Contracts\TenantRepositoryInterface;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 
 class TenantService
 {
@@ -61,7 +60,7 @@ class TenantService
         $user = $tenant->users()->create([
             'name' => $this->data['name'],
             'email' => $this->data['email'],
-            'password' => Hash::make($this->data['password']),
+            'password' => bcrypt($this->data['password']),
             'senha' => $this->data['password'],
             'remember_token' => Str::random(20),
         ]);
