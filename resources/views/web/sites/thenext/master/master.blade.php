@@ -65,16 +65,16 @@
                     @endif                    
                 </div>
             </div>
-            <!--<div class="col-5 col-sm-5 col-md-5 col-lg-6">
+            <div class="col-5 col-sm-5 col-md-5 col-lg-6">
                 <ul class="top-social-media pull-right">
                     <li>
-                        <a href="login.html" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
+                        <a href="{{route('login')}}" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="signup.html" class="sign-in"><i class="fa fa-user"></i> Register</a>
-                    </li>
+                    </li>-->
                 </ul>
-            </div>-->
+            </div>
         </div>
     </div>
 </header>
