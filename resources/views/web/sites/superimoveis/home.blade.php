@@ -103,7 +103,8 @@
                         mais por isso.
                         A Informática Livre desenvolveu seu próprio gestor imobiliário chamado de Super Imóveis - Sistema Imobiliário. 
                         Com este sistema, você poderá gerenciar todo o conteúdo do seu site sem precisar ter 
-                        conhecimento avançado em informática.</p>
+                        conhecimento avançado em informática.
+                    </p>
                   </div>
                 </div>
               </div>
