@@ -32,7 +32,7 @@
     </div>
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <div class="info-box">
-            <span class="info-box-icon bg-teal"><a href="{{--route('produtos.index')--}}" title="Imóveis"><i class="fa far fa-home"></i></a></span>
+            <span class="info-box-icon bg-teal"><a href="{{route('imoveis.index')}}" title="Imóveis"><i class="fa far fa-home"></i></a></span>
 
             <div class="info-box-content">
                 <span class="info-box-text"><b>Imóveis</b></span>
@@ -71,73 +71,61 @@
     <!-- /.info-box -->
     </div>
 </div>
-
-<div class="row">
+ 
+<div class="row {{(!auth()->user()->tenant->analytics_view && !auth()->user()->tenant->tagmanager_id ? 'd-none' : '')}}">
     <section class="col-lg-6 connectedSortable">
-            <!-- BAR CHART -->
-            <div class="card card-teal">
-                <div class="card-header">
-                    <h3 class="card-title">Visitas/Últimos 6 meses</h3>
-
-                    <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart">
-                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </section>
-        <section class="col-lg-6 connectedSortable">
-        <!-- DONUT CHART -->
         <div class="card card-teal">
             <div class="card-header">
-            <h3 class="card-title">Dispositivos/Últimos 6 meses</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-            </div>
+                <h3 class="card-title">Visitas/Últimos 6 meses</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
             </div>
             <div class="card-body">
-            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <div class="chart">
+                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
-        </section>
-    </div><!-- /.row -->
+    </section>
+    <section class="col-lg-6 connectedSortable">
+        <div class="card card-teal">
+            <div class="card-header">
+                <h3 class="card-title">Dispositivos/Últimos 6 meses</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+        </div>
+    </section>
+</div>
+
 
 
 <div class="row">
-    <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-3">
+    
+    <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-3 {{(!$usersUnavailable && !$usersAvailable && !$time ? 'd-none' : '')}}">
         <div class="card card-danger">                
             <div class="card-body">
-              <canvas id="donutChartusers" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            <canvas id="donutChartusers" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
         </div>
     </div>
-    <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-3">
+    
+    
+    <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-3 {{(!$postsArtigos && !$postsPaginas && !$postsNoticias ? 'd-none' : '')}}">
         <div class="card card-danger">                
             <div class="card-body">
-              <canvas id="donutChartposts" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            <canvas id="donutChartposts" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
         </div>
     </div>
-    <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-3">
-        <div class="card card-danger">                
-            <div class="card-body">
-              <canvas id="donutChartpedidos" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            </div>
-        </div>
-    </div>
+       
 </div>
 
 @if(!empty($artigosTop) && $artigosTop->count() > 0)
@@ -452,31 +440,6 @@
             });
     });  
 
-    // $(function (){
-    //     var donutChartCanvasPedidos = $('#donutChartpedidos').get(0).getContext('2d');
-    //     var donutDatapedidos        = {
-    //         labels: [ 
-    //             'Aprovados', 
-    //             'Processando',
-    //             'Cancelado'             
-    //         ],
-    //         datasets: [
-    //             {
-    //             data: [{{-- $pedidosApproved --}},{{-- $pedidosInprocess --}}, {{-- $pedidosRejected --}}],
-    //                 backgroundColor : ['#97C490', '#EBCF7F', '#E98BA5'],
-    //             }
-    //         ]
-    //         }
-    //         var donutOptions     = {
-    //         maintainAspectRatio : false,
-    //         responsive : true,
-    //         }
-
-    //         var donutChart = new Chart(donutChartCanvasPedidos, {
-    //         type: 'doughnut',
-    //         data: donutDatapedidos,
-    //         options: donutOptions      
-    //         });
-    // });    
+       
     </script>
 @stop

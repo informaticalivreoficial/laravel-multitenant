@@ -107,7 +107,7 @@ class Tenant extends Model
     {
         $image = $this->logomarca_admin;        
         if(empty($this->logomarca_admin) || !File::exists('../public/storage/' . $image)) {
-            return url(asset('backend/assets/images/image.jpg'));
+            return url(asset('backend/assets/images/logomarca-admin.png'));
         } 
         return Storage::url(Cropper::thumb($this->logomarca_admin, env('LOGOMARCA_GERENCIADOR_WIDTH'), env('LOGOMARCA_GERENCIADOR_HEIGHT')));
     }

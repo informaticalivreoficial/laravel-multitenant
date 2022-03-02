@@ -15,6 +15,12 @@ use Illuminate\Support\Str;
 
 class TenantClientConfigController extends Controller
 {
+    public function __construct()
+    {
+        //Verifica se expirou a assinatura
+        $this->middleware(['subscribed']);
+    }
+    
     public function editar()
     {
         $tenant = auth()->user()->tenant;        

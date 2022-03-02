@@ -18,7 +18,8 @@ class EnsureUserIsSubscribed
      */
     public function handle(Request $request, Closure $next)
     {  
-        if(Carbon::now()->diffInDays(Carbon::parse(Auth::user()->tenant->subscription)) > 30 && $request->user() && !$request->user()->subscribed('default')){
+        //dd(Carbon::now()->diffInDays(Carbon::parse($request->user()->tenant->subscription)));
+        if($request->user() && Carbon::now()->diffInDays(Carbon::parse(Auth::user()->tenant->subscription)) > 30 && !$request->user()->subscribed('default')){
             return redirect()->route('assinatura.index');
         }      
         // if ($request->user() && !$request->user()->subscribed('default')) {

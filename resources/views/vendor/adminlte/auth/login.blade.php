@@ -33,7 +33,7 @@
                         <div class="login-logo pb-4 text-center" style="width: 100%;">
                             <img width="{{env('LOGOMARCA_GERENCIADOR_WIDTH')}}" height="{{env('LOGOMARCA_GERENCIADOR_HEIGHT')}}" src="{{env('DESENVOLVEDOR_LOGO_ADMIN')}}" alt="{{env('DESENVOLVEDOR')}}" class="elevation-3">
                         </div>
-                        <p>Ainda não tem uma conta?<a class="ms-2" href="{{ $register_url }}">Assinar</a></p>
+                        {{--<p>Ainda não tem uma conta?<a class="ms-2" href="{{ $register_url }}">Assinar</a></p>--}}
                         <!-- Register Form -->
                         <div class="register-form my-2 my-lg-2">
                             <form action="{{ $login_url }}" method="post">

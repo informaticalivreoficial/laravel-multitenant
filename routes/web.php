@@ -23,8 +23,10 @@ use App\Http\Controllers\Admin\ACL\{
 };
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Assinaturas\AssinaturaController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Web\ClienteController;
 use App\Http\Controllers\Web\Site\{
     FilterController,
@@ -283,13 +285,13 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 Route::get('cadastro', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('cadastro', [RegisterController::class, 'register']);
 
-Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-// Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-// Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-// Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-// Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset']);
 
 //Auth::routes();

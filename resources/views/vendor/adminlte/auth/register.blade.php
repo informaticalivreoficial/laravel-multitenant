@@ -89,7 +89,11 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <button class="btn btn-primary w-100" type="submit">Assinar</button>
+                                    @if (session('plan')->avaliacao == 1)
+                                        <button class="btn btn-primary w-100 btn-lg" type="submit">Experimentar 30 dias Grátis</button>
+                                    @else
+                                        <button class="btn btn-primary w-100 btn-lg" type="submit">Assinar</button>
+                                    @endif                                    
                                 </form>
                             </div>
                         </div>

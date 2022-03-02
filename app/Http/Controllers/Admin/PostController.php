@@ -20,7 +20,8 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware(['subscribed']);
+        //Verifica se expirou a assinatura
+        $this->middleware(['subscribed']);
     }
 
     public function index(Request $request)

@@ -83,7 +83,7 @@
                         @foreach ($invoices as $invoice)
                         {{--dd($invoice->lines->data[0]['period']->end)--}}
                             <tr>
-                                <td>Plano Premium</td>
+                                <td>{{$user->tenant->plan->name}}</td>
                                 <td>{{\Carbon\Carbon::createFromTimestamp($invoice->lines->data[0]['period']->start)->format('d/m/Y')}}</td>
                                 <td>{{\Carbon\Carbon::createFromTimestamp($invoice->lines->data[0]['period']->end)->format('d/m/Y')}}</td>
                                 <td>

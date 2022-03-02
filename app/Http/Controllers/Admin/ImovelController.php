@@ -28,6 +28,9 @@ class ImovelController extends Controller
 
     public function __construct(UserService $userService, ImovelService $imovelService)
     {
+        //Verifica se expirou a assinatura
+        $this->middleware(['subscribed']);
+        
         $this->imovelService = $imovelService;
         $this->userService = $userService;
     }

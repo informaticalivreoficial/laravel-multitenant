@@ -35,6 +35,9 @@ class AssinaturaController extends Controller
 
     public function assinatura()
     {
+        if (!auth()->user()->subscribed('default'))
+            return redirect()->route('assinatura.index');
+
         $user = auth()->user();
 
         $invoices = $user->invoices();
@@ -46,10 +49,12 @@ class AssinaturaController extends Controller
 
     public function downloadInvoice($invoiceId)
     {
+        $user = auth()->user();
+
         return Auth::user()
                     ->downloadInvoice($invoiceId, [
                         'vendor' => config('app.name'),
-                        'product' => 'Plano Premium'
+                        'product' => $user->tenant->plan->name
                     ]);
     }
 

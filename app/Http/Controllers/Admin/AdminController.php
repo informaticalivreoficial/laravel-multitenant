@@ -20,8 +20,7 @@ use App\Models\{
 };
 
 class AdminController extends Controller
-{
-    
+{    
 
     public function home()
     {
