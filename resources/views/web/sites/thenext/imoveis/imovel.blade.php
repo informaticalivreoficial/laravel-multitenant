@@ -32,44 +32,76 @@
                     </div>
                     <div class="pull-right">  
 
-                        <h3><span>{{$type}}</span></h3>
+                        <h3><span>
+                            @if ($imovel->venda == true && $imovel->locacao == true)
+                                Venda/Locação
+                            @elseif($imovel->venda == true && $imovel->locacao == false)
+                                Venda
+                            @else
+                                Locação
+                            @endif
+                        </span></h3>
                         <h5>
                             <b>Referência:</b> {{$imovel->referencia}}
                         </h5>
                     </div>
                     
+                </div>                
+                   
+                <div class="property-img">
+                    <img src="{{$imovel->coverSlideGallery()}}" alt="{{$imovel->titulo}}" class="img-fluid w-100">
+                    <div class="property-overlay">
+                        <div class="property-magnify-gallery">
+                            <a href="{{$imovel->nocover()}}" class="overlay-link">
+                                <i class="fa fa-expand"></i>
+                            </a>
+                            @if($imovel->images()->get()->count())
+                                @foreach($imovel->images()->get() as $image)
+                                    <a href="{{ $image->url_image }}" class="hidden"></a>                             
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>                    
                 </div>
-                <!-- Header properties end -->
+                <div class="row">
+                    @if($imovel->images()->get()->count())
+                        @foreach($imovel->images()->get() as $image)
+                            <div class="col-lg-2 p-1">
+                                <a href="{{ $image->url_image }}" data-title="{{$imovel->titulo}}" data-toggle="lightbox">
+                                    <img src="{{ $image->url_cropped_slide_gallery }}" class="img-responsive" alt="{{$imovel->titulo}}">
+                                </a>                                
+                            </div>                                
+                        @endforeach
+                    @endif
+                </div>
 
-                <!-- Properties slider section start -->
-                <div class="properties-slider-section mb-25">
+               {{--<div class="properties-slider-section mb-25">
                     <div class="slider slider-for">
-                        <div><img src="{{ $imovel->cover() }}" class="w-100 img-fluid" alt="photo"></div>
+                        <div><img src="{{ $imovel->coverSlideGallery() }}" class="w-100 img-fluid" alt="{{$imovel->titulo}}"></div>
                         @if($imovel->images()->get()->count())
                             @foreach($imovel->images()->get() as $image)
-                                <div><img src="{{ $image->getUrlCroppedAttribute() }}" class="w-100 img-fluid" alt="photo"></div>
+                                <div><img src="{{ $image->url_cropped_slide_gallery }}" class="w-100 img-fluid" alt="{{$imovel->titulo}}"></div>
                             @endforeach
                         @endif
                     </div>
                     <div class="slider slider-nav">
-                        <div><img src="{{ $imovel->nocover() }}" class="img-fluid" alt="photo"></div>
+                        <div><img src="{{ $imovel->coverSlideGallery() }}" class="img-fluid" alt="{{$imovel->titulo}}"></div>
                         @if($imovel->images()->get()->count())
                             @foreach($imovel->images()->get() as $image)
-                                <div><img src="{{ $image->getUrlCroppedAttribute() }}" class="img-fluid" alt="photo"></div>                                
+                                <div><img src="{{ $image->url_cropped_slide_gallery }}" class="img-fluid" alt="{{$imovel->titulo}}"></div>                                
                             @endforeach
                         @endif
                     </div>
-                </div>
-                <!-- Properties slider section end -->
-
+                </div>--}}
+               
                  <!-- Header Properties start -->
                  <div class="heading-properties clearfix sidebar-widget sw2">
                     <div class="pull-left">
                         @if($imovel->exibivalores == true)
                             <p><b>IPTU:</b> R$ {{str_replace(',00', '', $imovel->iptu)}} {!! ($imovel->condominio != '' ? '| <b>Condomínio:</b> R$' . str_replace(',00', '', $imovel->condominio) : '') !!}</p>
-                            @if(!empty($type) && $type == 'venda')
+                            @if($imovel->venda == true && $imovel->locacao == false)
                                 <h3>Valor do Imóvel: R${{str_replace(',00', '', $imovel->valor_venda)}}</h3>
-                            @elseif(!empty($type) && $type == 'locacao')
+                            @elseif($imovel->locacao == true && $imovel->venda == false)
                                 <p><b>Valor do Aluguel:</b> R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês</p>
                             @else
                                 @if($imovel->venda == true && !empty($imovel->valor_venda) && $imovel->valor_locacao == true && !empty($imovel->valor_locacao))
@@ -647,9 +679,9 @@
                                             </div>
                                             @if($imovel->exibivalores == true)
                                                 <div class="price-ratings">
-                                                    @if(!empty($type) && $type == 'venda')
+                                                    @if($imovel->venda == true && $imovel->locacao == false)
                                                         <div class="price">R$ {{str_replace(',00', '', $imovel->valor_venda)}}</div>                                                        
-                                                    @elseif(!empty($type) && $type == 'locacao')
+                                                    @elseif($imovel->locacao == true && $imovel->locacao == false)
                                                         <div class="price">R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês</div>
                                                     @else
                                                         @if($imovel->venda == true && !empty($imovel->valor_venda) && $imovel->valor_locacao == true && !empty($imovel->valor_locacao))
@@ -673,11 +705,11 @@
                                     <div class="content">
                                         <!-- title -->
                                         <h4 class="title">
-                                            <a href="properties-details.html">{{$imovel->titulo}}</a>
+                                            <a href="{{route(($imovel->venda == true ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $imovel->slug])}}">{{$imovel->titulo}}</a>
                                         </h4>
                                         <!-- Property address -->
                                         <h3 class="property-address">
-                                            <a href="properties-details.html">
+                                            <a href="{{route(($imovel->venda == true ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $imovel->slug])}}">
                                                 <i class="fa fa-map-marker"></i>{{$imovel->bairro}} - {{getCidadeNome($imovel->cidade, 'cidades')}}
                                             </a>
                                         </h3>
@@ -717,7 +749,12 @@
 
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.css'))}}">
+@endsection
+
 @section('js')
+<script src="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.min.js'))}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
 <script>
     $(function () {
@@ -879,6 +916,13 @@
             }
         });
     }
+
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+        alwaysShowClose: true
+        });
+    });
 
     
 </script>

@@ -29,7 +29,8 @@
                         <div class="property fp2">
                             <!-- Property img -->
                             <div class="property-img">
-                                <div class="property-tag button alt featured">{{$imovel->tipo}}</div>
+                                <div class="property-tag button alt featured">Ref.: {{$imovel->referencia}}</div>
+                                <div class="property-tag button sale">{{$imovel->tipo}}</div>
                                 <div class="property-price">
                                     @if(!empty($type) && $type == 'venda')
                                         R$ {{str_replace(',00', '', $imovel->valor_venda)}}                                                        

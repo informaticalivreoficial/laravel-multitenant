@@ -153,6 +153,23 @@ class Imovel extends Model
         return Storage::url(Cropper::thumb($cover['path'], 1440, 960));
     }
 
+    public function coverSlideGallery()
+    {
+        $images = $this->images();
+        $cover = $images->where('cover', 1)->first(['path']);
+
+        if(!$cover) {
+            $images = $this->images();
+            $cover = $images->first(['path']);
+        }
+
+        if(empty($cover['path']) || !File::exists('../public/storage/' . $cover['path'])) {
+            return url(asset('backend/assets/images/image.jpg'));
+        }
+
+        return Storage::url(Cropper::thumb($cover['path'], 750, 500));
+    }
+
     public function nocover()
     {
         $images = $this->images();

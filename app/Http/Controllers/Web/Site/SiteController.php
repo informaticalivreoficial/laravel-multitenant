@@ -239,6 +239,35 @@ class SiteController extends Controller
         ]);
     }
 
+    public function pesquisaImoveis(Request $request)
+    {
+        $search = $request->search;
+
+        $imoveis = Imovel::orderBy('created_at', 'DESC')
+                    ->where('tenant_id', $this->tenant->id)
+                    ->where('titulo', 'LIKE', '%'.$search.'%')
+                    ->orWhere('referencia', 'LIKE', '%'.$search.'%')
+                    ->orWhere('rua', 'LIKE', '%'.$search.'%')
+                    ->orWhere('bairro', 'LIKE', '%'.$search.'%')
+                    ->orWhere('experience', 'LIKE', '%'.$search.'%')
+                    ->orWhere('headline', 'LIKE', '%'.$search.'%')
+                    ->orWhere('categoria', 'LIKE', '%'.$search.'%')
+                    ->paginate(18);
+
+        $head = $this->seo->render('Pesquisa de Imóveis',
+            'Pesquisar Imóveis, encontre aqui o imóvel dos seus sonhos.',
+            route('web.pesquisar-imoveis'),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
+
+        return view('web.sites.'.$this->tenant->template.'.imoveis.busca-referencia', [
+            'tenant' => $this->tenant,
+            'head' => $head,
+            'search' => $search,
+            'imoveis' => $imoveis
+        ]);        
+    }
+
     public function imoveisCategoria($categoria)
     {
         $imoveis = Imovel::orderBy('created_at', 'DESC')

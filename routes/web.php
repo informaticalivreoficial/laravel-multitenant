@@ -35,7 +35,7 @@ use App\Http\Controllers\Web\Site\{
     SendEmailController,
     SiteController
 };
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('404.error', function(){
@@ -57,6 +57,10 @@ Route::group([
 
     /** FILTRO */
     Route::match(['post', 'get'], '/filtro', [SiteController::class, 'filter'])->name('filter');
+    
+    /** Pesquisa */
+    Route::get('/pesquisar-imoveis', [SiteController::class, 'pesquisaImoveis'])->name('pesquisar-imoveis');
+    Route::match(['post', 'get'], '/pesquisa', [SiteController::class, 'pesquisaImoveis'])->name('pesquisa');
 
     //FILTROS
     Route::post('main-filter/search', [FilterController::class, 'search'])->name('main-filter.search');
@@ -78,10 +82,8 @@ Route::group([
     //FINANCIAMENTO
     Route::get('/simulador-financiamento-imovel', [SiteController::class, 'financiamento'])->name('financiamento');
 
-
     //****************************** Imoveis ************************************/
     Route::get('/imoveis/categoria/{categoria}', [SiteController::class, 'categoriasImovel'])->name('imoveis.categoria');
-    
 
     //****************************** Planos ************************************/
     Route::get('/planos', [ClienteController::class, 'planos'])->name('planos');

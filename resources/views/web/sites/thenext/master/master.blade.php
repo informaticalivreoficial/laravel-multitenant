@@ -443,13 +443,13 @@
                                 <a href="{{route('web.noticias')}}">Notícias</a>
                             </li>
                             <li>
-                                <a href="blog-single-sidebar-right.html">Financiamento</a>
+                                <a href="#">Financiamento</a>
                             </li>
                             <li>
-                                <a href="blog-single-sidebar-right.html">Busca por referência</a>
+                                <a href="{{route('web.pesquisar-imoveis')}}">Pesquisar Imóveis</a>
                             </li>
                             <li>
-                                <a href="properties-list-rightside.html">Cadastrar Imóvel</a>
+                                <a href="#">Cadastrar Imóvel</a>
                             </li>
                             <li>
                                 <a href="{{route('web.atendimento')}}">Atendimento</a>

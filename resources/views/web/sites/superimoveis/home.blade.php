@@ -69,7 +69,7 @@
                                     </ul> 
                             </div>
                             <p>Administre e venda imóveis de uma forma inteligente e profissional, nosso sistema é integrado com 
-                                as principais plataformas de imóveis do mercado imobiliário. Ah, o sistema é seu pra sempre e sem mensalidades.
+                                as principais plataformas de imóveis do mercado imobiliário.
                             </p>
                             <a class="btn saasbox-btn white-btn mt-5" href="{{route('web.planos')}}">Experimente 1 mês grátis</a>
                         </div>
