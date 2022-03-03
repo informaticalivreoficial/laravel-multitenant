@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>http://imobiliariaubatuba.com.br/Laravel-Multi-Tenant/public</loc>
+        <lastmod>2022-03-02T21:49:30-03:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://imobiliariaubatuba.com.br/Laravel-Multi-Tenant/public/atendimento</loc>
+        <lastmod>2022-03-01T00:00:00-03:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.1</priority>
+    </url>
+    <url>
+        <loc>http://imobiliariaubatuba.com.br/Laravel-Multi-Tenant/public/blog/artigos</loc>
+        <lastmod>2022-03-02T21:49:30-03:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://imobiliariaubatuba.com.br/Laravel-Multi-Tenant/public/consultoria/orcamento</loc>
+        <lastmod>2022-03-02T21:49:30-03:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://imobiliariaubatuba.com.br/Laravel-Multi-Tenant/public/consultoria/produtos</loc>
+        <lastmod>2022-03-02T21:49:30-03:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://imobiliariaubatuba.com.br/Laravel-Multi-Tenant/public/noticias</loc>
+        <lastmod>2022-03-02T21:49:30-03:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://imobiliariaubatuba.com.br/Laravel-Multi-Tenant/public/quem-somos</loc>
+        <lastmod>2022-03-02T21:49:30-03:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+</urlset>

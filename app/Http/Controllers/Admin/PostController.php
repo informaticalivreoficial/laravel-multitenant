@@ -52,7 +52,12 @@ class PostController extends Controller
     public function create()
     {
         $categorias = CatPost::orderBy('titulo', 'ASC')->get();
-        $users = User::where('tenant_id', auth()->user()->tenant->id)->where('admin', '=', '1')->orWhere('editor', '=', '1')->get();
+
+        $users = User::where('tenant_id', auth()->user()->tenant->id)
+                        ->where('admin', '=', '1')
+                        ->orWhere('editor', '=', '1')
+                        ->get();
+                        
         return view('admin.posts.create',[
             'users' => $users,
             'categorias' => $categorias

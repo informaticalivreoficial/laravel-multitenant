@@ -48,4 +48,9 @@ class ManangerTenant
     {
         return in_array(auth()->user()->email, config('acl.admins'));
     }
+
+    public function isDomainMain(): bool
+    {
+        return in_array($this->tenant()->dominio, config('acl.domainMain'));
+    }
 }

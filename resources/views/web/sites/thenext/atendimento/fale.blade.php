@@ -119,6 +119,19 @@
                                 </div>
                             </div>
                         @endif
+                        @if ($tenant->email1)
+                            <div class="ci-box d-flex">
+                                <div class="icon">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="detail align-self-center">
+                                    <h4>Email</h4>
+                                    <p>
+                                        <a href="mailto:{{$tenant->email1}}">{{$tenant->email1}}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
                         @if ($tenant->whatsapp)
                             <div class="ci-box d-flex mb-30">
                                 <div class="icon">
@@ -151,7 +164,7 @@
                                 <li><a target="_blank" class="youtube-bg" href="{{$tenant->youtube}}"><i class="fa fa-youtube"></i></a></li>
                             @endif                            
                             <li>
-                                <a target="_blank" href="{{route('web.feed',$tenant->slug)}}" class="rss-bg">
+                                <a target="_blank" href="{{route('web.feed')}}" class="rss-bg">
                                     <i class="fa fa-rss"></i>
                                 </a>
                             </li>

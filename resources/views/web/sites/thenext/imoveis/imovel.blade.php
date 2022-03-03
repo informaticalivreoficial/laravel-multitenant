@@ -50,30 +50,29 @@
                    
                 <div class="property-img">
                     <img src="{{$imovel->coverSlideGallery()}}" alt="{{$imovel->titulo}}" class="img-fluid w-100">
-                    <div class="property-overlay">
-                        <div class="property-magnify-gallery">
-                            <a href="{{$imovel->nocover()}}" class="overlay-link">
-                                <i class="fa fa-expand"></i>
-                            </a>
-                            @if($imovel->images()->get()->count())
-                                @foreach($imovel->images()->get() as $image)
-                                    <a href="{{ $image->url_image }}" class="hidden"></a>                             
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>                    
+                                      
                 </div>
+                
                 <div class="row">
                     @if($imovel->images()->get()->count())
-                        @foreach($imovel->images()->get() as $image)
+                        @foreach($imovel->images()->get() as $image)                    
                             <div class="col-lg-2 p-1">
-                                <a href="{{ $image->url_image }}" data-title="{{$imovel->titulo}}" data-toggle="lightbox">
-                                    <img src="{{ $image->url_cropped_slide_gallery }}" class="img-responsive" alt="{{$imovel->titulo}}">
-                                </a>                                
-                            </div>                                
+                                <div class="portfolio-item car-magnify-gallery" style="margin-bottom: 0px;">
+                                    <a href="{{ $image->url_image }}">
+                                        <img src="{{ $image->url_cropped_slide_gallery }}" class="img-responsive" alt="{{$imovel->titulo}}">
+                                    </a>
+                                    <div class="portfolio-content">
+                                        <div class="portfolio-content-inner">
+                                            
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>                              
                         @endforeach
                     @endif
                 </div>
+                    
+                
 
                {{--<div class="properties-slider-section mb-25">
                     <div class="slider slider-for">
@@ -94,13 +93,12 @@
                     </div>
                 </div>--}}
                
-                 <!-- Header Properties start -->
-                 <div class="heading-properties clearfix sidebar-widget sw2">
+                <div class="heading-properties clearfix sidebar-widget sw2">
                     <div class="pull-left">
                         @if($imovel->exibivalores == true)
                             <p><b>IPTU:</b> R$ {{str_replace(',00', '', $imovel->iptu)}} {!! ($imovel->condominio != '' ? '| <b>Condomínio:</b> R$' . str_replace(',00', '', $imovel->condominio) : '') !!}</p>
                             @if($imovel->venda == true && $imovel->locacao == false)
-                                <h3>Valor do Imóvel: R${{str_replace(',00', '', $imovel->valor_venda)}}</h3>
+                                <p><b>Valor do Imóvel:</b> R${{str_replace(',00', '', $imovel->valor_venda)}}</p>
                             @elseif($imovel->locacao == true && $imovel->venda == false)
                                 <p><b>Valor do Aluguel:</b> R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês</p>
                             @else
@@ -116,10 +114,8 @@
                                 @endif
                             @endif                            
                         @endif 
-                    </div>
-                    
+                    </div>                    
                 </div>
-                <!-- Header Properties end -->
 
                 <!-- Property description start -->
                 <div class="property-description tabbing tabbing-box tb2">
@@ -749,12 +745,8 @@
 
 @endsection
 
-@section('css')
-<link rel="stylesheet" href="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.css'))}}">
-@endsection
 
 @section('js')
-<script src="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.min.js'))}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
 <script>
     $(function () {
@@ -916,13 +908,6 @@
             }
         });
     }
-
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-        event.preventDefault();
-        $(this).ekkoLightbox({
-        alwaysShowClose: true
-        });
-    });
 
     
 </script>
