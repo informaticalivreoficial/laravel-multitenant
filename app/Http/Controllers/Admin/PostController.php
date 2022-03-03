@@ -56,8 +56,7 @@ class PostController extends Controller
         $users = User::where('tenant_id', auth()->user()->tenant->id)
                         ->where('admin', '=', '1')
                         ->orWhere('editor', '=', '1')
-                        ->get();
-                        
+                        ->get();                        
         return view('admin.posts.create',[
             'users' => $users,
             'categorias' => $categorias
