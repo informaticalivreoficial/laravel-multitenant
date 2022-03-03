@@ -114,9 +114,9 @@
                         </li> 
                     @endif                 
                     
-                    <li class="nav-item"><a class="nav-link" href="{{--route('web.atendimento')--}}" title="">Lançamento</a></li>
+                    <li class="nav-item"><a class="nav-link" href="route('web.atendimento')" title="">Lançamento</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('web.atendimento')}}" title="Atendimento">Atendimento</a></li>                    
-                    <li class="nav-item"><a class="nav-link" href="{{route('web.financiamento')}}" title="">Financiamento</a></li>                    
+                    {{--<li class="nav-item"><a class="nav-link" href="{{route('web.financiamento')}}" title="">Financiamento</a></li> --}}                   
                 </ul>
             </div>
         </nav>
@@ -164,7 +164,7 @@
                     <a href="#">Páginas <em class="fa fa-chevron-down"></em></a>
                     <ul>  
                         <li>
-                            <a href="properties-comparison.html">Quem Somos</a>
+                            <a href="{{route('web.pagina','quem-somos')}}">Quem Somos</a>
                         </li>
                         <li>
                             <a href="{{route('web.pesquisar-imoveis')}}">Pesquisar Imóveis</a>
@@ -176,9 +176,9 @@
                 </li>
                 <li><a href="{{route('web.atendimento')}}" title="Atendimento">Atendimento</a></li>
                
-                <li>
+               {{-- <li>
                     <a href="submit-property.html">Submit Property</a>
-                </li>
+                </li>--}}
             </ul>
         </div>
         <div class="get-in-touch">
@@ -330,19 +330,16 @@
                                 <a href="{{route('web.home')}}">Início</a>
                             </li>
                             <li>
-                                <a href="{{route('web.blog.artigos')}}">Blog</a>
+                                <a href="{{route('web.pagina','quem-somos')}}">Quem Somos</a>
+                            </li>
+                            <li>
+                                <a href="{{route('web.blog.artigos')}}">Dicas</a>
                             </li>
                             <li>
                                 <a href="{{route('web.noticias')}}">Notícias</a>
                             </li>
                             <li>
-                                <a href="#">Financiamento</a>
-                            </li>
-                            <li>
                                 <a href="{{route('web.pesquisar-imoveis')}}">Pesquisar Imóveis</a>
-                            </li>
-                            <li>
-                                <a href="#">Cadastrar Imóvel</a>
                             </li>
                             <li>
                                 <a href="{{route('web.atendimento')}}">Atendimento</a>
