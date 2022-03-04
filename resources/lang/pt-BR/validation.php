@@ -186,6 +186,37 @@ return [
         'description' => 'descrição',
         'password_confirmation' => 'confirmação da senha',
         'current_password' => 'senha atual',
+
+        // Address
+        'cep' => 'CEP',
+        'rua' => 'Rua',
+        'num' => 'Número',
+        'bairro' => 'Bairro',
+        'uf' => 'Estado',
+        'cidade' => 'Cidade',
+
+        // Company
+        'user' => 'responsável legal',
+        'social_name' => 'razão social',
+        'alias_name' => 'nome fantasia', 
+        'document_company' => 'CNPJ',
+        'document_company_secondary' => 'inscrição estadual',
+
+        // IMÓVEL
+        'proprietario' => 'Proprietário',
+        'titulo' => 'Título',
+        'categoria' => 'Categoria',
+        'tipo' => 'Tipo',
+        'iptu' => 'IPTU',
+        'condominio' => 'condomínio',
+        'dormitorios' => 'dormitórios',
+        'suites' => 'suítes',
+        'bathrooms' => 'banheiros',
+        'rooms' => 'salas',
+        'garage' => 'garagem',
+        'garage_covered' => 'garagem coberta',
+        'area_total' => 'área total',
+        'area_util' => 'área útil',
     ],
 
 ];

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\{
     CatPostController,
     EmailController,
     ImovelController,
+    NewsletterController,
     PlanController,
     PostController,
     SitemapController,
@@ -131,6 +132,20 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 
     //******************************* Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('admin.gerarxml');
+
+    //******************************* Newsletter *********************************************/
+    Route::get('listas/set-status', [NewsletterController::class, 'listaSetStatus'])->name('listas.listaSetStatus');
+    Route::get('listas/delete', [NewsletterController::class, 'listaDelete'])->name('listas.delete');
+    Route::delete('listas/deleteon', [NewsletterController::class, 'listaDeleteon'])->name('listas.deleteon');
+    Route::put('listas/{id}', [NewsletterController::class, 'listasUpdate'])->name('listas.update');
+    Route::get('listas/{id}/editar', [NewsletterController::class, 'listasEdit'])->name('listas.edit');
+    Route::get('listas/cadastrar', [NewsletterController::class, 'listasCreate'])->name('listas.create');
+    Route::post('listas/store', [NewsletterController::class, 'listasStore'])->name('listas.store');
+    Route::get('listas', [NewsletterController::class, 'listas'])->name('listas');
+
+    Route::get('listas/email/{id}/edit', [NewsletterController::class, 'newsletterEdit'])->name('listas.newsletters.edit');
+    Route::get('listas/email/cadastrar', [NewsletterController::class, 'newslettersCreate'])->name('lista.newsletters.create');
+    Route::get('listas/emails/categoria/{categoria}', [NewsletterController::class, 'newsletters'])->name('lista.newsletters');
 
     //******************************* Assinatura *********************************************/
     Route::get('assinar-plano/reativar', [AssinaturaController::class, 'resume'])->name('assinatura.resume');

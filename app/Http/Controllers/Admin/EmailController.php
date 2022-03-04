@@ -11,6 +11,11 @@ use App\Models\User;
 
 class EmailController extends Controller
 {    
+    public function __construct()
+    {
+        //Verifica se expirou a assinatura
+        $this->middleware(['subscribed']);
+    }
 
     public function send(Request $request)
     {

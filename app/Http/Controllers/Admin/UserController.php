@@ -22,6 +22,8 @@ class UserController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
+        //Verifica se expirou a assinatura
+        $this->middleware(['subscribed']);
     }
 
     public function index()

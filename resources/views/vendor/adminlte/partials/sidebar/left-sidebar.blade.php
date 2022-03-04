@@ -49,6 +49,18 @@
                                 <p>Enviar Email</p>
                             </a>
                         </li>                            
+                        <li class="nav-item">
+                            <a href="{{route('listas')}}" class="nav-link {{ isActive('email.send') }}">
+                                <i class="far fa-circle"></i>
+                                <p>Listas</p>
+                            </a>
+                        </li>                            
+                        <li class="nav-item">
+                            <a href="{{route('lista.newsletters.create')}}" class="nav-link {{ isActive('email.send') }}">
+                                <i class="far fa-circle"></i>
+                                <p>Cadastrar Email</p>
+                            </a>
+                        </li>                            
                     </ul>
                 </li>    
 

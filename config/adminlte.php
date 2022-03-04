@@ -361,7 +361,7 @@ return [
             'text' => 'Parceiros',
             'url'  => 'admin/parceiros',
             'icon' => 'fas fa-puzzle-piece',
-            'can'  =>  'parceiros',
+            //'can'  =>  'parceiros',
         ],
         [
             'text' => 'Banner Slides',
