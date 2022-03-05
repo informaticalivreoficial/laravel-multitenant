@@ -143,8 +143,10 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::post('listas/store', [NewsletterController::class, 'listasStore'])->name('listas.store');
     Route::get('listas', [NewsletterController::class, 'listas'])->name('listas');
 
-    Route::get('listas/email/{id}/edit', [NewsletterController::class, 'newsletterEdit'])->name('listas.newsletters.edit');
-    Route::get('listas/email/cadastrar', [NewsletterController::class, 'newslettersCreate'])->name('lista.newsletters.create');
+    Route::put('listas/email/{id}', [NewsletterController::class, 'newsletterUpdate'])->name('listas.newsletter.update');
+    Route::get('listas/email/{id}/edit', [NewsletterController::class, 'newsletterEdit'])->name('listas.newsletter.edit');
+    Route::get('listas/email/cadastrar', [NewsletterController::class, 'newsletterCreate'])->name('lista.newsletter.create');
+    Route::post('listas/email/store', [NewsletterController::class, 'newsletterStore'])->name('listas.newsletter.store');
     Route::get('listas/emails/categoria/{categoria}', [NewsletterController::class, 'newsletters'])->name('lista.newsletters');
 
     //******************************* Assinatura *********************************************/

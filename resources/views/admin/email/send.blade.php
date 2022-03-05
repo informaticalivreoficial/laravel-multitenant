@@ -56,51 +56,29 @@ $config = [
         @endif
     </div>            
 </div>   
-            
+          
 <div class="row">
     <div class="col-12">
         <div class="card card-teal card-outline">
             <form action="{{ route('email.sendEmail') }}" method="post" autocomplete="off" enctype="multipart/form-data">
-                @csrf
-                @php 
-                if(!empty($user)){
-                    if($user->email != '' && $user->email != Auth::user()->email){
-                        $usernome = $user->name;
-                        $useremail = $user->email;
-                    }else{
-                        $usernome = '';
-                        $useremail = '';
-                    }
-                }elseif(!empty($empresa)){
-                    if($empresa->email != '' && $empresa->email != Auth::user()->email){
-                        $usernome = $empresa->alias_name;
-                        $useremail = $empresa->email;
-                    }else{
-                        $usernome = '';
-                        $useremail = '';
-                    }
-                }else{
-                    $usernome = '';
-                    $useremail = '';
-                }
-                @endphp                            
-                <input type="hidden" name="destinatario_nome" value="{{$usernome}}">
-                <input type="hidden" name="remetente_nome" value="{{ Auth::user()->name }}">
-                <input type="hidden" name="sitename" value="{{ $configuracoes->nomedosite }}">
+                @csrf                                           
+                <input type="hidden" name="destinatario_nome" value="{{ $destinatario['nome'] ?? '' }}">
+                <input type="hidden" name="remetente_nome" value="{{ auth()->user()->name }}">
+                <input type="hidden" name="sitename" value="{{ $tenant->name }}">
             <div class="card-header">
                 <label class="">Remetente:</label>
                 <select class="form-control" name="remetente_email">
-                    @if(!empty(Auth::user()->email))
-                        <option value="{{ Auth::user()->email }}">{{ Auth::user()->email }}</option>
+                    @if(!empty(auth()->user()->email))
+                        <option value="{{ auth()->user()->email }}">{{ auth()->user()->email }}</option>
                     @endif
-                    @if(!empty(Auth::user()->email1))
-                        <option value="{{ Auth::user()->email1 }}">{{ Auth::user()->email1 }}</option>
+                    @if(!empty(auth()->user()->email1))
+                        <option value="{{ auth()->user()->email1 }}">{{ auth()->user()->email1 }}</option>
                     @endif
-                    @if(!empty($configuracoes->email))
-                        <option value="{{ $configuracoes->email }}">{{ $configuracoes->email }}</option>
+                    @if(!empty($tenant->email))
+                        <option value="{{ $tenant->email }}">{{ $tenant->email }}</option>
                     @endif
-                    @if(!empty($configuracoes->email1))
-                        <option value="{{ $configuracoes->email1 }}">{{ $configuracoes->email1 }}</option>
+                    @if(!empty($tenant->email1))
+                        <option value="{{ $tenant->email1 }}">{{ $tenant->email1 }}</option>
                     @endif
                 </select>
             </div>
@@ -108,7 +86,7 @@ $config = [
             <div class="card-body">
                 <div class="form-group">
                     <label class="">Para:</label>
-                    <input type="text" class="form-control" name="destinatario_email" placeholder="Para:" value="{{$useremail}}">
+                    <input type="text" class="form-control" name="destinatario_email" placeholder="Para:" value="{{ $destinatario['email'] ?? '' }}">
                 </div>
                 <p>
                     <a href="#" class="text-front open_cc">Com Cópia &darr;</a>
@@ -121,36 +99,36 @@ $config = [
                 </div>
                 <div class="form-group">
                     <x-adminlte-text-editor name="mensagem" v :config="$config">
-                        <p>Olá {{ $usernome }},</p> 
-                        <p>{{ getPrimeiroNome(Auth::user()->name) }} digite sua mensagem aqui...</p>
+                        <p>Olá {{ $destinatario['nome'] ?? '' }},</p> 
+                        <p>{{ getPrimeiroNome(auth()->user()->name) }} digite sua mensagem aqui...</p>
                         <p style="font-size:11px;text-align:left;color:#666;margin-top: 40px;line-height:1em !important;">
                         att<br />
-                        {{ Auth::user()->name }}<br />
+                        {{ auth()->user()->name }}
+                        <br />
+                        @if (auth()->user()->whatsapp)
+                            WhatsApp: {{auth()->user()->whatsapp}}
+                        @endif
+                        <br /> 
+                        <b>{{ $tenant->name }}</b><br />
+                        {{ $tenant->telefone }} {{ $tenant->celular }} 
                         @php 
-                            if(Auth::user()->whatsapp){ 
-                                echo 'WhatsApp: '.Auth::user()->whatsapp.'<br />';
+                            if($tenant->whatsapp){ 
+                                echo '<br />WhatsApp: '.$tenant->whatsapp;
                             }
-                        @endphp 
-                        <b>{{ $configuracoes->nomedosite }}</b><br />
-                        {{ $configuracoes->telefone1 }} {{ $configuracoes->telefone2 }} 
-                        @php 
-                            if($configuracoes->whatsapp){ 
-                                echo '<br />WhatsApp: '.$configuracoes->whatsapp;
+                            if($tenant->dominio){
+                                echo '<br /><a href="'.$tenant->dominio.'">website</a>';
                             }
-                            if($configuracoes->dominio){
-                                echo '<br /><a href="'.$configuracoes->dominio.'">website</a>';
+                            if($tenant->facebook){
+                                echo ($tenant->dominio ? ' - <a href="'.$tenant->facebook.'">Facebook</a>' : '<br /><a href="'.$tenant->facebook.'">Facebook</a>') ;
                             }
-                            if($configuracoes->facebook){
-                                echo ($configuracoes->dominio ? ' - <a href="'.$configuracoes->facebook.'">Facebook</a>' : '<br /><a href="'.$configuracoes->facebook.'">Facebook</a>') ;
+                            if($tenant->instagram){
+                                echo ($tenant->dominio || $tenant->facebook ? ' - <a href="'.$tenant->instagram.'">Instagram</a>' : '<br /><a href="'.$tenant->instagram.'">Instagram</a>') ;
                             }
-                            if($configuracoes->instagram){
-                                echo ($configuracoes->dominio || $configuracoes->facebook ? ' - <a href="'.$configuracoes->instagram.'">Instagram</a>' : '<br /><a href="'.$configuracoes->instagram.'">Instagram</a>') ;
+                            if($tenant->linkedin){
+                                echo ($tenant->dominio || $tenant->facebook || $tenant->instagram ? ' - <a href="'.$tenant->linkedin.'">Linkedin</a>' : '<br /><a href="'.$tenant->linkedin.'">Linkedin</a>') ;
                             }
-                            if($configuracoes->linkedin){
-                                echo ($configuracoes->dominio || $configuracoes->facebook || $configuracoes->instagram ? ' - <a href="'.$configuracoes->linkedin.'">Linkedin</a>' : '<br /><a href="'.$configuracoes->linkedin.'">Linkedin</a>') ;
-                            }
-                            if($configuracoes->youtube){
-                                echo ($configuracoes->dominio || $configuracoes->facebook || $configuracoes->instagram || $configuracoes->linkedin ? ' - <a href="'.$configuracoes->youtube.'">Youtube</a>' : '<br /><a href="'.$configuracoes->youtube.'">Youtube</a>') ;
+                            if($tenant->youtube){
+                                echo ($tenant->dominio || $tenant->facebook || $tenant->instagram || $tenant->linkedin ? ' - <a href="'.$tenant->youtube.'">Youtube</a>' : '<br /><a href="'.$tenant->youtube.'">Youtube</a>') ;
                             }
                         @endphp                                
                         </p>

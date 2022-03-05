@@ -20,7 +20,7 @@
 @section('content')
 <div class="card">
     <div class="card-header text-right">
-        <a href="{{route('listas.create')}}" class="btn btn-sm btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Email</a>
+        <a href="{{route('lista.newsletter.create')}}" class="btn btn-sm btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Email</a>
     </div>        
     <!-- /.card-header -->
     <div class="card-body">
@@ -47,15 +47,19 @@
                 <tbody>
                     @foreach($emails as $email)                    
                     <tr style="{{ ($email->status == '1' ? '' : 'background: #fffed8 !important;')  }}">                            
-                        <td>{{ $email->nome }} {{ $email->sobrenome ?? '' }}</td>
+                        <td>{{ $email->nome }}</td>
                         <td class="text-center">{{ $email->email }}</td>
                         <td class="text-center">{{ $email->created_at }}</td>                           
                         <td class="text-center">{!! $email->autorizacao !!}</td>                           
                         <td class="acoes">
                             <input type="checkbox" data-onstyle="success" data-offstyle="warning" data-size="mini" class="toggle-class" data-id="{{ $email->id }}" data-toggle="toggle" data-style="slow" data-on="<i class='fas fa-check'></i>" data-off="<i style='color:#fff !important;' class='fas fa-exclamation-triangle'></i>" {{ $email->status == true ? 'checked' : ''}}>
-                            <a href="{{route('email.send',['id' => $email->id, 'parametro' => 'newsletter'] )}}" class="btn btn-xs text-white bg-teal"><i class="fas fa-envelope"></i></a>
-                            <a data-toggle="tooltip" data-placement="top" title="Editar Email" href="{{route('listas.newsletters.edit',['id' => $email->id])}}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
-                            <a href="#" class="btn btn-xs btn-info text-white"><i class="fas fa-search"></i></a>
+                            <form class="btn btn-xs" action="{{route('email.send')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="nome" value="{{ $email->nome }}">
+                                <input type="hidden" name="email" value="{{ $email->email }}">
+                                <button title="Enviar Email" type="submit" class="btn btn-xs text-white bg-teal"><i class="fas fa-envelope"></i></button>
+                            </form>
+                            <a data-toggle="tooltip" data-placement="top" title="Editar Email" href="{{route('listas.newsletter.edit',['id' => $email->id])}}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
                             <button data-placement="top" title="Remover Email" type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$email->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
@@ -99,13 +103,15 @@
                 </div>
             </form>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 @stop
 
-@section('plugins.Toastr', true)
+@section('footer')
+    <strong>Copyright &copy; {{env('DESENVOLVEDOR_INICIO')}} <a href="{{env('DESENVOLVEDOR_URL')}}">{{env('DESENVOLVEDOR')}}</a>.</strong> Desenvolvido por <a href="https://informaticalivre.com.br">Informática Livre</a>.
+@endsection
+
+{{-- @section('plugins.Toastr', true) --}}
 
 @section('css')
 <link href="{{url(asset('backend/plugins/bootstrap-toggle/bootstrap-toggle.min.css'))}}" rel="stylesheet">

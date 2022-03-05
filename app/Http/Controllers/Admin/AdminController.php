@@ -46,27 +46,40 @@ class AdminController extends Controller
                         ->unavailable()
                         ->count();
         //Artigos
-        $postsArtigos = Post::where('tipo', 'artigo')->count();
-        $postsPaginas = Post::where('tipo', 'pagina')->count();
-        $postsNoticias = Post::where('tipo', 'noticia')->count();
+        $postsArtigos = Post::where('tipo', 'artigo')->where('tenant_id', auth()->user()->tenant->id)->count();
+        $postsPaginas = Post::where('tipo', 'pagina')->where('tenant_id', auth()->user()->tenant->id)->count();
+        $postsNoticias = Post::where('tipo', 'noticia')->where('tenant_id', auth()->user()->tenant->id)->count();
         $artigosTop = Post::where('tipo', 'artigo')
                 ->limit(4)
+                ->where('tenant_id', auth()->user()->tenant->id)
                 ->postson()
                 ->get()
                 ->sortByDesc('views');
         $totalViewsArtigos = Post::selectRaw('SUM(views) AS VIEWS')
                 ->where('tipo', 'artigo')
+                ->where('tenant_id', auth()->user()->tenant->id)
                 ->postson()
                 ->first();
         $paginasTop = Post::where('tipo', 'pagina')
                 ->limit(4)
+                ->where('tenant_id', auth()->user()->tenant->id)
                 ->postson()
                 ->get()
                 ->sortByDesc('views');
         $totalViewsPaginas = Post::selectRaw('SUM(views) AS VIEWS')
                 ->where('tipo', 'pagina')
+                ->where('tenant_id', auth()->user()->tenant->id)
                 ->postson()
-                ->first();           
+                ->first(); 
+        $imoveisTop = Imovel::limit(6)
+                ->available()
+                ->where('tenant_id', auth()->user()->tenant->id) 
+                ->get()               
+                ->sortByDesc('views');
+        $totalViewsImoveis = Imovel::selectRaw('SUM(views) AS VIEWS')
+                ->where('tenant_id', auth()->user()->tenant->id)
+                ->available()
+                ->first();          
         //Orçamentos
         //$orcamentosPendentes = Orcamento::available()->count();   
         //$orcamentosConcluidos = Orcamento::unavailable()->count();   
@@ -107,21 +120,13 @@ class AdminController extends Controller
             'artigosTop' => $artigosTop,
             'artigostotalviews' => $totalViewsArtigos->VIEWS,
             'paginasTop' => $paginasTop,
-            'paginastotalviews' => $totalViewsPaginas->VIEWS,            
-            //Orçamentos
-            //'orcamentosPendentes' => $orcamentosPendentes,
-            //'orcamentosConcluidos' => $orcamentosConcluidos,
+            'paginastotalviews' => $totalViewsPaginas->VIEWS,
+            //Imóveis            
+            'imoveisTop' => $imoveisTop,
+            'imoveistotalviews' => $totalViewsImoveis->VIEWS, 
             //Imóveis
             'imoveisAvailable' => $imoveisAvailable,
             'imoveisUnavailable' => $imoveisUnavailable,
-            //Empresas
-            //'empresasAvailable' => $empresasAvailable,
-            //'empresasUnavailable' => $empresasUnavailable,
-            //'empresasTotal' => $empresasTotal,
-            //Pedidos
-            // 'pedidosApproved' => $pedidosApproved,
-            // 'pedidosInprocess' => $pedidosInprocess,
-            // 'pedidosRejected' => $pedidosRejected,
             //Analytics
             'visitasHoje' => $visitasHoje,
             //'visitas365' => $visitas365,

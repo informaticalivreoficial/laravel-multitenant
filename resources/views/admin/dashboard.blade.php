@@ -109,7 +109,7 @@
 
 <div class="row">
     
-    <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-3 {{(!$usersUnavailable && !$usersAvailable && !$time ? 'd-none' : '')}}">
+    <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-3 {{(!$usersUnavailable && !$usersAvailable && !$time ? 'd-none' : '')}}">
         <div class="card card-danger">                
             <div class="card-body">
             <canvas id="donutChartusers" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
@@ -117,16 +117,77 @@
         </div>
     </div>
     
-    
-    <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-3 {{(!$postsArtigos && !$postsPaginas && !$postsNoticias ? 'd-none' : '')}}">
+    <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-3 {{(!$postsArtigos && !$postsPaginas && !$postsNoticias ? 'd-none' : '')}}">
         <div class="card card-danger">                
             <div class="card-body">
             <canvas id="donutChartposts" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
         </div>
     </div>
+
+    <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-3 {{(!$imoveisAvailable && !$imoveisUnavailable ? 'd-none' : '')}}">
+        <div class="card card-danger">                
+            <div class="card-body">
+            <canvas id="donutChartimoveis" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+        </div>
+    </div>
        
 </div>
+
+@if(!empty($imoveisTop) && $imoveisTop->count() > 0)
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Imóveis mais visitados</h3>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Foto</th>
+                    <th>Título</th>
+                    <th></th>
+                    <th class="text-center">Visitas</th>
+                </tr>
+            </thead>
+            <tbody>                            
+                @foreach($imoveisTop as $imoveltop)
+                @php                    
+                    //REALIZA PORCENTAGEM DE VISITAS!
+                    if($imoveltop->views == '0'){
+                        $percent = 1;
+                    }else{
+                        $percent = substr(( $imoveltop['views'] / $imoveistotalviews ) * 100, 0, 5);
+                    }
+                    
+                    $percenttag = str_replace(",", ".", $percent);
+                @endphp
+                <tr>
+                    <td class="text-center">{{$imoveltop->id}}</td>
+                    <td class="text-center">
+                        <a href="{{url($imoveltop->nocover())}}" data-title="{{$imoveltop->titulo}}" data-toggle="lightbox"> 
+                            <img src="{{url($imoveltop->cover())}}" alt="{{$imoveltop->titulo}}" class="img-size-50">
+                        </a>
+                    </td>
+                    <td>{{$imoveltop->titulo}}</td>
+                    <td style="width:10%;">
+                        <div class="progress progress-md progress-striped active">
+                        <div class="progress-bar bg-primary" style="width: {{$percenttag}}%"></div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <span class="badge bg-primary">{{$imoveltop->views}}</span>
+                        <a data-toggle="tooltip" data-placement="top" title="Editar Imóvel" href="{{route('imoveis.edit', ['imovel' => $imoveltop->id])}}" class="btn btn-xs btn-default ml-2"><i class="fas fa-pen"></i></a>
+                        <a target="_blank" href="{{route(($imoveltop->venda == true || $imoveltop->locacao == true ? 'web.buyProperty' : 'web.rentProperty'),['slug' => $imoveltop->slug])}}" class="btn btn-xs btn-info text-white"><i class="fas fa-search"></i></a>
+                    </td>
+                </tr>
+                @endforeach                            
+            </tbody>
+            </table>
+        </div>
+    </div>
+@endif
 
 @if(!empty($artigosTop) && $artigosTop->count() > 0)
     <div class="card">
@@ -393,7 +454,7 @@
             datasets: [
                 {
                 data: [{{ $usersUnavailable }},{{ $usersAvailable }}, {{ $time }}],
-                    backgroundColor : ['#4BC0C0', '#36A2EB', '#FF6384'],
+                    backgroundColor : ['#E17039', '#18A475', '#5594D3'],
                 }
             ]
             }
@@ -437,6 +498,36 @@
             type: 'doughnut',
             data: donutDataposts,
             options: donutOptions      
+            });
+    });
+
+    $(function (){
+        var donutChartCanvasImoveis = $('#donutChartimoveis').get(0).getContext('2d');
+        var donutDataimoveis = {
+            labels: [ 
+                'Imóveis Ativos', 
+                'Imóveis Inativos'           
+            ],
+            datasets: [
+                {
+                    data: [
+                        {{ $imoveisAvailable }}, 
+                        {{ $imoveisUnavailable }}
+                    ],
+                    backgroundColor : ['#18A475', '#E17039'],//#5594D3
+                }
+            ]
+            }
+
+            var donutOptions = {
+                maintainAspectRatio : false,
+                responsive : true,
+            }
+
+            var donutChart = new Chart(donutChartCanvasImoveis, {
+                type: 'doughnut',
+                data: donutDataimoveis,
+                options: donutOptions      
             });
     });  
 

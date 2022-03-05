@@ -368,6 +368,29 @@ return [
             'url'  => 'admin/slides',
             'icon' => 'fas fa-film',
             //'can'  =>  'slides',
+        ],
+        [
+            'text' => 'Email',            
+            'icon' => 'fas fa-fw fa-envelope',
+            //'can'  =>  'emails',
+            'submenu' => [
+                [
+                    'text' => 'Enviar Email',
+                    'url'  => 'admin/email/enviar-email',
+                ],
+                [
+                    'text' => 'Listas',
+                    'url'  => 'admin/listas',
+                ],
+                [
+                    'text' => 'Cadastrar Lista',
+                    'url'  => 'admin/listas/cadastrar',
+                ],
+                [
+                    'text' => 'Cadastrar Email',
+                    'url'  => 'admin/listas/email/cadastrar',
+                ],
+            ]
         ], 
         
     ],

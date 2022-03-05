@@ -32,38 +32,7 @@
                     data-accordion="false"
                 @endif>
                 {{-- Configured sidebar links --}}
-                @each('adminlte::partials.sidebar.menu-item', $adminlte->menu('sidebar'), 'item') 
-
-                <li class="nav-item has-treeview {{ isActiveMenu('email') }}">
-                    <a href="javascript:void(0)" class="nav-link {{ isActive('email') }}">
-                        <i class="fas fa-envelope"></i>
-                        <p>
-                            Email
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('email.send', ['id' => Auth::user()->id, 'parametro' => 'null']) }}" class="nav-link {{ isActive('email.send') }}">
-                                <i class="far fa-circle"></i>
-                                <p>Enviar Email</p>
-                            </a>
-                        </li>                            
-                        <li class="nav-item">
-                            <a href="{{route('listas')}}" class="nav-link {{ isActive('email.send') }}">
-                                <i class="far fa-circle"></i>
-                                <p>Listas</p>
-                            </a>
-                        </li>                            
-                        <li class="nav-item">
-                            <a href="{{route('lista.newsletters.create')}}" class="nav-link {{ isActive('email.send') }}">
-                                <i class="far fa-circle"></i>
-                                <p>Cadastrar Email</p>
-                            </a>
-                        </li>                            
-                    </ul>
-                </li>    
-
+                @each('adminlte::partials.sidebar.menu-item', $adminlte->menu('sidebar'), 'item')
             </ul>
         </nav>
     </div>

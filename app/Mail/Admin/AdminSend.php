@@ -47,22 +47,6 @@ class AdminSend extends Mailable
         $this->markdown('emails.send-admin', [
             'mensagem' => $this->data['mensagem']
         ]);
-        return $this;
-        //    dd($this);
-        // $copiaEmail = (!empty($this->data['copiapara']) ? ''.->cc($this->data['copiapara']).'' : '');
-        // $destinatarioNome = (!empty($this->data['destinatario_nome']) ? $this->data['destinatario_nome'] : null);
-
-        // return $this->replyTo($this->data['reply_email'], $this->data['reply_name'])
-        //     ->to($this->data['destinatario_email'], $this->data['reply_name'])
-        //     ->from($this->data['reply_email'], $this->data['reply_name'])
-        //     $copiaEmail            
-        //     ->subject($this->data['assunto'])
-        //     // ->attach($this->data['anexo']->getRealPath(), array(
-        //     //     'as'   => 'file-.' . $this->data['anexo']->getClientOriginalExtension(), 
-        //     //     'mime' => $this->data['anexo']->getMimeType())
-        //     // )
-        //     ->markdown('emails.sendadmin', [
-        //         'mensagem' => $this->data['mensagem']
-        //     ]);
+        return $this;        
     }
 }

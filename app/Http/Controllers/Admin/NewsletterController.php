@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\NewsletterCatRequest;
+use App\Http\Requests\Admin\NewsletterRequest;
 use App\Models\Newsletter;
 use App\Models\NewsletterCat;
 use Illuminate\Http\Request;
@@ -116,6 +117,39 @@ class NewsletterController extends Controller
         return view('admin.newsletters.newsletters',[
             'emails' => $newsletters,
             'lista' => $lista
+        ]);
+    }
+
+    public function newsletterCreate()
+    {
+        $listas = NewsletterCat::orderBy('created_at', 'DESC')->available()->get();
+        return view('admin.newsletters.newsletters-create', [
+            'listas' => $listas
+        ]);
+    }
+
+    public function newsletterEdit($id)
+    {
+        $email = Newsletter::where('id', $id)->first();
+        $listas = NewsletterCat::orderBy('created_at', 'DESC')->available()->get();
+        
+        return view('admin.newsletters.newsletters-edit',[
+            'email' => $email,
+            'listas' => $listas
+        ]);
+    }
+
+    public function newsletterUpdate(NewsletterRequest $request, $id)
+    {
+        $newsletterUpdate = Newsletter::where('id', $id)->first();
+        $newsletterUpdate->fill($request->all());
+        $newsletterUpdate->save();
+        
+        return Redirect::route('listas.newsletter.edit', [
+            'id' => $newsletterUpdate->id 
+        ])->with([
+            'color' => 'success', 
+            'message' => 'A Inscrição de '.$newsletterUpdate->nome.' foi alualizada com sucesso!'
         ]);
     }
 }

@@ -47,8 +47,13 @@ class Newsletter extends Model
 
     public function newsletterCat()
     {
-        return $this->hasOne(NewsletterCat::class, 'id', 'categoria');
+        return $this->belongsTo(NewsletterCat::class, 'categoria', 'id');
     }
+
+    // public function newsletterCat()
+    // {
+    //     return $this->hasOne(NewsletterCat::class, 'id', 'categoria');
+    // }
 
     /**
      * Accerssors and Mutators

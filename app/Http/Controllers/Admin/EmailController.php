@@ -19,18 +19,13 @@ class EmailController extends Controller
 
     public function send(Request $request)
     {
-        if($request->parametro == 'empresa'){
-            $empresa = Empresa::where('id', $request->id)->first();
-            return view('admin.email.send',[
-                'empresa' => $empresa
-            ]);
-        }elseif($request->parametro == 'user'){
-            $user = User::where('id', $request->id)->first();
-            return view('admin.email.send',[
-                'user' => $user
-            ]);
-        }
-        return view('admin.email.send');
+        $tenant = auth()->user()->tenant;
+        $destinatario = $request->except('_token');        
+        
+        return view('admin.email.send', [
+            'tenant' => $tenant,
+            'destinatario' => $destinatario
+        ]);
         
     }    
     

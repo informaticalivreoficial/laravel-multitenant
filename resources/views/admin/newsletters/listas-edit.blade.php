@@ -116,6 +116,10 @@
 </form> 
 @stop
 
+@section('footer')
+    <strong>Copyright &copy; {{env('DESENVOLVEDOR_INICIO')}} <a href="{{env('DESENVOLVEDOR_URL')}}">{{env('DESENVOLVEDOR')}}</a>.</strong> Desenvolvido por <a href="https://informaticalivre.com.br">Informática Livre</a>.
+@endsection
+
 @section('js')
     <script>
         $(function () {         
