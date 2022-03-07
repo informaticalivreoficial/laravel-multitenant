@@ -128,6 +128,18 @@ class NewsletterController extends Controller
         ]);
     }
 
+    public function newsletterStore(NewsletterRequest $request)
+    {
+        $emailCreate = Newsletter::create($request->all());
+        
+        return Redirect::route('listas.newsletter.edit', [
+            'id' => $emailCreate->id 
+        ])->with([
+            'color' => 'success', 
+            'message' => 'O email foi cadastrado com sucesso!'
+        ]);
+    }
+
     public function newsletterEdit($id)
     {
         $email = Newsletter::where('id', $id)->first();
