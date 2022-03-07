@@ -16,7 +16,7 @@ class ManangerTenant
     public function domain()
     {
         //superimoveis.info
-        return $pieces = request()->getHost();
+        return $pieces = request()->getHost();       
     }
 
     public function tenant()
