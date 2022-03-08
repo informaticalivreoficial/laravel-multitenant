@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class SlideController extends Controller
 {
+    public function __construct()
+    {
+        //Verifica se expirou a assinatura
+        $this->middleware(['subscribed']);
+        $this->middleware(['can:slides']);
+    }
+
     public function index()
     {
         $slides = Slide::orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->paginate(25);

@@ -30,6 +30,7 @@ class ImovelController extends Controller
     {
         //Verifica se expirou a assinatura
         $this->middleware(['subscribed']);
+        $this->middleware(['can:imoveis']);
         
         $this->imovelService = $imovelService;
         $this->userService = $userService;

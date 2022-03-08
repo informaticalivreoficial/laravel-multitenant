@@ -16,6 +16,7 @@ class NewsletterController extends Controller
     {
         //Verifica se expirou a assinatura
         $this->middleware(['subscribed']);
+        $this->middleware(['can:newsletter']);
     }
 
     public function listas()

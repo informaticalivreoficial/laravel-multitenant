@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1><i class="fas fa-search mr-2"></i> Perfis</h1>
+        <h1><i class="fas fa-address-book mr-2"></i> Perfis</h1>
     </div>
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">                    
@@ -53,9 +53,7 @@
                                 <input type="checkbox" data-onstyle="success" data-offstyle="warning" data-size="mini" class="toggle-class" data-id="{{ $perfil->id }}" data-toggle="toggle" data-style="slow" data-on="<i class='fas fa-check'></i>" data-off="<i style='color:#fff !important;' class='fas fa-exclamation-triangle'></i>" {{ $perfil->status == true ? 'checked' : ''}}>
                                 <a href="{{route('perfis.permissoes',['idPerfil' => $perfil->id])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-lock"></i></a>
                                 <a href="{{ route('perfis.edit', [ 'id' => $perfil->id ]) }}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
-                                <a target="_blank" href="{{--route('web.plano',['slug' => $plan->slug])--}}" class="btn btn-xs btn-info text-white"><i class="fas fa-search"></i></a>
-                                <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$perfil->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
-                                
+                                <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$perfil->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>                                
                             </td>
                         </tr>                            
                         @endforeach
@@ -82,9 +80,9 @@
             <form id="frm" action="" method="post">            
             @csrf
             @method('DELETE')
-            <input id="id_post" name="post_id" type="hidden" value=""/>
+            <input id="id_perfil" name="perfil_id" type="hidden" value=""/>
                 <div class="modal-header">
-                    <h4 class="modal-title">Remover Post!</h4>
+                    <h4 class="modal-title">Remover Perfil!</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -124,22 +122,22 @@
             
             //FUNÇÃO PARA EXCLUIR
             $('.j_modal_btn').click(function() {
-                var post_id = $(this).data('id');
+                var perfil_id = $(this).data('id');
                 
                 $.ajax({
                     type: 'GET',
                     dataType: 'JSON',
-                    url: "{{ route('posts.delete') }}",
+                    url: "{{ route('perfis.delete') }}",
                     data: {
-                       'id': post_id
+                       'id': perfil_id
                     },
                     success:function(data) {
                         if(data.error){
                             $('.j_param_data').html(data.error);
-                            $('#id_post').val(data.id);
-                            $('#frm').prop('action','{{ route('posts.deleteon') }}');
+                            $('#id_perfil').val(data.id);
+                            $('#frm').prop('action','{{ route('perfis.deleteon') }}');
                         }else{
-                            $('#frm').prop('action','{{ route('posts.deleteon') }}');
+                            $('#frm').prop('action','{{ route('perfis.deleteon') }}');
                         }
                     }
                 });
@@ -159,14 +157,14 @@
             
             $('.toggle-class').on('change', function() {
                 var status = $(this).prop('checked') == true ? 1 : 0;
-                var post_id = $(this).data('id');
+                var perfil_id = $(this).data('id');
                 $.ajax({
                     type: 'GET',
                     dataType: 'JSON',
-                    url: '{{ route('posts.postSetStatus') }}',
+                    url: '{{ route('perfis.perfilSetStatus') }}',
                     data: {
                         'status': status,
-                        'id': post_id
+                        'id': perfil_id
                     },
                     success:function(data) {
                         

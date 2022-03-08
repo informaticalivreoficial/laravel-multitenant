@@ -22,6 +22,7 @@ class PostController extends Controller
     {
         //Verifica se expirou a assinatura
         $this->middleware(['subscribed']);
+        $this->middleware(['can:posts']);
     }
 
     public function index(Request $request)

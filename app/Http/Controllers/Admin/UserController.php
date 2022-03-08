@@ -24,6 +24,7 @@ class UserController extends Controller
         $this->userService = $userService;
         //Verifica se expirou a assinatura
         $this->middleware(['subscribed']);
+        $this->middleware(['can:users']);
     }
 
     public function index()

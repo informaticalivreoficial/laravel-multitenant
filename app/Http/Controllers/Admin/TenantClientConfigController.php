@@ -20,6 +20,7 @@ class TenantClientConfigController extends Controller
     {
         //Verifica se expirou a assinatura
         $this->middleware(['subscribed']);
+        $this->middleware(['can:configuracoes']);
     }
     
     public function editar()

@@ -203,6 +203,8 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('posts/categorias', [CatPostController::class, 'index'])->name('categorias.index');
 
     //***************************** Cargos ******************************************************/
+    Route::get('cargos/delete', [RoleController::class, 'delete'])->name('roles.delete');
+    Route::delete('cargos/deleteon', [RoleController::class, 'deleteon'])->name('roles.deleteon');
     Route::put('cargos/{id}', [RoleController::class, 'update'])->name('roles.update');
     Route::get('cargos/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::post('cargos/store', [RoleController::class, 'store'])->name('roles.store');
@@ -231,6 +233,9 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('permissoes', [PermissionController::class, 'index'])->name('permissoes');
 
     //********************** Perfis ************************************************/
+    Route::get('perfis/delete', [PerfilController::class, 'delete'])->name('perfis.delete');
+    Route::delete('perfis/deleteon', [PerfilController::class, 'deleteon'])->name('perfis.deleteon');
+    Route::get('perfis/set-status', [PerfilController::class, 'perfilSetStatus'])->name('perfis.perfilSetStatus');
     Route::put('perfis/{id}', [PerfilController::class, 'update'])->name('perfis.update');
     Route::get('perfis/edit/{id}', [PerfilController::class, 'edit'])->name('perfis.edit');
     Route::post('perfis/store', [PerfilController::class, 'store'])->name('perfis.store');

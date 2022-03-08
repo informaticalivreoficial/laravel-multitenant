@@ -15,6 +15,7 @@ class EmailController extends Controller
     {
         //Verifica se expirou a assinatura
         $this->middleware(['subscribed']);
+        $this->middleware(['can:emails']);
     }
 
     public function send(Request $request)

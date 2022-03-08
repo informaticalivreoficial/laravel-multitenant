@@ -75,9 +75,9 @@
             <form id="frm" action="" method="post">            
             @csrf
             @method('DELETE')
-            <input id="id_post" name="post_id" type="hidden" value=""/>
+            <input id="id_cargo" name="cargo_id" type="hidden" value=""/>
                 <div class="modal-header">
-                    <h4 class="modal-title">Remover Post!</h4>
+                    <h4 class="modal-title">Remover Cargo!</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -117,22 +117,22 @@
             
             //FUNÇÃO PARA EXCLUIR
             $('.j_modal_btn').click(function() {
-                var post_id = $(this).data('id');
+                var cargo_id = $(this).data('id');
                 
                 $.ajax({
                     type: 'GET',
                     dataType: 'JSON',
-                    url: "{{ route('posts.delete') }}",
+                    url: "{{ route('roles.delete') }}",
                     data: {
-                       'id': post_id
+                       'id': cargo_id
                     },
                     success:function(data) {
                         if(data.error){
                             $('.j_param_data').html(data.error);
-                            $('#id_post').val(data.id);
-                            $('#frm').prop('action','{{ route('posts.deleteon') }}');
+                            $('#id_cargo').val(data.id);
+                            $('#frm').prop('action','{{ route('roles.deleteon') }}');
                         }else{
-                            $('#frm').prop('action','{{ route('posts.deleteon') }}');
+                            $('#frm').prop('action','{{ route('roles.deleteon') }}');
                         }
                     }
                 });

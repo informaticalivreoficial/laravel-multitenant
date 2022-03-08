@@ -50,4 +50,28 @@ class RoleController extends Controller
             'id' => $roleUpdate->id,
         ])->with(['color' => 'success', 'message' => 'Cargo atualizado com sucesso!']);
     } 
+
+    public function delete(Request $request)
+    {
+        $cargo = Role::where('id', $request->id)->first();
+        $nome = getPrimeiroNome(auth()->user()->name);
+        if(!empty($cargo)){
+            $json = "<b>$nome</b> você tem certeza que deseja excluir este Cargo?";
+            return response()->json(['error' => $json,'id' => $cargo->id]);
+        }else{
+            return response()->json(['success' => true]);
+        }
+    }
+    
+    public function deleteon(Request $request)
+    { 
+        $cargo = Role::where('id', $request->cargo_id)->first();  
+        $cargoR = $cargo->name;
+        if(!empty($cargo)){
+            $cargo->delete();
+        }
+        return Redirect::route('roles')->with([
+            'color' => 'success', 
+            'message' => 'O cargo '.$cargoR.' foi removido com sucesso!']);
+    }
 }

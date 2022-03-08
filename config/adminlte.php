@@ -241,22 +241,24 @@ return [
             'text' => 'Configurações',
             'url'  => 'admin/configuracoes',
             'icon' => 'fas fa-cog',
+            'can'  =>  'configuracoes', // permissão configuracoes
         ],
         [
             'text' => 'Empresas',
             'url'  => 'admin/tenants',
             'icon' => 'fas fa-building',
-            'can'  =>  'tenants',
+            'can'  =>  'tenants', // permissão Tenants
         ],
         [
             'text' => 'Cargos',
             'url'  => 'admin/cargos',
             'icon' => 'fas fa-address-card',
-            'can'  =>  'roles',
+            'can'  =>  'cargos', // permissão cargos
         ],
         [
             'text' => 'Permissões',            
             'icon' => 'fas fa-fw fa-lock',
+            'can'  =>  'permissions', // permissão permissions
             'submenu' => [
                 [
                     'text' => 'Listar Permissões',
@@ -271,6 +273,7 @@ return [
         [
             'text' => 'Usuários',            
             'icon' => 'fas fa-fw fa-users',
+            'can'  =>  'users', //permissão users
             'submenu' => [
                 [
                     'text' => 'Clientes',
@@ -289,6 +292,7 @@ return [
         [
             'text' => 'Imóveis',            
             'icon' => 'fas fa-fw fa-home',
+            'can'  =>  'imoveis', //permissão imóveis
             'submenu' => [
                 [
                     'text' => 'Ver Todos',
@@ -303,6 +307,7 @@ return [
         [
             'text' => 'Posts',            
             'icon' => 'fas fa-fw fa-pen',
+            'can'  =>  'posts', // permissão posts
             'submenu' => [
                 [
                     'text' => 'Cadastrar Post',
@@ -329,7 +334,7 @@ return [
         [
             'text' => 'Planos',            
             'icon' => 'fas fa-fw fa-list-alt',
-            'can'  =>  'plans',
+            'can'  =>  'planos', // permissão planos
             'submenu' => [
                 [
                     'text' => 'Listar Planos',
@@ -344,7 +349,7 @@ return [
         [
             'text' => 'Perfis',            
             'icon' => 'fas fa-fw fa-address-book',
-            'can'  =>  'profiles',
+            'can'  =>  'perfis', // permissão perfis
             'submenu' => [
                 [
                     'text' => 'Listar Perfis',
@@ -361,18 +366,18 @@ return [
             'text' => 'Parceiros',
             'url'  => 'admin/parceiros',
             'icon' => 'fas fa-puzzle-piece',
-            //'can'  =>  'parceiros',
+            'can'  =>  'parceiros', // permissão parceiros
         ],
         [
             'text' => 'Banner Slides',
             'url'  => 'admin/slides',
             'icon' => 'fas fa-film',
-            //'can'  =>  'slides',
+            'can'  =>  'slides', // permissão slides
         ],
         [
             'text' => 'Email',            
             'icon' => 'fas fa-fw fa-envelope',
-            //'can'  =>  'emails',
+            'can'  =>  'emails', // permissão emails
             'submenu' => [
                 [
                     'text' => 'Enviar Email',
@@ -381,14 +386,17 @@ return [
                 [
                     'text' => 'Listas',
                     'url'  => 'admin/listas',
+                    'can'  =>  'newsletter', // permissão newsletter
                 ],
                 [
                     'text' => 'Cadastrar Lista',
                     'url'  => 'admin/listas/cadastrar',
+                    'can'  =>  'newsletter', // permissão newsletter
                 ],
                 [
                     'text' => 'Cadastrar Email',
                     'url'  => 'admin/listas/email/cadastrar',
+                    'can'  =>  'newsletter', // permissão newsletter
                 ],
             ]
         ], 
