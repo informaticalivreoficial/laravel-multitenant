@@ -282,6 +282,7 @@ return [
                 [
                     'text' => 'Time',
                     'url'  => 'admin/usuarios/time',
+                    'can'  =>  'time', //permissão time
                 ],
                 [
                     'text' => 'Criar Novo',

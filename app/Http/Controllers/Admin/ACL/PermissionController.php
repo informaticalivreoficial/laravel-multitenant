@@ -49,5 +49,29 @@ class PermissionController extends Controller
         return Redirect::route('permissoes.edit', [
             'id' => $permissaoUpdate->id,
         ])->with(['color' => 'success', 'message' => 'Permissão atualizada com sucesso!']);
-    } 
+    }
+    
+    public function delete(Request $request)
+    {
+        $permissao = Permission::where('id', $request->id)->first();
+        $nome = getPrimeiroNome(auth()->user()->name);
+        if(!empty($permissao)){
+            $json = "<b>$nome</b> você tem certeza que deseja excluir esta Permissão?";
+            return response()->json(['error' => $json,'id' => $permissao->id]);
+        }else{
+            return response()->json(['success' => true]);
+        }
+    }
+    
+    public function deleteon(Request $request)
+    { 
+        $permissao = Permission::where('id', $request->permissao_id)->first();  
+        $permissaoR = $permissao->name;
+        if(!empty($permissao)){
+            $permissao->delete();
+        }
+        return Redirect::route('permissoes')->with([
+            'color' => 'success', 
+            'message' => 'A Permissão '.$permissaoR.' foi removida com sucesso!']);
+    }
 }

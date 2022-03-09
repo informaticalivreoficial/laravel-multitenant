@@ -36,7 +36,7 @@
                 <table id="example1" class="table table-bordered table-striped projects">
                     <thead>
                         <tr>
-                            <th>Permissão</th>
+                            <th>Permissões</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -47,8 +47,7 @@
                             <td>
                                 <a href="{{ route('permissoes.edit', [ 'id' => $permissao->id ]) }}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
                                 <a href="{{route('permissoes.perfis',[ 'idPermission' => $permissao->id ])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-users"></i></a>
-                                <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$permissao->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
-                                
+                                <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$permissao->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>                                
                             </td>
                         </tr>                            
                         @endforeach
@@ -75,9 +74,9 @@
             <form id="frm" action="" method="post">            
             @csrf
             @method('DELETE')
-            <input id="id_post" name="post_id" type="hidden" value=""/>
+            <input id="id_permissao" name="permissao_id" type="hidden" value=""/>
                 <div class="modal-header">
-                    <h4 class="modal-title">Remover Post!</h4>
+                    <h4 class="modal-title">Remover Permissão!</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -117,22 +116,22 @@
             
             //FUNÇÃO PARA EXCLUIR
             $('.j_modal_btn').click(function() {
-                var post_id = $(this).data('id');
+                var permissao_id = $(this).data('id');
                 
                 $.ajax({
                     type: 'GET',
                     dataType: 'JSON',
-                    url: "{{ route('posts.delete') }}",
+                    url: "{{ route('permissoes.delete') }}",
                     data: {
-                       'id': post_id
+                       'id': permissao_id
                     },
                     success:function(data) {
                         if(data.error){
                             $('.j_param_data').html(data.error);
-                            $('#id_post').val(data.id);
-                            $('#frm').prop('action','{{ route('posts.deleteon') }}');
+                            $('#id_permissao').val(data.id);
+                            $('#frm').prop('action','{{ route('permissoes.deleteon') }}');
                         }else{
-                            $('#frm').prop('action','{{ route('posts.deleteon') }}');
+                            $('#frm').prop('action','{{ route('permissoes.deleteon') }}');
                         }
                     }
                 });
@@ -148,23 +147,6 @@
             $('#toggle-two').bootstrapToggle({
                 on: 'Enabled',
                 off: 'Disabled'
-            });
-            
-            $('.toggle-class').on('change', function() {
-                var status = $(this).prop('checked') == true ? 1 : 0;
-                var post_id = $(this).data('id');
-                $.ajax({
-                    type: 'GET',
-                    dataType: 'JSON',
-                    url: '{{ route('posts.postSetStatus') }}',
-                    data: {
-                        'status': status,
-                        'id': post_id
-                    },
-                    success:function(data) {
-                        
-                    }
-                });
             });
             
         });

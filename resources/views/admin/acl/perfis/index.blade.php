@@ -37,9 +37,6 @@
                     <thead>
                         <tr>
                             <th>Perfil</th>
-                            <th>Assinantes</th>
-                            <th>Valor</th>
-                            <th class="text-center">Views</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -47,8 +44,6 @@
                         @foreach($perfis as $perfil)                        
                         <tr style="{{ ($perfil->status == '1' ? '' : 'background: #fffed8 !important;')  }}">                       
                             <td>{{$perfil->name}}</td>
-                            <td></td>
-                            <td class="text-center"></td>
                             <td>
                                 <input type="checkbox" data-onstyle="success" data-offstyle="warning" data-size="mini" class="toggle-class" data-id="{{ $perfil->id }}" data-toggle="toggle" data-style="slow" data-on="<i class='fas fa-check'></i>" data-off="<i style='color:#fff !important;' class='fas fa-exclamation-triangle'></i>" {{ $perfil->status == true ? 'checked' : ''}}>
                                 <a href="{{route('perfis.permissoes',['idPerfil' => $perfil->id])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-lock"></i></a>

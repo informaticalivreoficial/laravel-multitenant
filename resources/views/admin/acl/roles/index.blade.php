@@ -19,7 +19,9 @@
 @section('content')
     <div class="card">
         <div class="card-header text-right">
+            @can('add_cargo')
             <a href="{{route('roles.create')}}" class="btn btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Novo</a>
+            @endcan
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -45,10 +47,11 @@
                         <tr>                       
                             <td>{{$role->name}}</td>
                             <td>
-                                <a href="{{route('role.permissoes',['idRole' => $role->id])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-lock"></i></a>
+                                <a href="{{route('role.permissoes',['idRole' => $role->id])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-lock"></i></a>                                
+                                @can('remove_cargo')
                                 <a href="{{ route('roles.edit', [ 'id' => $role->id ]) }}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
-                                <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$role->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
-                                
+                                    <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$role->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
+                                @endcan                                                                
                             </td>
                         </tr>                            
                         @endforeach

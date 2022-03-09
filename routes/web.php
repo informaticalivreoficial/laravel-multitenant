@@ -226,6 +226,8 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     //Route::get('perfis/{idPlano}/perfis', [PlanProfileController::class, 'profiles'])->name('perfis.planos');
 
     //****************************** Permissoes ************************************************/
+    Route::get('permissoes/delete', [PermissionController::class, 'delete'])->name('permissoes.delete');
+    Route::delete('permissoes/deleteon', [PermissionController::class, 'deleteon'])->name('permissoes.deleteon');
     Route::put('permissoes/{id}', [PermissionController::class, 'update'])->name('permissoes.update');
     Route::get('permissoes/edit/{id}', [PermissionController::class, 'edit'])->name('permissoes.edit');
     Route::post('permissoes/store', [PermissionController::class, 'store'])->name('permissoes.store');
@@ -285,7 +287,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::delete('usuarios/deleteon', [UserController::class, 'deleteon'])->name('users.deleteon');
     Route::get('usuarios/set-status', [UserController::class, 'userSetStatus'])->name('users.userSetStatus');
     Route::get('usuarios/delete', [UserController::class, 'delete'])->name('users.delete');
-    Route::get('usuarios/time', [UserController::class, 'team'])->name('users.team');
+    Route::get('usuarios/time', [UserController::class, 'team'])->name('users.team')->middleware('can:time');
     Route::get('usuarios/view/{id}', [UserController::class, 'show'])->name('users.view');
     Route::put('usuarios/{id}', [UserController::class, 'update'])->name('users.update');
     Route::get('usuarios/{id}/edit', [UserController::class, 'edit'])->name('users.edit');

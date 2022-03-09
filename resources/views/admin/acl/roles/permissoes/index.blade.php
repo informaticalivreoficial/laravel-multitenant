@@ -20,7 +20,7 @@
 @section('content')
     <div class="card">
         <div class="card-header text-right">
-            <a href="{{route('role.permissoes.create',['idRole' => $role->id])}}" class="btn btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Permissão</a>
+            <a href="{{route('role.permissoes.create',['idRole' => $role->id])}}" class="btn btn-default"><i class="fas fa-plus mr-2"></i> Vincular Permissão</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
