@@ -38,6 +38,12 @@ class ImovelController extends Controller
 
     public function index()
     {
+        // # ProductController@create
+        // if (Gate::denies('create-post')) {
+        //     return redirect()
+        //             ->route('nome.rota')
+        //             ->with('message', 'Não pode cadastrar');
+        // }
         $imoveis = $this->imovelService->getAllImoveis(30);
         return view('admin.imoveis.index', [
             'imoveis' => $imoveis,

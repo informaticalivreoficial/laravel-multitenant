@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\{
     EmailController,
     ImovelController,
     NewsletterController,
+    ParceiroController,
     PlanController,
     PostController,
     SitemapController,
@@ -117,6 +118,9 @@ Route::group([
 
     //****************************** Páginas ***********************************************/
     Route::get('/pagina/{slug}', [SiteController::class, 'pagina'])->name('pagina'); 
+
+    //****************************** Parceiros *********************************************/
+    Route::get('/parceiro/{slug}', [SiteController::class, 'parceiro'])->name('parceiro');
 
     //****************************** Blog ***********************************************/
     Route::get('/blog/artigo/{slug}', [SiteController::class, 'artigo'])->name('blog.artigo');
@@ -300,6 +304,19 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::match(['post', 'get'], 'email/enviar-email', [EmailController::class, 'send'])->name('email.send');
     Route::post('email/sendEmail', [EmailController::class, 'sendEmail'])->name('email.sendEmail');
     Route::match(['post', 'get'], 'email/success', [EmailController::class, 'success'])->name('email.success');
+
+    //******************** Parceiros *********************************************/
+    Route::match(['post', 'get'], 'parceiros/fetchCity', [ParceiroController::class, 'fetchCity'])->name('parceiros.fetchCity');
+    Route::get('parceiros/set-status', [ParceiroController::class, 'parceiroSetStatus'])->name('parceiros.parceiroSetStatus');
+    Route::post('parceiros/image-set-cover', [ParceiroController::class, 'imageSetCover'])->name('parceiros.imageSetCover');
+    Route::delete('parceiros/image-remove', [ParceiroController::class, 'imageRemove'])->name('parceiros.imageRemove');
+    Route::delete('parceiros/deleteon', [ParceiroController::class, 'deleteon'])->name('parceiros.deleteon');
+    Route::get('parceiros/delete', [ParceiroController::class, 'delete'])->name('parceiros.delete');
+    Route::put('parceiros/{id}', [ParceiroController::class, 'update'])->name('parceiros.update');
+    Route::get('parceiros/{id}/edit', [ParceiroController::class, 'edit'])->name('parceiros.edit');
+    Route::get('parceiros/create', [ParceiroController::class, 'create'])->name('parceiros.create');
+    Route::post('parceiros/store', [ParceiroController::class, 'store'])->name('parceiros.store');
+    Route::get('parceiros', [ParceiroController::class, 'index'])->name('parceiros.index');
 
 });
 

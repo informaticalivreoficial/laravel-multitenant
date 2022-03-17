@@ -77,6 +77,16 @@ class Tenant extends Model
         return $this->hasMany(Slide::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function parceiros()
+    {
+        return $this->hasMany(Parceiro::class);
+    }
+
     public function plan()
     {
         return $this->belongsTo(Plan::class);
