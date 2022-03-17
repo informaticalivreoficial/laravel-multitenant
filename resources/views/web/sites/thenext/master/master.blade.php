@@ -353,18 +353,32 @@
                
                 <!-- Subscribe -->
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="footer-item">
-                        <div class="main-title-2">
-                            <h1>Inscreva-se</h1>
+                    @if (!empty($newsletterForm) && $newsletterForm->count() > 0)
+                        <div class="footer-item">
+                            <div class="main-title-2">
+                                <h1>Inscreva-se</h1>
+                            </div>
+                            <div class="newsletter clearfix">
+                                <p>Receba direto no seu e-mail, nossas dicas e novidades sobre compra, venda e locação de imóveis!</p>
+                                <form class="form-inline j_submitnewsletter" action="" method="POST">
+                                    @csrf                                
+                                    <div id="js-newsletter-result"></div>
+                                    <div class="row form_hide">
+                                        <div class="col-12">
+                                            <!-- HONEYPOT -->
+                                            <input type="hidden" class="noclear" name="bairro" value="" />
+                                            <input type="text" class="noclear" style="display: none;" name="cidade" value="" />
+                                            <input type="hidden" class="noclear" name="status" value="1" />
+                                            <input type="hidden" class="noclear" name="nome" value="#Cadastrado pelo Site" />
+                                            <input class="form-control" type="email" name="email" placeholder="Seu email...">
+                                            <button class="btn button-theme" type="submit"><i class="fa fa-paper-plane"></i></button>
+                                        </div>
+                                    </div>                                
+                                </form>
+                            </div>
                         </div>
-                        <div class="newsletter clearfix">
-                            <p>Receba direto no seu e-mail, nossas dicas e novidades sobre compra, venda e locação de imóveis!</p>
-                            <form class="form-inline d-flex" action="#">
-                                <input class="form-control" type="email" id="email" placeholder="Email Address...">
-                                <button class="btn button-theme" type="submit"><i class="fa fa-paper-plane"></i></button>
-                            </form>
-                        </div>
-                    </div>
+                    @endif
+                    
                 </div>
             </div>
         </div>
@@ -427,6 +441,57 @@
 @hasSection('js')
     @yield('js')
 @endif
+
+<script>
+    $(function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Seletor, Evento/efeitos, CallBack, Ação
+        $('.j_submitnewsletter').submit(function (){
+            var form = $(this);
+            var dataString = $(form).serialize();
+
+            $.ajax({
+                url: "{{ route('web.sendNewsletter') }}",
+                data: dataString,
+                type: 'GET',
+                dataType: 'JSON',
+                beforeSend: function(){
+                    form.find("#js-subscribe-btn").attr("disabled", true);
+                    //form.find('#js-subscribe-btn').html("Carregando...");                
+                    form.find('.alert').fadeOut(500, function(){
+                        $(this).remove();
+                    });
+                },
+                success: function(response){
+                    $('html, body').animate({scrollTop:$('#js-newsletter-result').offset().top-40}, 'slow');
+                    if(response.error){
+                        form.find('#js-newsletter-result').html('<div class="alert alert-danger error-msg">'+ response.error +'</div>');
+                        form.find('.error-msg').fadeIn();                    
+                    }else{
+                        form.find('#js-newsletter-result').html('<div class="alert alert-success error-msg">'+ response.sucess +'</div>');
+                        form.find('.error-msg').fadeIn();                    
+                        form.find('input[class!="noclear"]').val('');
+                        form.find('.form_hide').fadeOut(500);
+                    }
+                },
+                complete: function(response){
+                    form.find("#js-subscribe-btn").attr("disabled", false);
+                    //form.find('#js-subscribe-btn').html("Cadastrar!");                                
+                }
+
+            });
+
+            return false;
+        });
+
+    });
+</script>
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{$tenant->tagmanager_id}}"></script>

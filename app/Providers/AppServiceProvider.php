@@ -40,8 +40,16 @@ class AppServiceProvider extends ServiceProvider
         Plan::observe(PlanObserver::class);
         Tenant::observe(TenantObserver::class);
 
+        //Categorias de Imóveis
         $catImoveis = DB::table('imoveis')->selectRaw('DISTINCT tipo')->get();
         View()->share('categoriasMenu', $catImoveis);
+
+        //Newsletter
+        $newsletter = DB::table('newsletter_cat')
+                        ->where('sistema', 1)
+                        ->where('status', 1)
+                        ->get();
+        View()->share('newsletterForm', $newsletter);
 
         Schema::defaultStringLength(191);
         Blade::aliasComponent('admin.components.message', 'message');

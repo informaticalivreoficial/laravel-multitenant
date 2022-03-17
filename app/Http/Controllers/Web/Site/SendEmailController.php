@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Web\Atendimento;
 use App\Mail\Web\AtendimentoRetorno;
+use App\Models\Newsletter;
+use App\Models\NewsletterCat;
 
 class SendEmailController extends Controller
 {
@@ -56,6 +58,33 @@ class SendEmailController extends Controller
             
             $json = "Obrigado {$request->nome} sua mensagem foi enviada com sucesso!"; 
             return response()->json(['sucess' => $json]);
+        }
+    }
+
+    public function sendNewsletter(Request $request)
+    {
+        if(!filter_var($request->email, FILTER_VALIDATE_EMAIL)){
+            $json = "O campo <strong>Email</strong> está vazio ou não tem um formato válido!";
+            return response()->json(['error' => $json]);
+        }
+        if(!empty($request->bairro) || !empty($request->cidade)){
+            $json = "<strong>ERRO</strong> Você está praticando SPAM!"; 
+            return response()->json(['error' => $json]);
+        }else{   
+            $validaNews = Newsletter::where('email', $request->email)->first();            
+            if(!empty($validaNews)){
+                Newsletter::where('email', $request->email)->update(['status' => 1]);
+                $json = "Seu e-mail já está cadastrado!"; 
+                return response()->json(['sucess' => $json]);
+            }else{
+                $categoriaPadrão = NewsletterCat::where('sistema', 1)->first();                
+                $data = $request->all();
+                $data['categoria'] = $categoriaPadrão->id;
+                $NewsletterCreate = Newsletter::create($data);
+                $NewsletterCreate->save();
+                $json = "Obrigado Cadastrado com sucesso!"; 
+                return response()->json(['sucess' => $json]);
+            }            
         }
     }
 }

@@ -80,6 +80,7 @@ Route::group([
     Route::get('/', [SiteController::class, 'home'])->name('home');
     Route::get('/atendimento', [SiteController::class, 'atendimento'])->name('atendimento');
     Route::get('/sendEmail', [SendEmailController::class, 'sendEmail'])->name('sendEmail');
+    Route::get('/sendNewsletter', [SendEmailController::class, 'sendNewsletter'])->name('sendNewsletter');
 
     //FINANCIAMENTO
     Route::get('/simulador-financiamento-imovel', [SiteController::class, 'financiamento'])->name('financiamento');
@@ -138,6 +139,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('admin.gerarxml');
 
     //******************************* Newsletter *********************************************/
+    Route::match(['post', 'get'], 'listas/padrao', [NewsletterController::class, 'padraoMark'])->name('listas.padrao');
     Route::get('listas/set-status', [NewsletterController::class, 'listaSetStatus'])->name('listas.listaSetStatus');
     Route::get('listas/delete', [NewsletterController::class, 'listaDelete'])->name('listas.delete');
     Route::delete('listas/deleteon', [NewsletterController::class, 'listaDeleteon'])->name('listas.deleteon');
@@ -148,6 +150,9 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('listas', [NewsletterController::class, 'listas'])->name('listas');
 
     Route::put('listas/email/{id}', [NewsletterController::class, 'newsletterUpdate'])->name('listas.newsletter.update');
+    Route::get('listas/email/set-status', [NewsletterController::class, 'emailSetStatus'])->name('emails.emailSetStatus');
+    Route::get('listas/email/delete', [NewsletterController::class, 'emailDelete'])->name('emails.delete');
+    Route::delete('listas/email/deleteon', [NewsletterController::class, 'emailDeleteon'])->name('emails.deleteon');
     Route::get('listas/email/{id}/edit', [NewsletterController::class, 'newsletterEdit'])->name('listas.newsletter.edit');
     Route::get('listas/email/cadastrar', [NewsletterController::class, 'newsletterCreate'])->name('lista.newsletter.create');
     Route::post('listas/email/store', [NewsletterController::class, 'newsletterStore'])->name('listas.newsletter.store');

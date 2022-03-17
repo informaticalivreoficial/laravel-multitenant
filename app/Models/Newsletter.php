@@ -69,14 +69,19 @@ class Newsletter extends Model
     public function getAutorizacaoAttribute($value)
     {
         if(empty($value)){
-            return null;
+            return '<span class="badge bg-danger">Não</span>';
+        }else{
+            return '<span class="badge bg-success">Sim</span>';
         }
-
-        return ($value == '1' ? '<span class="badge bg-success">Sim</span>' : '<span class="badge bg-danger">Não</span>');
     }
 
     public function setStatusAttribute($value)
     {
         $this->attributes['status'] = ($value == '1' ? 1 : 0);
-    }    
+    }
+    
+    public function setAutorizacaoAttribute($value)
+    {
+        $this->attributes['autorizacao'] = ($value == '1' ? 1 : 0);
+    }
 }

@@ -117,7 +117,7 @@ $config1 = [
                                                 <div class="form-group">
                                                     <label class="labelforms text-muted"><b>URL do site</b></label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control text-muted" placeholder="URL do site" name="dominio" value="{{ old('dominio') ?? $config->dominio }}"/>
+                                                        <input type="text" class="form-control text-muted" placeholder="URL do site" name="dominio" value="{{ old('dominio') ?? $config->dominio }}" disabled/>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                             <a href="javascript:void(0)" title="QrCode" data-toggle="modal" data-target="#modal-qrcode"><i class="fa fa-qrcode"></i></a>
