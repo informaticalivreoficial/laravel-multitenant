@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\{
-    Imovel,
     Plan,
     Tenant
 };

@@ -1,7 +1,7 @@
 @extends("web.sites.{$tenant->template}.master.master")
 
 @section('content')
-<!-- Details banner start -->
+
 <div class="details-banner">
     <div class="container-fluid">
         <div class="featured-slider row slide-box-btn slider" data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
@@ -458,7 +458,6 @@
         </div>
     </div>
 </div>
-<!-- Properties details page end -->
 
 @endsection
 

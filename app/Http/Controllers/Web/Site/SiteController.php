@@ -119,31 +119,30 @@ class SiteController extends Controller
     {
         $imovel = Imovel::where('destaque', 1)->available()->first();
 
-        if(!empty($imovel)){
-            $head = $this->seo->render($imovel->titulo ?? 'Super Imóveis Sistema Imobiliário',
-                $imovel->headline ?? $imovel->titulo,
-                route('web.lancamento'),
-                $imovel->nocover() ?? $this->tenant->getMetaImg()
-            );
-
-            return view('web.sites.'.$this->tenant->template.'.imoveis.lancamento', [
-                'tenant' => $this->tenant,
-                'head' => $head,
-                'imovel' => $imovel
-            ]);
-        }else{ 
-            $head = $this->seo->render($this->tenant->name ?? 'Super Imóveis Sistema Imobiliário',
-                'Nenhum imóvel encontrado!',
-                $this->tenant->dominio ?? 'https://superimoveis.info',
+        if(empty($imovel)){
+            $head = $this->seo->render('Página não encontrada' ?? 'Super Imóveis Sistema Imobiliário',
+                'Página não encontrada',
+                route('web.home'),
                 $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
             );
 
-            return view('web.sites.'.$this->tenant->template.'.imoveis.lancamento', [
-                'tenant' => $this->tenant,
+            return view('web.sites.'.$this->tenant->template.'.404',[
                 'head' => $head,
-                'imovel' => false
+                'tenant' => $this->tenant
             ]);
-        }        
+        }
+
+        $head = $this->seo->render($imovel->titulo ?? 'Super Imóveis Sistema Imobiliário',
+            $imovel->headline ?? $imovel->titulo,
+            route('web.lancamento'),
+            $imovel->nocover() ?? $this->tenant->getMetaImg()
+        );
+
+        return view('web.sites.'.$this->tenant->template.'.imoveis.lancamento', [
+            'tenant' => $this->tenant,
+            'head' => $head,
+            'imovel' => $imovel
+        ]);        
     }
 
     public function buyProperty($slug)

@@ -49,19 +49,18 @@
 </head>
 <body>
 
-<!-- Top header start -->
 <header class="top-header" id="top">
     <div class="container">
         <div class="row">
             <div class="col-7 col-sm-7 col-md-7 col-lg-6">
                 <div class="list-inline">
                     @if ($tenant->whatsapp)
-                        <a href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}" class="n-575">
+                        <a href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}" class="n-575" title="WhatsApp">
                             <i class="fa fa-whatsapp"></i>{{$tenant->whatsapp}}
                         </a>
                     @endif
                     @if ($tenant->email)
-                        <a href="mailto:{{$tenant->email}}">
+                        <a href="mailto:{{$tenant->email}}" title="Email">
                             <i class="fa fa-envelope"></i>{{$tenant->email}}
                         </a>
                     @endif                    
@@ -70,7 +69,7 @@
             <div class="col-5 col-sm-5 col-md-5 col-lg-6">
                 <ul class="top-social-media pull-right">
                     <li>
-                        <a href="{{route('login')}}" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
+                        <a href="{{route('login')}}" class="sign-in" title="Login"><i class="fa fa-sign-in"></i> Login</a>
                     </li>
                     <!--<li>
                         <a href="signup.html" class="sign-in"><i class="fa fa-user"></i> Register</a>
@@ -80,13 +79,11 @@
         </div>
     </div>
 </header>
-<!-- Top header end -->
 
-<!-- Main header start -->
 <header class="main-header  header-shrink ">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a href="{{route('web.home')}}" class="logo">
+            <a href="{{route('web.home')}}" class="logo" title="{{$tenant->name}}">
                 <img src="{{$tenant->getlogomarca()}}" alt="{{$tenant->name}}">
             </a>
             <button class="navbar-toggler" id="drawer" type="button">
@@ -95,28 +92,28 @@
             <div class="navbar-collapse collapse " id="navbar">
                 <ul class="navbar-nav ustify-content-start w-100">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="imoveisLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a title="Imóveis" class="nav-link dropdown-toggle" href="javascript:void(0)" id="imoveisLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Imóveis
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="imoveisLink">
-                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'venda'])}}">Comprar</a></li>
-                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'locacao'])}}">Alugar</a></li>
+                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'venda'])}}" title="Comprar">Comprar</a></li>
+                            <li><a class="dropdown-item" href="{{route('web.imoveisList',['type' => 'locacao'])}}" title="Alugar">Alugar</a></li>
                         </ul>
                     </li> 
                     @if (!empty($categoriasMenu) && $categoriasMenu->count() > 0)
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="propriedadesLink" href="javascript:void(0)">Propriedades</a>
+                            <a class="nav-link dropdown-toggle" id="propriedadesLink" href="javascript:void(0)" title="Propriedades">Propriedades</a>
                             <ul class="dropdown-menu" aria-labelledby="propriedadesLink">
                                 @foreach ($categoriasMenu as $catMenu)                                
                                 <li>
-                                    <a class="dropdown-item" href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}">{{$catMenu->tipo}}</a>
+                                    <a class="dropdown-item" href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}" title="{{$catMenu->tipo}}">{{$catMenu->tipo}}</a>
                                 </li>
                                 @endforeach
                             </ul>
                         </li> 
                     @endif                 
                     
-                    @if (!empty($lancamentoMenu))
+                    @if (!empty($lancamentoMenu) && $lancamentoMenu->count() > 0)
                         <li class="nav-item"><a class="nav-link" href="{{route('web.lancamento')}}" title="Lançamento">Lançamento</a></li>
                     @endif 
 
@@ -137,28 +134,28 @@
     </div>
     <div class="sidebar-inner">
         <div class="sidebar-logo">
-            <img src="{{$tenant->getlogomarca()}}" alt="{{$tenant->name}}">
+            <img src="{{$tenant->getlogomarca()}}" alt="{{$tenant->name}}" title="{{$tenant->name}}">
         </div>
         <div class="sidebar-navigation">
             <ul class="menu-list">
                 <li>
-                    <a class="active pt0" href="javascript:void(0)">
+                    <a class="active pt0" href="javascript:void(0)" title="Imóveis">
                         Imóveis <em class="fa fa-chevron-down"></em>
                     </a>
                     <ul>
-                        <li><a href="{{route('web.imoveisList',['type' => 'venda'])}}">Comprar</a></li>
-                        <li><a href="{{route('web.imoveisList',['type' => 'locacao'])}}">Alugar</a></li>
+                        <li><a href="{{route('web.imoveisList',['type' => 'venda'])}}" title="Comprar">Comprar</a></li>
+                        <li><a href="{{route('web.imoveisList',['type' => 'locacao'])}}" title="Alugar">Alugar</a></li>
                     </ul>
                 </li>  
                 @if (!empty($categoriasMenu) && $categoriasMenu->count() > 0)
                     <li>
-                        <a id="propriedadesLink" href="javascript:void(0)">
+                        <a id="propriedadesLink" href="javascript:void(0)" title="Propriedades">
                             Propriedades <em class="fa fa-chevron-down"></em>
                         </a>
                         <ul>
                             @foreach ($categoriasMenu as $catMenu)                                
                             <li>
-                                <a href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}">{{$catMenu->tipo}}</a>
+                                <a href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}" title="{{$catMenu->tipo}}">{{$catMenu->tipo}}</a>
                             </li>
                             @endforeach
                         </ul>
@@ -166,19 +163,22 @@
                 @endif               
                 <li><a href="{{route('web.blog.artigos')}}" title="Dicas">Dicas</a></li>
                 <li>
-                    <a href="#">Páginas <em class="fa fa-chevron-down"></em></a>
+                    <a href="javascript:void(0)" title="Páginas">Páginas <em class="fa fa-chevron-down"></em></a>
                     <ul>  
                         <li>
-                            <a href="{{route('web.pagina','quem-somos')}}">Quem Somos</a>
+                            <a href="{{route('web.pagina','quem-somos')}}" title="Quem Somos">Quem Somos</a>
                         </li>
                         <li>
-                            <a href="{{route('web.pesquisar-imoveis')}}">Pesquisar Imóveis</a>
+                            <a href="{{route('web.pesquisar-imoveis')}}" title="Pesquisar Imóveis">Pesquisar Imóveis</a>
                         </li>
                         <li>
-                            <a href="{{route('web.politica')}}">Política de Privacidade</a>
+                            <a href="{{route('web.politica')}}" title="Política de Privacidade">Política de Privacidade</a>
                         </li>                     
                     </ul>
                 </li>
+                @if (!empty($lancamentoMenu) && $lancamentoMenu->count() > 0)
+                    <li><a class="nav-link" href="{{route('web.lancamento')}}" title="Lançamento">Lançamento</a></li>
+                @endif 
                 <li><a href="{{route('web.atendimento')}}" title="Atendimento">Atendimento</a></li>
                
                {{-- <li>
@@ -194,7 +194,7 @@
                         <i class="fa fa-phone"></i>
                     </div>
                     <div class="body-info">
-                        <a href="tel:{{$tenant->telefone}}">{{$tenant->telefone}} </a>
+                        <a href="tel:{{$tenant->telefone}}" title="Telefone">{{$tenant->telefone}} </a>
                     </div>
                 </div>
             @endif
@@ -204,7 +204,7 @@
                         <i class="fa fa-whatsapp"></i>
                     </div>
                     <div class="body-info">
-                        <a target="_blank" href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}">{{$tenant->whatsapp}}</a>
+                        <a target="_blank" href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}" title="WhatsApp">{{$tenant->whatsapp}}</a>
                     </div>
                 </div>
             @endif
@@ -214,7 +214,7 @@
                         <i class="fa fa-envelope"></i>
                     </div>
                     <div class="body-info">
-                        <a href="mailto:{{$tenant->email}}">{{$tenant->email}}</a>
+                        <a href="mailto:{{$tenant->email}}" title="Email">{{$tenant->email}}</a>
                     </div>
                 </div>
             @endif
@@ -224,7 +224,7 @@
                         <i class="fa fa-envelope"></i>
                     </div>
                     <div class="body-info">
-                        <a href="mailto:{{$tenant->email1}}">{{$tenant->email1}}</a>
+                        <a href="mailto:{{$tenant->email1}}" title="Email">{{$tenant->email1}}</a>
                     </div>
                 </div>
             @endif
@@ -232,19 +232,19 @@
         <div class="get-social">
             <h3 class="heading">Redes Sociais</h3>
             @if ($tenant->facebook)
-                <a target="_blank" class="facebook-bg" href="{{$tenant->facebook}}"><i class="fa fa-facebook"></i></a>
+                <a target="_blank" class="facebook-bg" href="{{$tenant->facebook}}" title="Facebook"><i class="fa fa-facebook"></i></a>
             @endif
             @if ($tenant->twitter)
-                <a target="_blank" class="twitter-bg" href="{{$tenant->twitter}}"><i class="fa fa-twitter"></i></a>
+                <a target="_blank" class="twitter-bg" href="{{$tenant->twitter}}" title="Twitter"><i class="fa fa-twitter"></i></a>
             @endif
             @if ($tenant->instagram)
-                <a target="_blank" class="instagram-bg" href="{{$tenant->instagram}}"><i class="fa fa-instagram"></i></a>
+                <a target="_blank" class="instagram-bg" href="{{$tenant->instagram}}" title="Instagram"><i class="fa fa-instagram"></i></a>
             @endif
             @if ($tenant->linkedin)
-                <a target="_blank" class="linkedin-bg" href="{{$tenant->linkedin}}"></a><i class="fa fa-linkedin"></i>
+                <a target="_blank" class="linkedin-bg" href="{{$tenant->linkedin}}" title="Linkedin"></a><i class="fa fa-linkedin"></i>
             @endif
             @if ($tenant->youtube)
-                <a target="_blank" class="youtube-bg" href="{{$tenant->youtube}}"><i class="fa fa-youtube"></i></a>
+                <a target="_blank" class="youtube-bg" href="{{$tenant->youtube}}" title="Youtube"><i class="fa fa-youtube"></i></a>
             @endif
         </div>
     </div>
@@ -262,7 +262,7 @@
                     <h3>Quer vender ou alugar seu imóvel?</h3>
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-12">
-                    <a class="btn-2 btn-white" href="{{route('web.atendimento')}}">
+                    <a class="btn-2 btn-white" href="{{route('web.atendimento')}}" title="Quer vender ou alugar seu imóvel?">
                         <span>Entrar em contato</span> <i class="arrow"></i>
                     </a>
                 </div>
@@ -297,28 +297,28 @@
                             @if ($tenant->email)
                                 <li>
                                     <i class="fa fa-envelope"></i>
-                                    <a href="mailto:{{$tenant->email}}">{{$tenant->email}}</a>
+                                    <a href="mailto:{{$tenant->email}}" title="Email">{{$tenant->email}}</a>
                                 </li>
                             @endif
                             @if ($tenant->email1)
                                 <li>
                                     <i class="fa fa-envelope"></i>
-                                    <a href="mailto:{{$tenant->email1}}">{{$tenant->email1}}</a>
+                                    <a href="mailto:{{$tenant->email1}}" title="Email">{{$tenant->email1}}</a>
                                 </li>
                             @endif
                             @if ($tenant->telefone)
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    <a href="tel:{{$tenant->telefone}}">{{$tenant->telefone}}</a>
+                                    <a href="tel:{{$tenant->telefone}}" title="Telefone">{{$tenant->telefone}}</a>
                                     @if ($tenant->celular)
-                                        <a href="tel:{{$tenant->celular}}"> {{$tenant->celular}}</a>
+                                        <a href="tel:{{$tenant->celular}}" title="Celular"> {{$tenant->celular}}</a>
                                     @endif
                                 </li>
                             @endif                            
                             @if ($tenant->whatsapp)
                                 <li>
                                     <i class="fa fa-whatsapp"></i>
-                                    <a target="_blank" href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}">{{$tenant->whatsapp}}</a>
+                                    <a target="_blank" href="{{getNumZap($tenant->whatsapp ,'Atendimento '.$tenant->name)}}" title="WhatsApp">{{$tenant->whatsapp}}</a>
                                 </li>
                             @endif                            
                         </ul>
@@ -332,25 +332,25 @@
                         </div>
                         <ul class="links">
                             <li>
-                                <a href="{{route('web.home')}}">Início</a>
+                                <a href="{{route('web.home')}}" title="Início">Início</a>
                             </li>
                             <li>
-                                <a href="{{route('web.pagina','quem-somos')}}">Quem Somos</a>
+                                <a href="{{route('web.pagina','quem-somos')}}" title="Quem Somos">Quem Somos</a>
                             </li>
                             <li>
-                                <a href="{{route('web.blog.artigos')}}">Dicas</a>
+                                <a href="{{route('web.blog.artigos')}}" title="Dicas">Dicas</a>
                             </li>
                             <li>
-                                <a href="{{route('web.noticias')}}">Notícias</a>
+                                <a href="{{route('web.noticias')}}" title="Notícias">Notícias</a>
                             </li>
                             <li>
-                                <a href="{{route('web.pesquisar-imoveis')}}">Pesquisar Imóveis</a>
+                                <a href="{{route('web.pesquisar-imoveis')}}" title="Pesquisar Imóveis">Pesquisar Imóveis</a>
                             </li>
                             <li>
-                                <a href="{{route('web.atendimento')}}">Atendimento</a>
+                                <a href="{{route('web.atendimento')}}" title="Atendimento">Atendimento</a>
                             </li>
                             <li>
-                                <a href="{{route('web.politica')}}">Política de Privacidade</a>
+                                <a href="{{route('web.politica')}}" title="Política de Privacidade">Política de Privacidade</a>
                             </li>
                         </ul>
                     </div>
@@ -397,24 +397,24 @@
                 <div class="col-lg-4 col-md-12 col-sm-12">
                     <ul class="social-list clearfix">
                         @if ($tenant->facebook)
-                            <li><a target="_blank" class="facebook-bg" href="{{$tenant->facebook}}"><i class="fa fa-facebook"></i></a></li>
+                            <li><a target="_blank" class="facebook-bg" href="{{$tenant->facebook}}" title="Facebook"><i class="fa fa-facebook"></i></a></li>
                         @endif
                         @if ($tenant->twitter)
-                            <li><a target="_blank" class="twitter-bg" href="{{$tenant->twitter}}"><i class="fa fa-twitter"></i></a></li>
+                            <li><a target="_blank" class="twitter-bg" href="{{$tenant->twitter}}" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                         @endif
                         @if ($tenant->instagram)
-                            <li><a target="_blank" class="instagram-bg" href="{{$tenant->instagram}}"><i class="fa fa-instagram"></i></a></li>
+                            <li><a target="_blank" class="instagram-bg" href="{{$tenant->instagram}}" title="Instagram"><i class="fa fa-instagram"></i></a></li>
                         @endif
                         @if ($tenant->linkedin)
-                            <li><a target="_blank" class="linkedin-bg" href="{{$tenant->linkedin}}"></a><i class="fa fa-linkedin"></i></li>
+                            <li><a target="_blank" class="linkedin-bg" href="{{$tenant->linkedin}}" title="Linkedin"></a><i class="fa fa-linkedin"></i></li>
                         @endif
                         @if ($tenant->youtube)
-                            <li><a target="_blank" class="youtube-bg" href="{{$tenant->youtube}}"><i class="fa fa-youtube"></i></a></li>
+                            <li><a target="_blank" class="youtube-bg" href="{{$tenant->youtube}}" title="Youtube"><i class="fa fa-youtube"></i></a></li>
                         @endif 
                     </ul>
                 </div>
                 <div class="col-12 text-center my-3">
-                    <a href=""><img src="{{env('DESENVOLVEDOR_LOGO')}}" alt="{{env('DESENVOLVEDOR')}}"></a>
+                    <a target="_blank" href="{{env('DESENVOLVEDOR_URL')}}" title="{{env('DESENVOLVEDOR')}}"><img src="{{env('DESENVOLVEDOR_LOGO')}}" alt="{{env('DESENVOLVEDOR')}}"></a>
                 </div>
             </div>
         </div>

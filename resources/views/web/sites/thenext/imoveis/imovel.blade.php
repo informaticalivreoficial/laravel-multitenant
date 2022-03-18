@@ -73,27 +73,6 @@
                         @endforeach
                     @endif
                 </div>
-                    
-                
-
-               {{--<div class="properties-slider-section mb-25">
-                    <div class="slider slider-for">
-                        <div><img src="{{ $imovel->coverSlideGallery() }}" class="w-100 img-fluid" alt="{{$imovel->titulo}}"></div>
-                        @if($imovel->images()->get()->count())
-                            @foreach($imovel->images()->get() as $image)
-                                <div><img src="{{ $image->url_cropped_slide_gallery }}" class="w-100 img-fluid" alt="{{$imovel->titulo}}"></div>
-                            @endforeach
-                        @endif
-                    </div>
-                    <div class="slider slider-nav">
-                        <div><img src="{{ $imovel->coverSlideGallery() }}" class="img-fluid" alt="{{$imovel->titulo}}"></div>
-                        @if($imovel->images()->get()->count())
-                            @foreach($imovel->images()->get() as $image)
-                                <div><img src="{{ $image->url_cropped_slide_gallery }}" class="img-fluid" alt="{{$imovel->titulo}}"></div>                                
-                            @endforeach
-                        @endif
-                    </div>
-                </div>--}}
                
                 <div class="heading-properties clearfix sidebar-widget sw2">
                     <div class="pull-left">
