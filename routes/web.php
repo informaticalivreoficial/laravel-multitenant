@@ -105,8 +105,8 @@ Route::group([
     /** Página de Compra - Específica de um imóvel */
     Route::match(['get', 'post'],'/imoveis/quero-comprar/{slug}', [SiteController::class, 'buyProperty'])->name('buyProperty');  
     
-    /** Página de Experiências */
-    Route::get('/experiencias', 'WebController@experience')->name('experience');
+    /** Página de Lançamento */
+    Route::get('/lancamento', [SiteController::class, 'lancamento'])->name('lancamento');
 
     //** FEED */    
     Route::get('/feed', [RssFeedController::class, 'feed'])->name('feed');

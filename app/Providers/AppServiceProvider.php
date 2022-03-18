@@ -51,6 +51,13 @@ class AppServiceProvider extends ServiceProvider
                         ->get();
         View()->share('newsletterForm', $newsletter);
 
+        //Lançamento
+        $lancamento = DB::table('imoveis')
+                        ->where('destaque', 1)
+                        ->where('status', 1)
+                        ->get();
+        View()->share('lancamentoMenu', $lancamento);
+
         Schema::defaultStringLength(191);
         Blade::aliasComponent('admin.components.message', 'message');
 

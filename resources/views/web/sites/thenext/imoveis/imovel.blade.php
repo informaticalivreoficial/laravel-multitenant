@@ -32,15 +32,17 @@
                     </div>
                     <div class="pull-right">  
 
-                        <h3><span>
-                            @if ($imovel->venda == true && $imovel->locacao == true)
-                                Venda/Locação
-                            @elseif($imovel->venda == true && $imovel->locacao == false)
-                                Venda
-                            @else
-                                Locação
-                            @endif
-                        </span></h3>
+                        <h3>
+                            <span>
+                                @if ($imovel->venda == true && $imovel->locacao == true)
+                                    Venda/Locação
+                                @elseif($imovel->venda == true && $imovel->locacao == false)
+                                    Venda
+                                @else
+                                    Locação
+                                @endif
+                            </span>
+                        </h3>
                         <h5>
                             <b>Referência:</b> {{$imovel->referencia}}
                         </h5>
@@ -149,12 +151,12 @@
                                                 <ul class="condition">
                                                     @if ($imovel->dormitorios)
                                                         <li>
-                                                            <i class="flaticon-bed"></i>{{$imovel->dormitorios}} Dormitórios
+                                                            <i class="flaticon-bed"></i> {{$imovel->dormitorios}} Dormitórios
                                                         </li>
                                                     @endif
                                                     @if ($imovel->suites)
                                                         <li>
-                                                            <i class="flaticon-bed"></i>{{$imovel->suites}} Suítes
+                                                            <i class="flaticon-bed"></i> {{$imovel->suites}} Suítes
                                                         </li>
                                                     @endif                                                        
                                                     @if ($imovel->area_total)
@@ -168,12 +170,12 @@
                                                 <ul class="condition">
                                                     @if ($imovel->banheiros)
                                                         <li>
-                                                            <i class="flaticon-bed"></i>{{$imovel->banheiros}} Banheiros
+                                                            <i class="flaticon-bed"></i> {{$imovel->banheiros}} Banheiros
                                                         </li>
                                                     @endif
                                                     @if ($imovel->salas)
                                                         <li>
-                                                            <i class="flaticon-building"></i>{{$imovel->salas}} Salas
+                                                            <i class="flaticon-building"></i> {{$imovel->salas}} Salas
                                                         </li>
                                                     @endif                                                       
                                                     @if ($imovel->area_util)
@@ -187,12 +189,12 @@
                                                 <ul class="condition">
                                                     @if ($imovel->garagem)
                                                         <li>
-                                                            <i class="flaticon-vehicle"></i>{{$imovel->garagem}} Garagem
+                                                            <i class="flaticon-vehicle"></i> {{$imovel->garagem}} Garagem
                                                         </li>
                                                     @endif
                                                     @if ($imovel->garagem_coberta)
                                                         <li>
-                                                            <i class="flaticon-vehicle"></i>{{$imovel->garagem_coberta}} Garagem coberta
+                                                            <i class="flaticon-vehicle"></i> {{$imovel->garagem_coberta}} Garagem coberta
                                                         </li>
                                                     @endif                                                        
                                                 </ul>

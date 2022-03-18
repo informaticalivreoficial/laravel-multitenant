@@ -3,6 +3,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+    <meta name="language" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
+    <meta name="author" content="Renato Montanari"/>
 
     {!! $head ?? '' !!}
 
@@ -114,7 +116,10 @@
                         </li> 
                     @endif                 
                     
-                    <li class="nav-item"><a class="nav-link" href="route('web.atendimento')" title="">Lançamento</a></li>
+                    @if (!empty($lancamentoMenu))
+                        <li class="nav-item"><a class="nav-link" href="{{route('web.lancamento')}}" title="Lançamento">Lançamento</a></li>
+                    @endif 
+
                     <li class="nav-item"><a class="nav-link" href="{{route('web.atendimento')}}" title="Atendimento">Atendimento</a></li>                    
                     {{--<li class="nav-item"><a class="nav-link" href="{{route('web.financiamento')}}" title="">Financiamento</a></li> --}}                   
                 </ul>
@@ -353,7 +358,7 @@
                
                 <!-- Subscribe -->
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    @if (!empty($newsletterForm) && $newsletterForm->count() > 0)
+                    @if (!empty($newsletterForm))
                         <div class="footer-item">
                             <div class="main-title-2">
                                 <h1>Inscreva-se</h1>

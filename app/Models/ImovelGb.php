@@ -34,6 +34,11 @@ class ImovelGb extends Model
         return Storage::url(Cropper::thumb($this->path, 200, 150));
     }
 
+    public function getSlideLancamentoAttribute()
+    {
+        return Storage::url(Cropper::thumb($this->path, 750, 500));
+    }
+
     public function getUrlImageAttribute()
     {
         return Storage::url($this->path);

@@ -115,6 +115,37 @@ class SiteController extends Controller
         ]);
     }
 
+    public function lancamento()
+    {
+        $imovel = Imovel::where('destaque', 1)->available()->first();
+
+        if(!empty($imovel)){
+            $head = $this->seo->render($imovel->titulo ?? 'Super Imóveis Sistema Imobiliário',
+                $imovel->headline ?? $imovel->titulo,
+                route('web.lancamento'),
+                $imovel->nocover() ?? $this->tenant->getMetaImg()
+            );
+
+            return view('web.sites.'.$this->tenant->template.'.imoveis.lancamento', [
+                'tenant' => $this->tenant,
+                'head' => $head,
+                'imovel' => $imovel
+            ]);
+        }else{ 
+            $head = $this->seo->render($this->tenant->name ?? 'Super Imóveis Sistema Imobiliário',
+                'Nenhum imóvel encontrado!',
+                $this->tenant->dominio ?? 'https://superimoveis.info',
+                $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+            );
+
+            return view('web.sites.'.$this->tenant->template.'.imoveis.lancamento', [
+                'tenant' => $this->tenant,
+                'head' => $head,
+                'imovel' => false
+            ]);
+        }        
+    }
+
     public function buyProperty($slug)
     {
         $imovel = Imovel::where('slug', $slug)
@@ -136,7 +167,7 @@ class SiteController extends Controller
             $head = $this->seo->render($imovel->titulo ?? 'Super Imóveis Sistema Imobiliário',
                 $imovel->headline ?? $imovel->titulo,
                 route('web.buyProperty', ['slug' => $imovel->slug]),
-                $imovel->cover() ?? $this->tenant->getMetaImg()
+                $imovel->nocover() ?? $this->tenant->getMetaImg()
             );
 
             return view('web.sites.'.$this->tenant->template.'.imoveis.imovel', [
@@ -183,7 +214,7 @@ class SiteController extends Controller
             $head = $this->seo->render($imovel->titulo ?? 'Super Imóveis Sistema Imobiliário',
                 $imovel->headline ?? $imovel->titulo,
                 route('web.rentProperty', ['slug' => $imovel->slug]),
-                $imovel->cover() ?? $this->tenant->getMetaImg()
+                $imovel->nocover() ?? $this->tenant->getMetaImg()
             );
 
             return view('web.sites.'.$this->tenant->template.'.imoveis.imovel', [
@@ -491,6 +522,47 @@ class SiteController extends Controller
             'post' => $post,
             'postsMais' => $postsMais,
             'categorias' => $categorias,
+            'postsTags' => $postsTags,
+        ]);
+    }
+
+    public function pagina(Request $request)
+    {
+        $post = Post::where('slug', $request->slug)
+                            ->where('tenant_id', $this->tenant->id)
+                            ->where('tipo', 'pagina')
+                            ->postson()
+                            ->first();
+
+        $postsTags = Post::where('tipo', 'pagina')
+                            ->where('id', '!=', $post->id)
+                            ->where('tenant_id', $this->tenant->id)
+                            ->postson()
+                            ->limit(3)
+                            ->get();        
+
+        $postsMais = Post::orderBy('views', 'DESC')
+                            ->where('id', '!=', $post->id)
+                            ->where('tenant_id', $this->tenant->id)
+                            ->where('tipo', 'pagina')
+                            ->limit(3)
+                            ->postson()
+                            ->get();
+        
+        $post->views = $post->views + 1;
+        $post->save();
+
+        $head = $this->seo->render($post->titulo ?? 'Super Imóveis Sistema Imobiliário',
+            'Página - ' . $post->titulo,
+            route('web.pagina', ['slug' => $post->slug]),
+            $post->cover() ?? $this->tenant->getMetaImg()
+        );
+
+        return view('web.sites.'.$this->tenant->template.'.pagina', [
+            'tenant' => $this->tenant,
+            'head' => $head,
+            'post' => $post,
+            'postsMais' => $postsMais,
             'postsTags' => $postsTags,
         ]);
     }
