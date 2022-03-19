@@ -55,6 +55,13 @@ class SiteController extends Controller
                             ->postson()
                             ->limit(6)
                             ->get();
+
+        $experienceCobertura = Imovel::where('experience', 'Cobertura')->inRandomOrder()->available()->get();
+        $experienceCondominioFechado = Imovel::where('experience', 'Condomínio Fechado')->inRandomOrder()->available()->get();
+        $experienceDeFrenteParaMar = Imovel::where('experience', 'De Frente para o Mar')->inRandomOrder()->available()->get();
+        $experienceAltoPadrao = Imovel::where('experience', 'Alto Padrão')->inRandomOrder()->available()->get();
+        $experienceLojasSalas = Imovel::where('experience', 'Lojas e Salas')->inRandomOrder()->available()->get();
+        $experienceCompacto = Imovel::where('experience', 'Compacto')->inRandomOrder()->available()->get();
         
         $head = $this->seo->render($this->tenant->name ?? 'Super Imóveis',
             $this->tenant->descricao ?? 'Super Imóveis Sistema Imobiliário',
@@ -69,7 +76,13 @@ class SiteController extends Controller
             'destaque' => $destaque,
             'artigos' => $artigos,
             'head' => $head,
-            'slides' => $slides
+            'slides' => $slides,
+            'experienceCobertura' => $experienceCobertura,
+            'experienceCondominioFechado' => $experienceCondominioFechado,
+            'experienceAltoPadrao' => $experienceAltoPadrao,
+            'experienceLojasSalas' => $experienceLojasSalas,
+            'experienceCompacto' => $experienceCompacto,
+            'experienceDeFrenteParaMar' => $experienceDeFrenteParaMar
         ]);
     }
 
@@ -565,4 +578,5 @@ class SiteController extends Controller
             'postsTags' => $postsTags,
         ]);
     }
+    
 }

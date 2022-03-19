@@ -108,6 +108,9 @@ Route::group([
     /** Página de Lançamento */
     Route::get('/lancamento', [SiteController::class, 'lancamento'])->name('lancamento');
 
+    /** Página de Experiências - Específica de uma categoria */
+    Route::get('/experiencias/{slug}', [FilterController::class, 'experienceCategory'])->name('experienceCategory');
+
     //** FEED */    
     Route::get('/feed', [RssFeedController::class, 'feed'])->name('feed');
     Route::get('/politica-de-privacidade', [SiteController::class, 'politica'])->name('politica');

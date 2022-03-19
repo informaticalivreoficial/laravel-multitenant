@@ -3,17 +3,21 @@
 namespace App\Http\Controllers\Web\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Imovel;
 use App\Tenant\ManangerTenant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Support\Seo;
 
 class FilterController extends Controller
 {
     protected $tenant;
+    protected $seo;
 
     public function __construct(ManangerTenant $tenant)
     {
         $this->tenant = $tenant->tenant();
+        $this->seo = new Seo();
     }
 
     public function search(Request $request)
@@ -396,5 +400,60 @@ class FilterController extends Controller
                 }
             })
             ->get(explode(',', $field));
+    }
+    
+
+    public function experienceCategory(Request $request)
+    {
+        $this->clearAllData();
+
+        if ($request->slug == 'cobertura') {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')->where('experience', 'Cobertura')->available()->paginate(18);
+            $title = 'Viva a experiência de morar na Cobertura';
+            $tagline = 'Viva a experiência de morar na Cobertura...';
+        } elseif ($request->slug == 'alto-padrao') {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')->where('experience', 'Alto Padrão')->available()->paginate(18);
+            $title = 'Viva a experiência de morar em um imóvel de alto padrão';
+            $tagline = 'Viva a experiência de morar em um imóvel de alto padrão...';
+        } elseif ($request->slug == 'de-frente-para-o-mar') {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')->where('experience', 'De Frente para o Mar')->available()->paginate(15);
+            $title = 'Viva a experiência de morar em um imóvel de frente para o mar';
+            $tagline = 'Viva a experiência de morar em um imóvel de frente para o mar...';
+        } elseif ($request->slug == 'condominio-fechado') {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')->where('experience', 'Condomínio Fechado')->available()->paginate(15);
+            $title = 'Viva a experiência de morar em Condomínio Fechado';
+            $tagline = 'Viva a experiência de morar em Condomínio Fechado...';
+        } elseif ($request->slug == 'compacto') {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')->where('experience', 'Compacto')->available()->paginate(15);
+            $title = 'Viva a experiência de morar em um Compacto';
+            $tagline = 'Viva a experiência de morar em um Compacto...';
+        } elseif ($request->slug == 'lojas-e-salas') {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')->where('experience', 'Lojas e Salas')->available()->paginate(15);
+            $title = 'Encontre aqui Lojas e Salas';
+            $tagline = 'Encontre aqui Lojas e Salas...';
+        } else {
+            $imoveis = Imovel::orderBy('created_at', 'DESC')->whereNotNull('experience')->available()->paginate(15);
+            $title = 'Encontre um imóvel com a experiência que você quer viver!';
+            $tagline = 'Encontre um imóvel com a experiência que você quer viver!';
+        }
+
+        $head = $this->seo->render($title ?? 'Super Imóveis Sistema Imobiliário',
+            $tagline,
+            route('web.experienceCategory', ['slug' => $request->slug]),
+            $this->tenant->getMetaImg() ?? 'https://superimoveis.info/media/metaimg.jpg'
+        );
+
+        if(empty($request->slug)){
+            return view('web.sites.'.$this->tenant->template.'.404',[
+                'head' => $head,
+                'tenant' => $this->tenant
+            ]);
+        }
+
+        return view('web.sites.'.$this->tenant->template.'.imoveis.filtro', [
+            'tenant' => $this->tenant,
+            'head' => $head,
+            'imoveis' => $imoveis,
+        ]);
     }
 }

@@ -105,9 +105,9 @@
                             <a class="nav-link dropdown-toggle" id="propriedadesLink" href="javascript:void(0)" title="Propriedades">Propriedades</a>
                             <ul class="dropdown-menu" aria-labelledby="propriedadesLink">
                                 @foreach ($categoriasMenu as $catMenu)                                
-                                <li>
-                                    <a class="dropdown-item" href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}" title="{{$catMenu->tipo}}">{{$catMenu->tipo}}</a>
-                                </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}" title="{{$catMenu->tipo}}">{{$catMenu->tipo}}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li> 
@@ -154,9 +154,9 @@
                         </a>
                         <ul>
                             @foreach ($categoriasMenu as $catMenu)                                
-                            <li>
-                                <a href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}" title="{{$catMenu->tipo}}">{{$catMenu->tipo}}</a>
-                            </li>
+                                <li>
+                                    <a href="{{route('web.imoveisCategoria',['categoria' => $catMenu->tipo])}}" title="{{$catMenu->tipo}}">{{$catMenu->tipo}}</a>
+                                </li>
                             @endforeach
                         </ul>
                     </li> 

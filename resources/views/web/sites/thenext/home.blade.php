@@ -422,6 +422,142 @@
     </div>
 @endif
 
+<!-- Experiências -->
+<div class="popular-places content-area-12">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Ambiente no seu, <span class="text-front"><b>estilo</b></span></h1>
+            <p>Encontre um imóvel com a experiência que você quer viver!</p>            
+        </div>
+        <div class="row g-0">
+            <div class="col-12 wow fadeInLeft delay-04s">
+                <div class="row">
+                    @if (!empty($experienceCobertura) && $experienceCobertura->count() > 0)
+                        <div class="col-md-4 col-sm-12 col-pad">
+                            <div class="popular-places-box">
+                                <div class="popular-places-overflow">
+                                    <div class="popular-places-photo">
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'cobertura']) }}">
+                                            <img class="img-fluid w-100" src="{{$experienceCobertura[0]->nocover()}}" alt="Cobertura">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="listings_no">Cobertura ({{$experienceCobertura->count()}})</div>
+                                <div class="ling-section">
+                                    <h3>
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'cobertura']) }}">Cobertura</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    @if (!empty($experienceAltoPadrao) && $experienceAltoPadrao->count() > 0)
+                        <div class="col-md-4 col-sm-12 col-pad">
+                            <div class="popular-places-box">
+                                <div class="popular-places-overflow">
+                                    <div class="popular-places-photo">
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'alto-padrao']) }}">
+                                            <img class="img-fluid w-100" src="{{$experienceAltoPadrao[0]->nocover()}}" alt="Alto Padrão">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="listings_no">Alto Padrão ({{$experienceAltoPadrao->count()}})</div>
+                                <div class="ling-section">
+                                    <h3>
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'alto-padrao']) }}">Alto Padrão</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                         
+                    @if (!empty($experienceDeFrenteParaMar) && $experienceDeFrenteParaMar->count() > 0)
+                        <div class="col-md-4 col-sm-12 col-pad">
+                            <div class="popular-places-box">
+                                <div class="popular-places-overflow">
+                                    <div class="popular-places-photo">
+                                        <img class="img-fluid w-100" src="{{$experienceDeFrenteParaMar[0]->nocover()}}" alt="De frente para o mar">
+                                    </div>
+                                </div>
+                                <div class="listings_no">De frente para o mar ({{$experienceDeFrenteParaMar->count()}})</div>
+                                <div class="ling-section">
+                                    <h3>
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'de-frente-para-o-mar']) }}">De frente para o mar</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    @endif              
+                    
+                    @if (!empty($experienceCondominioFechado) && $experienceCondominioFechado->count() > 0)
+                        <div class="col-md-4 col-sm-12 col-pad">
+                            <div class="popular-places-box">
+                                <div class="popular-places-overflow">
+                                    <div class="popular-places-photo">
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'condominio-fechado']) }}">
+                                            <img class="img-fluid w-100" src="{{$experienceCondominioFechado[0]->nocover()}}" alt="Condomínio Fechado">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="listings_no">Condomínio Fechado ({{$experienceCondominioFechado->count()}})</div>
+                                <div class="ling-section">
+                                    <h3>
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'condominio-fechado']) }}">Condomínio Fechado</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    @endif  
+
+                    @if (!empty($experienceLojasSalas) && $experienceLojasSalas->count() > 0)
+                        <div class="col-md-4 col-sm-12 col-pad">
+                            <div class="popular-places-box">
+                                <div class="popular-places-overflow">
+                                    <div class="popular-places-photo">
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'lojas-e-salas']) }}">
+                                            <img class="img-fluid w-100" src="{{$experienceLojasSalas[0]->nocover()}}" alt="Lojas e Salas">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="listings_no">Lojas e Salas ({{$experienceLojasSalas->count()}})</div>
+                                <div class="ling-section">
+                                    <h3>
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'lojas-e-salas']) }}">Lojas e Salas</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    @endif     
+
+                    @if (!empty($experienceCompacto) && $experienceCompacto->count() > 0)
+                        <div class="col-md-4 col-sm-12 col-pad">
+                            <div class="popular-places-box">
+                                <div class="popular-places-overflow">
+                                    <div class="popular-places-photo">
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'compacto']) }}">
+                                            <img class="img-fluid w-100" src="{{$experienceCompacto[0]->nocover()}}" alt="Compacto">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="listings_no">Compacto ({{$experienceCompacto->count()}})</div>
+                                <div class="ling-section">
+                                    <h3>
+                                        <a href="{{ route('web.experienceCategory', ['slug' => 'compacto']) }}">Compacto</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    @endif   
+
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- Experiências end -->
+
 @if (!empty($artigos) && $artigos->count() > 0)
     <!-- Blog start -->
     <div class="blog comon-slick content-area">
