@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="language" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
     <meta name="author" content="Renato Montanari"/>
+    <meta name="copyright" content="{{env('DESENVOLVEDOR')}}">
 
     {!! $head ?? '' !!}
 

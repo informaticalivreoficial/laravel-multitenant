@@ -42,7 +42,7 @@ class SendEmailController extends Controller
                 'reply_name' => $request->nome,
                 'reply_email' => $request->email,
                 'telefone' => $request->telefone,
-                'assunto' => $request->assunto,
+                'assunto' => $request->assunto ?? '#Atendimento pelo Site',
                 'mensagem' => $request->mensagem
             ];
 
@@ -80,6 +80,7 @@ class SendEmailController extends Controller
                 $categoriaPadrão = NewsletterCat::where('sistema', 1)->first();                
                 $data = $request->all();
                 $data['categoria'] = $categoriaPadrão->id;
+                $data['nome'] = $request->nome ?? '#Cadastrado pelo Site';
                 $NewsletterCreate = Newsletter::create($data);
                 $NewsletterCreate->save();
                 $json = "Obrigado Cadastrado com sucesso!"; 

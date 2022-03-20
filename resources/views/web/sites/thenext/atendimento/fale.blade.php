@@ -1,6 +1,7 @@
 @extends("web.sites.{$tenant->template}.master.master")
 
 @section('content')
+
 <div class="sub-banner" style="background: rgba(0, 0, 0, 0.04) url({{$tenant->gettopodosite()}}) top left repeat;">
     <div class="overlay">
         <div class="container">
