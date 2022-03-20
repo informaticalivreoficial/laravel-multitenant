@@ -422,7 +422,8 @@
     </div>
 @endif
 
-<!-- Experiências -->
+@if (!empty($experienceCobertura) || !empty($experienceAltoPadrao) || !empty($experienceDeFrenteParaMar) || !empty($experienceCondominioFechado) || !empty($experienceLojasSalas) || !empty($experienceCompacto))
+    <!-- Experiências -->
 <div class="popular-places content-area-12">
     <div class="container">
         <!-- Main title -->
@@ -557,6 +558,8 @@
     </div>
 </div>
 <!-- Experiências end -->
+@endif
+
 
 @if (!empty($artigos) && $artigos->count() > 0)
     <!-- Blog start -->
