@@ -144,7 +144,7 @@
                         <h1 class="pb-2">Sobre <span class="text-front">Nós!</span></h1>
                         <p>{{$tenant->descricao}}</p>
                         <h1 class="pb-2">Quer <span class="text-front">investir?</span></h1>
-                        <p>A {{$tenant->nomedosite}} tem como filosofia atender com excelência e comprometimento PARCEIROS, INCORPORADORES e CLIENTES COMPRADORES oferecendo alternativas inovadoras e criativas para a geração de negócios.</p>
+                        <p>A {{$tenant->name}} tem como filosofia atender com excelência e comprometimento PARCEIROS, INCORPORADORES e CLIENTES COMPRADORES oferecendo alternativas inovadoras e criativas para a geração de negócios.</p>
                     </div>
                     <div class="col-12 col-md-12 col-lg-3 text-center">
                         @if(!empty($tenant->facebook))
