@@ -14,7 +14,6 @@
     </div>
 </div>
 
-<!-- Properties section body start -->
 <div class="properties-section content-area">
     <div class="container">
         <div class="row">

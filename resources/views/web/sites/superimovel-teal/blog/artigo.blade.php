@@ -49,7 +49,7 @@
                                     @if($categoria->children)
                                         @foreach($categoria->children as $subcategoria)
                                             @if($subcategoria->countposts() >= 1)
-                                                <li><a href="{{route('web.blog.categoria', ['slug' => $subcategoria->slug] )}}">{{ $subcategoria->titulo }}</a> <span>({{$subcategoria->countposts()}})</span></li>
+                                                <li><a href="{{route(($subcategoria->tipo == 'artigo' ? 'web.blog.categoria' : 'web.noticia.categoria'), ['slug' => $subcategoria->slug] )}}">{{ $subcategoria->titulo }}</a> <span>({{$subcategoria->countposts()}})</span></li>
                                             @endif                                            
                                         @endforeach
                                     @endif                                                                                                                             
@@ -65,7 +65,7 @@
                             <div class="pb-2">
                                 <img src="{{$postsmais->cover()}}" alt="{{$postsmais->titulo}}" class="img-fluid">
                                 <p class="my-2" style="font-size:1.2em;font-weight:bold">
-                                   <a class="text-front" href="{{route('web.blog.artigo', ['slug' => $postsmais->slug] )}}">{{$postsmais->titulo}}</a>
+                                   <a class="text-front" href="{{route(($postsmais->tipo == 'artigo' ? 'web.blog.artigo' : 'web.noticia'), ['slug' => $postsmais->slug] )}}">{{$postsmais->titulo}}</a>
                                 </p>
                             </div>                            
                             @endforeach

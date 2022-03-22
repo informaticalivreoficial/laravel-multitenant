@@ -374,9 +374,6 @@
 </div>
 @endsection
 
-@if(empty($imovel))
-      
-@else
 @section('js')
 <script>
     function markMap() {

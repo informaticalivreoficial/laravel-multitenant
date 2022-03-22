@@ -87,7 +87,7 @@
                             @endif 
                             <li class="nav-item"><a title="Alugar" class="nav-link" href="{{route('web.imoveisList',['type' => 'locacao'])}}">Alugar</a></li>
                             <li class="nav-item"><a title="Comprar" class="nav-link" href="{{route('web.imoveisList',['type' => 'venda'])}}">Comprar</a></li>
-                            <li class="nav-item"><a title="Blog" class="nav-link" href="{{route('web.blog.artigos')}}">Blog</a></li>
+                            <li class="nav-item"><a title="Blog" class="nav-link" href="{{route('web.blog.artigos')}}">Dicas</a></li>
                             <li class="nav-item"><a title="Atendimento" class="nav-link" href="{{route('web.atendimento')}}">Atendimento</a></li>
                         </ul>
                     </div>                    
@@ -130,13 +130,16 @@
                         <h1 class="pb-2">Navegue <span class="text-front">Aqui!</span></h1>
                         <ul>
                             <li><a title="Início" href="{{route('web.home')}}">Início</a></li>
+                            <li><a title="Quem Somos" href="">Quem Somos</a></li>
                             @if (!empty($lancamentoMenu) && $lancamentoMenu->count() > 0)
                                 <li><a class="text-front" href="{{route('web.lancamento')}}" title="Lançamento">Lançamento</a></li>
                             @endif
                             <li><a title="Alugar" href="{{route('web.imoveisList',['type' => 'locacao'])}}">Alugar</a></li>
                             <li><a title="Comprar" href="{{route('web.imoveisList',['type' => 'venda'])}}">Comprar</a></li>
-                            <li><a title="Blog" href="{{route('web.blog.artigos')}}">Blog</a></li>
+                            <li><a title="Blog" href="{{route('web.blog.artigos')}}">Dicas</a></li>
+                            <li><a title="Notícias" href="{{route('web.noticias')}}">Notícias</a></li>
                             <li><a title="Atendimento" href="{{route('web.atendimento')}}">Atendimento</a></li>                            
+                            <li><a title="Política de Privacidade" href="{{route('web.politica')}}">Política de Privacidade</a></li>                            
                         </ul>
         
                     </div>
