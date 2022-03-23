@@ -166,9 +166,11 @@
                 <li>
                     <a href="javascript:void(0)" title="Páginas">Páginas <em class="fa fa-chevron-down"></em></a>
                     <ul>  
-                        <li>
-                            <a href="{{route('web.pagina','quem-somos')}}" title="Quem Somos">Quem Somos</a>
-                        </li>
+                        @if (!empty($paginaMenu) && $paginaMenu->count() > 0)
+                            @foreach($paginaMenu as $paginaM)
+                                <li><a title="{{$paginaM->titulo}}" href="{{route('web.pagina', [ 'slug' => $paginaM->slug ])}}">{{$paginaM->titulo}}</a></li>
+                            @endforeach
+                        @endif
                         <li>
                             <a href="{{route('web.pesquisar-imoveis')}}" title="Pesquisar Imóveis">Pesquisar Imóveis</a>
                         </li>
@@ -332,12 +334,11 @@
                             <h1>Links</h1>
                         </div>
                         <ul class="links">
-                            <li>
-                                <a href="{{route('web.home')}}" title="Início">Início</a>
-                            </li>
-                            <li>
-                                <a href="{{route('web.pagina','quem-somos')}}" title="Quem Somos">Quem Somos</a>
-                            </li>
+                            @if (!empty($paginaMenu) && $paginaMenu->count() > 0)
+                                @foreach($paginaMenu as $paginaM)
+                                    <li><a title="{{$paginaM->titulo}}" href="{{route('web.pagina', [ 'slug' => $paginaM->slug ])}}">{{$paginaM->titulo}}</a></li>
+                                @endforeach
+                            @endif
                             <li>
                                 <a href="{{route('web.blog.artigos')}}" title="Dicas">Dicas</a>
                             </li>

@@ -309,28 +309,25 @@
 </div>
 <!-- Agent section end -->
 
-<!-- Partners strat -->
-<div class="partners bg-white">
-    <div class="container">
-        <h4>Brands <span>$ Partners</span></h4>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="custom-slider slide-box-btn">
-                    <div class="custom-box"><img src="img/brand/partner.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner-2.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner-3.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner-4.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner-5.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner-2.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner-3.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner-4.png" alt="brand"></div>
-                    <div class="custom-box"><img src="img/brand/partner-5.png" alt="brand"></div>
+@if(!empty($parceiros) && $parceiros->count() > 0)
+    <div class="partners bg-white">
+        <div class="container">
+            <h4>Parceiros</h4>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="custom-slider slide-box-btn">
+                        @foreach($parceiros as $parceiro)
+                            <div class="custom-box">
+                                <a href="{{route('web.parceiro',['slug' => $parceiro->slug])}}" title="{{ $parceiro->name }}">
+                                    <img src="{{ $parceiro->nocover() }}" alt="{{ $parceiro->name }}">
+                                </a>                                
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Partners end -->
+@endif
 
 @endsection

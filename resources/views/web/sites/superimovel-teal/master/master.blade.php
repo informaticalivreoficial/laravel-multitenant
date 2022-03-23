@@ -81,7 +81,6 @@
 
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                         <ul class="navbar-nav">
-                            <li class="nav-item"><a title="Quem Somos" class="nav-link" href="#quemsomos">Quem Somos</a></li>
                             @if (!empty($lancamentoMenu) && $lancamentoMenu->count() > 0)
                                 <li class="nav-item"><a class="nav-link text-front" href="{{route('web.lancamento')}}" title="Lançamento">Lançamento</a></li>
                             @endif 
@@ -129,8 +128,11 @@
                     <div class="col-12 col-md-3 col-lg-3">
                         <h1 class="pb-2">Navegue <span class="text-front">Aqui!</span></h1>
                         <ul>
-                            <li><a title="Início" href="{{route('web.home')}}">Início</a></li>
-                            <li><a title="Quem Somos" href="">Quem Somos</a></li>
+                            @if (!empty($paginaMenu) && $paginaMenu->count() > 0)
+                                @foreach($paginaMenu as $paginaM)
+                                    <li><a title="{{$paginaM->titulo}}" href="{{route('web.pagina', [ 'slug' => $paginaM->slug ])}}">{{$paginaM->titulo}}</a></li>
+                                @endforeach
+                            @endif
                             @if (!empty($lancamentoMenu) && $lancamentoMenu->count() > 0)
                                 <li><a class="text-front" href="{{route('web.lancamento')}}" title="Lançamento">Lançamento</a></li>
                             @endif
@@ -140,8 +142,7 @@
                             <li><a title="Notícias" href="{{route('web.noticias')}}">Notícias</a></li>
                             <li><a title="Atendimento" href="{{route('web.atendimento')}}">Atendimento</a></li>                            
                             <li><a title="Política de Privacidade" href="{{route('web.politica')}}">Política de Privacidade</a></li>                            
-                        </ul>
-        
+                        </ul>        
                     </div>
                     <div class="col-12 col-md-9 col-lg-6 pb-5" id="quemsomos">
                         <h1 class="pb-2">Sobre <span class="text-front">Nós!</span></h1>
@@ -162,7 +163,7 @@
                         @if(!empty($tenant->instagram))
                             <a target="_blank" href="{{$tenant->instagram}}" title="Instagram"><button class="btn btn-front icon-instagram icon-notext text-white pb-2"></button></a>
                         @endif
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </section>

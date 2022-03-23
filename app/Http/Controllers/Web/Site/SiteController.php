@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Site;
 use App\Http\Controllers\Controller;
 use App\Models\CatPost;
 use App\Models\Imovel;
+use App\Models\Parceiro;
 use App\Models\Post;
 use App\Models\Slide;
 use App\Tenant\ManangerTenant;
@@ -541,21 +542,18 @@ class SiteController extends Controller
     public function pagina(Request $request)
     {
         $post = Post::where('slug', $request->slug)
-                            ->where('tenant_id', $this->tenant->id)
                             ->where('tipo', 'pagina')
                             ->postson()
                             ->first();
 
         $postsTags = Post::where('tipo', 'pagina')
                             ->where('id', '!=', $post->id)
-                            ->where('tenant_id', $this->tenant->id)
                             ->postson()
                             ->limit(3)
                             ->get();        
 
         $postsMais = Post::orderBy('views', 'DESC')
                             ->where('id', '!=', $post->id)
-                            ->where('tenant_id', $this->tenant->id)
                             ->where('tipo', 'pagina')
                             ->limit(3)
                             ->postson()
@@ -564,18 +562,40 @@ class SiteController extends Controller
         $post->views = $post->views + 1;
         $post->save();
 
+        $parceiros = Parceiro::orderBy('created_at', 'DESC')->available()->get();
+
         $head = $this->seo->render($post->titulo ?? 'Super Imóveis Sistema Imobiliário',
             'Página - ' . $post->titulo,
             route('web.pagina', ['slug' => $post->slug]),
             $post->cover() ?? $this->tenant->getMetaImg()
         );
-
+        
         return view('web.sites.'.$this->tenant->template.'.pagina', [
             'tenant' => $this->tenant,
             'head' => $head,
             'post' => $post,
             'postsMais' => $postsMais,
             'postsTags' => $postsTags,
+            'parceiros' => $parceiros
+        ]);
+    }
+
+    public function parceiro($slug)
+    {
+        $parceiro = Parceiro::where('slug', $slug)->available()->first();
+        $parceiro->views = $parceiro->views + 1;
+        $parceiro->save();
+        
+        $head = $this->seo->render($parceiro->name . ' - ' . $this->tenant->name ?? 'Informática Livre',
+            $parceiro->name . ' - ' . $this->tenant->name,
+            route('web.parceiro',['slug' => $parceiro->slug]),
+            $parceiro->metaimg() ?? $this->tenant->getMetaImg()
+        );
+
+        return view('web.sites.'.$this->tenant->template.'.parceiro',[
+            'tenant' => $this->tenant,
+            'head' => $head,
+            'parceiro' => $parceiro
         ]);
     }
     

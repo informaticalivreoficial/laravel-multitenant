@@ -56,6 +56,12 @@ class AppServiceProvider extends ServiceProvider
                         ->where('status', 1)
                         ->get();
         View()->share('lancamentoMenu', $lancamento);
+        //Páginas
+        $paginas = DB::table('posts')
+                        ->where('tipo', 'pagina')
+                        ->where('status', 1)
+                        ->get();
+        View()->share('paginaMenu', $paginas);
 
         Schema::defaultStringLength(191);
         Blade::aliasComponent('admin.components.message', 'message');

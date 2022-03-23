@@ -124,6 +124,7 @@ Route::group([
     Route::get('/pagina/{slug}', [SiteController::class, 'pagina'])->name('pagina'); 
 
     //****************************** Parceiros *********************************************/
+    Route::get('/sendEmailParceiro', [SendEmailController::class, 'sendEmailParceiro'])->name('sendEmailParceiro');
     Route::get('/parceiro/{slug}', [SiteController::class, 'parceiro'])->name('parceiro');
 
     //****************************** Blog ***********************************************/
