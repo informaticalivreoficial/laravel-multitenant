@@ -88,6 +88,9 @@
                             <li class="nav-item"><a title="Comprar" class="nav-link" href="{{route('web.imoveisList',['type' => 'venda'])}}">Comprar</a></li>
                             <li class="nav-item"><a title="Blog" class="nav-link" href="{{route('web.blog.artigos')}}">Dicas</a></li>
                             <li class="nav-item"><a title="Atendimento" class="nav-link" href="{{route('web.atendimento')}}">Atendimento</a></li>
+                            <li class="nav-item">
+                                <a href="{{route('login')}}" class="nav-link" title="Login">Login</a>
+                            </li>
                         </ul>
                     </div>                    
                 </div>
