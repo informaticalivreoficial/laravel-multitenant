@@ -24,11 +24,11 @@ class Parceiro extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3);
+        //$id = $this->segment(3);
 
         return [
             'name' => ['required', 'min:3', 'max:255'],
-            'email' => ['required', 'string', 'email', 'min:3', 'max:191', "unique:parceiros,email,{$id},id"],
+            //'email' => ['required', 'string', 'email', 'min:3', 'max:191', "unique:parceiros,email,{$id},id"],
             //'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:parceiros,email,' . $this->request->all()['id'] : 'required|email|unique:parceiros,email'),
             'content' => 'nullable|min:3',
             'uf' => 'required',
