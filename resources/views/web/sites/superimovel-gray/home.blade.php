@@ -213,7 +213,7 @@
 <article class="main_optin bg-dark text-front py-5">
     <div class="container">
         <div class="row mx-auto" style="max-width: 600px;">
-            <h1>Pesquisar no site</h1>
+            <h1 class="text-white">Pesquisar no site</h1>
             <form action="{{ route('web.pesquisa') }}" method="post" autocomplete="off">
                 @csrf
                 <div id="js-search-result"></div>

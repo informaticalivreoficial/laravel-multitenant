@@ -2,32 +2,13 @@
 
 @section('content')
 <div class="main_filter bg-light py-5">
-    <div class="container">
-        <section class="row">
-            <div class="col-12">
-                <h2 class="text-front icon-search mb-5">Pesquisa de Imóveis</h2>
-            </div>
-        </section>
-        <article class="main_optin text-front mb-4">
-            <div class="container">
-                <div class="row">
-                    <form style="width:90%;" action="{{ route('web.pesquisa') }}" class="form-inline" method="post" autocomplete="off">
-                        @csrf
-                        <div class="form-group" style="width: 75%;">
-                            <input style="width:100%;border-color:#B3A237;border-radius: .3rem;" type="text" class="form-control-lg mr-2" name="search" value="{{$search}}">
-                        </div>
-                        <div class="form-group ml-2" style="width: 20%;">
-                            <button type="submit" style="margin-bottom: 10px;width:100%;" class="btn btn-lg icon-search btn-icon btn-front"></button>
-                        </div>                        
-                    </form>
-                </div>
-            </div>
-        </article>
+    <div class="container">        
+       
         <section class="main_properties">
-            <div class="container">
+            <div class="container scrolling-pagination">
                 
                 <div class="row">
-                    @if($imoveis->count())
+                    @if(!empty($imoveis) && $imoveis->count() > 0)
                         @foreach($imoveis as $imovel)
                             <article class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                                 <div class="card main_properties_item">
@@ -77,9 +58,7 @@
                             </article>
                         @endforeach
                         @if($imoveis->hasPages())
-                            <div class="col-12 card-footer paginacao">  
-                                {{ $imoveis->links() }}
-                            </div> 
+                            {{$imoveis->links()}}  
                         @endif
                     @endif                            
                 </div>
@@ -87,4 +66,23 @@
         </section>
     </div>
 </div>
+@endsection
+
+@section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+    <script>
+        // Paginação infinita
+        $('ul.pagination').hide();
+        $(function() {
+            $('.scrolling-pagination').jscroll({
+                autoTrigger: true,
+                padding: 0,
+                nextSelector: '.pagination li.active + li a',
+                contentSelector: 'div.scrolling-pagination',
+                callback: function() {
+                    $('ul.pagination').remove();
+                }
+            });
+        });          
+    </script>    
 @endsection
