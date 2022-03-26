@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Models\{
+    Imovel,
+    NewsletterCat,
     Plan,
+    Post,
     Tenant
 };
 use App\Observers\{
@@ -44,21 +47,18 @@ class AppServiceProvider extends ServiceProvider
         View()->share('categoriasMenu', $catImoveis);
 
         //Newsletter
-        $newsletter = DB::table('newsletter_cat')
-                        ->where('sistema', 1)
+        $newsletter = NewsletterCat::where('sistema', 1)
                         ->where('status', 1)
                         ->get();
         View()->share('newsletterForm', $newsletter);
 
         //Lançamento
-        $lancamento = DB::table('imoveis')
-                        ->where('destaque', 1)
+        $lancamento = Imovel::where('destaque', 1)
                         ->where('status', 1)
                         ->get();
         View()->share('lancamentoMenu', $lancamento);
         //Páginas
-        $paginas = DB::table('posts')
-                        ->where('tipo', 'pagina')
+        $paginas = Post::where('tipo', 'pagina')
                         ->where('status', 1)
                         ->get();
         View()->share('paginaMenu', $paginas);

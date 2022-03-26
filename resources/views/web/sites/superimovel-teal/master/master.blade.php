@@ -132,7 +132,7 @@
                         <h1 class="pb-2">Navegue <span class="text-front">Aqui!</span></h1>
                         <ul>
                             @if (!empty($paginaMenu) && $paginaMenu->count() > 0)
-                                @foreach($paginaMenu as $paginaM)
+                                @foreach($paginaMenu as $paginaM)                                
                                     <li><a title="{{$paginaM->titulo}}" href="{{route('web.pagina', [ 'slug' => $paginaM->slug ])}}">{{$paginaM->titulo}}</a></li>
                                 @endforeach
                             @endif
