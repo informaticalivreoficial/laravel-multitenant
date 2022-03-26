@@ -81,6 +81,7 @@ class SendEmailController extends Controller
             }else{
                 $categoriaPadrão = NewsletterCat::where('sistema', 1)->first();                
                 $data = $request->all();
+                $data['autorizacao'] = 1;
                 $data['categoria'] = $categoriaPadrão->id;
                 $data['nome'] = $request->nome ?? '#Cadastrado pelo Site';
                 $NewsletterCreate = Newsletter::create($data);

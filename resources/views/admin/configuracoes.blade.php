@@ -456,6 +456,14 @@ $config1 = [
                                         <h5><b>Configurações SEO</b></h5>  
                                         <p>Aqui você pode configurar a otimização para as aplicações de Buscas</p>                                          
                                     </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <h5><b>Sitemap</b></h5>  
+                                        <p>Caminho: <a target="_blank" href="{{url(asset(\Str::slug($config->name)))}}_sitemap.xml">{{url(asset(\Str::slug($config->name)))}}_sitemap.xml</a></p>                                          
+                                        <h5><b>Feed/RSS</b></h5>  
+                                        <p>Caminho: <a target="_blank" href="{{route('web.feed')}}">{{route('web.feed')}}</a></p>                                          
+                                    </div>
                                 </div>                                        
                                 <div class="col-4 mb-1 py-2"> 
                                     <label class="labelforms"><b>Google Analytics (vista da propriedade):</b></label>
