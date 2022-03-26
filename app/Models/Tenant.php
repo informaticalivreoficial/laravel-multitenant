@@ -148,6 +148,15 @@ class Tenant extends Model
         } 
         return Storage::url(Cropper::thumb($this->imgheader, env('IMGHEADER_WIDTH'), env('IMGHEADER_HEIGHT')));
     }
+
+    public function getnotopodosite()
+    {
+        $image = $this->imgheader;        
+        if(empty($this->imgheader) || !File::exists('../public/storage/' . $image)) {
+            return url(asset('backend/assets/images/image.jpg'));
+        } 
+        return Storage::url($this->imgheader);
+    }
     
     public function setCepAttribute($value)
     {

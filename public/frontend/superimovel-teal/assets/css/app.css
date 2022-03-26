@@ -708,13 +708,6 @@ select.selectpicker {
   font-size: 0.875em;
 }
 
-.main_slide {
-  background-image: url("../../assets/images/topo-site.jpg");
-  background-position: center 65%;
-  background-size: 100%;
-  backgroud-repeat: no-repeat;
-  height: 450px;
-}
 .main_slide .main_slide_content {
   padding: 30px;
   background-color: rgba(0, 0, 0, 0.8);

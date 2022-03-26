@@ -331,7 +331,18 @@
     </div>
 </section>
 @endif
+@endsection
 
+@section('css')
+    <style>
+        .main_slide {
+            background-image: url({{$tenant->getnotopodosite()}});
+            background-repeat: no-repeat !important;
+            background-position: center 65%;
+            background-size: 100%;
+            height: 450px;
+        }
+    </style>
 @endsection
 
 @section('js')
