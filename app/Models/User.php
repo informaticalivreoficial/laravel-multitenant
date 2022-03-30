@@ -310,16 +310,16 @@ class User extends Authenticatable
             substr($value, 2, 5) . '-' .
             substr($value, 7, 4) ;
     }
-
-    public function setPasswordAttribute($value)
-    {
-        if (empty($value)) {
-            unset($this->attributes['password']);
-            return;
-        }
-        $this->attributes['senha'] = $value;
-        $this->attributes['password'] = bcrypt($value);
-    } 
+    //tirei daqui e joguei para o serviço
+    // public function setSenhaAttribute($value)
+    // {
+    //     if (empty($value)) {
+    //         unset($this->attributes['password']);
+    //         return;
+    //     }
+    //     $this->attributes['senha'] = $value;
+    //     $this->attributes['password'] = bcrypt($value);
+    // } 
 
     public function setCpfconjujeAttribute($value)
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\User as UserRequest;
@@ -80,7 +81,11 @@ class UserController extends Controller
         if($request->client == '' && $request->admin == '' && $request->editor == '' && $request->superadmin == ''){
             $data['client'] = 'on';
         } 
-        $data['tenant_id'] = auth()->user()->tenant->id;       
+        $data['tenant_id'] = auth()->user()->tenant->id;   
+        
+        $data['password'] = Hash::make($request->password);
+        $data['senha'] = $request->password;
+        $data['remember_token'] = Str::random(60);
 
         $userCreate = User::create($data);
         if(!empty($request->file('avatar'))){
@@ -133,6 +138,13 @@ class UserController extends Controller
 
         $user->fill($request->all());
 
+        if(empty($request->password)){
+            unset($user->password);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->senha = $request->password;
+        
         if(!empty($request->file('avatar'))){
             $user->avatar = $request->file('avatar')->storeAs('user/' . auth()->user()->tenant->uuid . '/', Str::slug($request->name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('avatar')->extension());
         }
