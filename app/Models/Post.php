@@ -81,7 +81,7 @@ class Post extends Model
 
     public function getContentWebAttribute()
     {
-        return Str::words($this->content, '20', ' ...');
+        return Str::words($this->content, '9', ' ...');
     }
         
     public function cover()

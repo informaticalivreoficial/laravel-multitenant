@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Tenant\ManangerTenant;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
@@ -18,8 +19,10 @@ class EnsureUserIsSubscribed
      */
     public function handle(Request $request, Closure $next)
     {  
+        $admin = app(ManangerTenant::class); 
+        $admin = $admin->isAdmin();
         //dd(Carbon::now()->diffInDays(Carbon::parse($request->user()->tenant->subscription)));
-        if($request->user() && Carbon::now()->diffInDays(Carbon::parse(Auth::user()->tenant->subscription)) > 30 && !$request->user()->subscribed('default')){
+        if(!$admin && $request->user() && Carbon::now()->diffInDays(Carbon::parse(Auth::user()->tenant->subscription)) > 30 && !$request->user()->subscribed('default')){
             return redirect()->route('assinatura.index');
         }      
         // if ($request->user() && !$request->user()->subscribed('default')) {
