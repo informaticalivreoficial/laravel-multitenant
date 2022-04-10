@@ -41,23 +41,19 @@
                 </div>
                 
                 <div class="col-12 col-lg-3">
-                    <div class="main_property_categorias">
-                        <h2 class="text-front mt-0">Categorias</h2>
-                        <ul>
-                            @if(!empty($categorias) && $categorias->count() > 0)
-                                @foreach($categorias as $categoria)                                    
-                                    @if($categoria->children)
-                                        @foreach($categoria->children as $subcategoria)
-                                            @if($subcategoria->countposts() >= 1)
-                                                <li><a href="{{route(($subcategoria->tipo == 'artigo' ? 'web.blog.categoria' : 'web.noticia.categoria'), ['slug' => $subcategoria->slug] )}}">{{ $subcategoria->titulo }}</a> <span>({{$subcategoria->countposts()}})</span></li>
-                                            @endif                                            
-                                        @endforeach
-                                    @endif                                                                                                                             
+                    @if(!empty($categorias) && $categorias->count() > 0)
+                        <div class="main_property_categorias">
+                            <h2 class="text-front mt-0">Categorias</h2>      
+                            <ul>              
+                                @foreach($categorias as $categoria)   
+                                    @if($categoria->countposts() >= 1)
+                                        <li><a href="{{route(($categoria->tipo == 'artigo' ? 'web.blog.categoria' : 'web.noticia.categoria'), ['slug' => $categoria->slug] )}}">{{ $categoria->titulo }}</a> <span>({{$categoria->countposts()}})</span></li>
+                                    @endif                                                                                                          
                                 @endforeach
-                            @endif
-                        </ul>
-                    </div>
-
+                            </ul>
+                        </div>
+                    @endif
+                    
                     <div class="main_property_share mt-3">
                         <h2 class="text-front">Mais Lidos</h2>
                         @if($postsMais->count())

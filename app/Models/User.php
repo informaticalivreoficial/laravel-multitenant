@@ -194,7 +194,7 @@ class User extends Authenticatable
         if (!empty($this->avatar)) {
             return Storage::url(Cropper::thumb($this->avatar, 500, 500));
         }
-        return '';
+        return url(asset('backend/assets/images/image.jpg'));
     }
 
     public function setCpfAttribute($value)

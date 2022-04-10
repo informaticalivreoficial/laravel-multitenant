@@ -462,6 +462,7 @@ class SiteController extends Controller
 
         $categorias = CatPost::orderBy('titulo', 'ASC')
                             ->where('tipo', 'artigo')
+                            ->whereNotNull('id_pai')
                             ->where('tenant_id', $this->tenant->id)
                             ->get();
 

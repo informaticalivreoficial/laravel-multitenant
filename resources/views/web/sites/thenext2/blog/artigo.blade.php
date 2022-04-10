@@ -63,19 +63,16 @@
                                     </div>                                        
                                 @endif                                                           
                             </div>
-                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                                <!-- Blog Share start -->
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">                               
                                 <div class="social-media clearfix blog-share">
-                                    <h2>Compartilhe</h2>
-                                    <!-- Social list -->
+                                    <h2>Compartilhe</h2>                                    
                                     <div class="shareIcons"></div>                                    
                                 </div>
-                                <!-- Blog Share end -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Blog box end -->
+               
             </div>
             
             
@@ -87,18 +84,14 @@
                     <div class="sidebar-widget category-posts">
                         <div class="main-title-2">
                             <h1>Categorias</h1>
-                        </div>                    
-                        @foreach($categorias as $categoria)                                    
-                            @if($categoria->children)
-                                <ul class="list-unstyled list-cat">
-                                    @foreach($categoria->children as $subcategoria)
-                                        @if($subcategoria->countposts() >= 1)
-                                            <li><a href="{{route(($subcategoria->tipo == 'artigo' ? 'web.blog.categoria' : 'web.noticia.categoria'), ['slug' => $subcategoria->slug] )}}">{{ $subcategoria->titulo }}</a> <span>({{$subcategoria->countposts()}})</span></li>
-                                        @endif                                            
-                                    @endforeach
-                                </ul>
-                            @endif                                                                                                                             
-                        @endforeach
+                        </div>      
+                        <ul class="list-unstyled list-cat">              
+                            @foreach($categorias as $categoria)   
+                                @if($categoria->countposts() >= 1)
+                                    <li><a href="{{route(($categoria->tipo == 'artigo' ? 'web.blog.categoria' : 'web.noticia.categoria'), ['slug' => $categoria->slug] )}}">{{ $categoria->titulo }}</a> <span>({{$categoria->countposts()}})</span></li>
+                                @endif                                                                                                          
+                            @endforeach
+                        </ul>
                     </div>
                     @endif     
                     
@@ -113,7 +106,7 @@
                                     <img width="90" src="{{$postsmais->nocover()}}" alt="{{$postsmais->titulo}}" class="media-object">
                                 </div>
                                 <div class="media-body">
-                                    <h3>
+                                    <h3 class="media-heading">
                                         <a href="{{route(($postsmais->tipo == 'artigo' ? 'web.blog.artigo' : 'web.noticia'), ['slug' => $postsmais->slug] )}}">{{$postsmais->titulo}}</a>
                                     </h3>     
                                     <p>{{$postsmais->publish_at}}</p>                               
@@ -123,15 +116,36 @@
                         </div>
                     @endif
                     
+                    @if($postsTags->count())
+                        <div class="sidebar-widget tags-box">
+                            <div class="main-title-2">
+                                <h1>Tags</h1>
+                            </div>
+                            <ul class="tags">
+                                @foreach($postsTags as $posttags) 
+                                    @php
+                                        $array = explode(",", $posttags->tags);
+                                        foreach($array as $tags){
+                                            $tag = trim($tags);                                                       
+                                            echo '<li>';
+                                            if($posttags->tipo == 'artigo'){
+                                                echo '<a href="'.route('web.blog.artigo',['slug' => $posttags->slug]).'">';
+                                            }else{
+                                                echo '<a href="'.route('web.noticia',['slug' => $posttags->slug]).'">';
+                                            }    
+                                            echo $tag;
+                                            echo '</a></li>';
+                                        }
+                                    @endphp                                                     
+                                @endforeach
+                            </ul> 
+                        </div>
+                    @endif 
                     
-                    
-                    <!-- Social media -->
-                    <div class="social-media sidebar-widget clearfix">
-                        <!-- Main Title 2 -->
+                    <div class="social-media sidebar-widget clearfix">                       
                         <div class="main-title-2">
                             <h1>Redes Sociais</h1>
-                        </div>
-                        <!-- Social list -->
+                        </div>                       
                         <ul class="social-list">
                             @if ($tenant->facebook)
                                 <li><a target="_blank" class="facebook" href="{{$tenant->facebook}}" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -156,4 +170,12 @@
     </div>
 </div>
 <!-- Blog body end -->
+@endsection
+
+@section('js')
+<script src="{{url(asset('frontend/'.$tenant->template.'/js/shadowbox/shadowbox.js'))}}"></script>
+<link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/js/shadowbox/shadowbox.css'))}}"/>
+<script type="text/javascript">
+    Shadowbox.init();
+</script>
 @endsection

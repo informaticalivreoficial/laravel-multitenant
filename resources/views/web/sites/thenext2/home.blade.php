@@ -136,12 +136,7 @@
 </div> 
 @endif
 
-
-
-
 <div class="clearfix"></div>
-
-
 
 <div class="clearfix"></div>
 
@@ -150,20 +145,22 @@
         <div class="container">
             <div class="main-title"><h1>Acompanhe nosso Blog</h1></div>
             <div class="row">   
-                @foreach ($artigos as $artigo)
-                    <div class="col-lg-4 col-md-4 col-sm-6 wow fadeInLeft delay-04s">
-                        <div class="thumbnail blog-box-2 clearfix" style="min-height: 470px;">
-                            <div class="blog-photo">
-                                <img src="{{$artigo->cover()}}" alt="{{$artigo->titulo}}" class="img-responsive">                                           
-                            </div>
-                            <div class="caption detail">
-                                <h4><a href="{{route('web.blog.artigo',['slug' => $artigo->slug])}}">{{$artigo->titulo}}</a></h4>
-                                {!!$artigo->content_web!!}
-                                <div class="clearfix"></div>
-                                <a href="{{route('web.blog.artigo',['slug' => $artigo->slug])}}" class="read-more">Leia +</a>
+                @foreach ($artigos as $key => $artigo)
+                    @if ($key <= 2)
+                        <div class="col-lg-4 col-md-4 col-sm-6 wow fadeInLeft delay-04s">
+                            <div class="thumbnail blog-box-2 clearfix" style="min-height: 470px;">
+                                <div class="blog-photo">
+                                    <img src="{{$artigo->cover()}}" alt="{{$artigo->titulo}}" class="img-responsive">                                           
+                                </div>
+                                <div class="caption detail">
+                                    <h4><a href="{{route('web.blog.artigo',['slug' => $artigo->slug])}}">{{$artigo->titulo}}</a></h4>
+                                    {{ Words($artigo->content, 26) }}
+                                    <div class="clearfix"></div>
+                                    <a href="{{route('web.blog.artigo',['slug' => $artigo->slug])}}" class="read-more">Leia +</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif                    
                 @endforeach
             </div>
         </div>

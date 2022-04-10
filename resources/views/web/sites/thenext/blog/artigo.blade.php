@@ -96,26 +96,20 @@
             <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="sidebar">                  
 
-                    <!-- Category posts start -->
-                    <div class="sidebar-widget category-posts">
-                        <div class="main-title-2">
-                            <h1>Categorias</h1>
-                        </div>
-                        <ul class="list-unstyled list-cat">
-                            @if(!empty($categorias) && $categorias->count() > 0)
-                                @foreach($categorias as $categoria)                                    
-                                    @if($categoria->children)
-                                        @foreach($categoria->children as $subcategoria)
-                                            @if($subcategoria->countposts() >= 1)
-                                                <li><a href="{{route(($subcategoria->tipo == 'artigo' ? 'web.blog.categoria' : 'web.noticia.categoria'), ['slug' => $subcategoria->slug] )}}">{{ $subcategoria->titulo }}</a> <span>({{$subcategoria->countposts()}})</span></li>
-                                            @endif                                            
-                                        @endforeach
-                                    @endif                                                                                                                             
+                    @if(!empty($categorias) && $categorias->count() > 0)
+                        <div class="sidebar-widget category-posts">
+                            <div class="main-title-2">
+                                <h1>Categorias</h1>
+                            </div>      
+                            <ul class="list-unstyled list-cat">              
+                                @foreach($categorias as $categoria)   
+                                    @if($categoria->countposts() >= 1)
+                                        <li><a href="{{route(($categoria->tipo == 'artigo' ? 'web.blog.categoria' : 'web.noticia.categoria'), ['slug' => $categoria->slug] )}}">{{ $categoria->titulo }}</a> <span>({{$categoria->countposts()}})</span></li>
+                                    @endif                                                                                                          
                                 @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                    <!-- Category posts end-->
+                            </ul>
+                        </div>
+                    @endif
                                             
                     @if($postsMais->count())
                         <div class="sidebar-widget popular-posts">

@@ -23,18 +23,24 @@
                     <div class="col-lg-4 col-md-4 col-sm-6 ">
                         <div class="thumbnail blog-box-2 clearfix" style="min-height: 470px;">
                             <div class="blog-photo">
-                                <img height="200" title="{{$post->titulo}}" alt="{{$post->titulo}}" src="{{$post->nocover()}}">
+                                <img style="max-height:240px;" title="{{$post->titulo}}" alt="{{$post->titulo}}" src="{{$post->nocover()}}">
                             </div>
                             <div class="post-meta">
                                 <ul>
+                                    <li class="profile-user">
+                                        <img src="{{$post->userObject->getUrlAvatarAttribute()}}" alt="{{$post->userObject->name}}">
+                                    </li>
                                     <li><span>{{$post->userObject->name}}</span></li>
+                                    <li><i class="fa fa-eye"></i> {{$post->views}}</li>
                                 </ul>
                             </div>
                             <!-- Detail -->
                             <div class="caption detail">
-                                <h4><a href="{{route(($categoria->tipo == 'artigo' ? 'web.blog.artigo' : 'web.noticia'),['slug' => $post->slug])}}">{{$post->titulo}}</a></h4>
+                                <h4>
+                                    <a style="color: #1abc9c !important;" href="{{route(($categoria->tipo == 'artigo' ? 'web.blog.artigo' : 'web.noticia'),['slug' => $post->slug])}}">{{$post->titulo}}</a>
+                                </h4>
                                 <!-- paragraph -->
-                                {!!$post->content_web!!}
+                                {{ Words($post->content, 20) }}
                                 <div class="clearfix"></div>
                                 <!-- Btn -->
                                 <a href="{{route(($categoria->tipo == 'artigo' ? 'web.blog.artigo' : 'web.noticia'),['slug' => $post->slug])}}" class="read-more">Leia +</a>

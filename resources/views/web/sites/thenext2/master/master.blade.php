@@ -60,17 +60,7 @@
         <script type="text/javascript" src="{{url(asset('frontend/'.$tenant->template.'/js/respond.min.js'))}}"></script>
         <![endif]-->
         
-        <div id="fb-root"></div>
-        <script async defer src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.2&appId=1787040554899561&autoLogAppEvents=1"></script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C879Y13DRT"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-C879Y13DRT');
-        </script>
+       
 </head>
 <body>
     <header class="top-header hidden-xs" id="top">
@@ -185,6 +175,7 @@
                             <li><a href="{{route('web.lancamento')}}" title="Lançamento">Lançamento</a></li>
                         @endif 
     
+                        <li><a href="{{route('web.blog.artigos')}}" title="Blog">Dicas</a></li>
                         <li><a href="{{route('web.atendimento')}}" title="Atendimento">Atendimento</a></li>
                     </ul>
                     
@@ -399,393 +390,21 @@
 
     <script src="{{url(asset('frontend/'.$tenant->template.'/js/jsSocials/jssocials.min.js'))}}"></script>
 
-    <!-- Máscara de Inputs -->
-    <script src="{{url(asset('frontend/'.$tenant->template.'/js/jquery.maskedinput.min.js'))}}"></script>
-    <script src="{{url(asset('frontend/'.$tenant->template.'/js/jquery.maskMoney.min.js'))}}" type="text/javascript"></script>
-
+    <!-- Máscara de Inputs 
+    <script src="{{--url(asset('frontend/'.$tenant->template.'/js/jquery.maskedinput.min.js'))--}}"></script>
+    <script src="{{--url(asset('frontend/'.$tenant->template.'/js/jquery.maskMoney.min.js'))--}}" type="text/javascript"></script>
+-->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{url(asset('frontend/'.$tenant->template.'/js/ie10-viewport-bug-workaround.js'))}}"></script>
     <!-- Custom javascript -->
     <script src="{{url(asset('frontend/'.$tenant->template.'/js/ie10-viewport-bug-workaround.js'))}}"></script>
 
-    <!-- ARQUIVOS -->
-    <script src="{{url(asset('frontend/'.$tenant->template.'/js/shadowbox/shadowbox.js'))}}"></script>
-    <!-- ESTILOS -->
-    <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/js/shadowbox/shadowbox.css'))}}"/>
-    <!-- FUNÇÕES -->
-    <script type="text/javascript">
-    Shadowbox.init();
-    </script>        
+    @hasSection('js')
+        @yield('js')
+    @endif
         
     <script type="text/javascript">
         (function ($) {
-        
-            
-            // CONSULTA NA PÁGINA DOS IMÓVEIS
-            $('.j_formsubmitconsulta').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('.b_nome').html("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        //console.clear();
-                        //console.log(resposta);
-                        //$('html, body').animate({scrollTop:0}, 'slow');
-                        if(resposta.error){
-                            form.find('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
-                            form.find('.alert-danger').fadeIn();                    
-                        }else{
-                            form.find('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
-                            form.find('.alert-success').fadeIn();                    
-                            //form.find('input[class!="noclear"]').val('');
-                            //form.find('textarea[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('.b_nome').html("Consultar Agora");                                
-                    }
-                    
-                });
-                
-                return false;
-            });
-            
-            // Seletor, Evento/efeitos, CallBack, Ação
-            $('.j_formsubmit').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('#b_nome').html("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        //console.clear();
-                        //console.log(resposta);
-                        $('html, body').animate({scrollTop:0}, 'slow');
-                        if(resposta.error){
-                            form.find('.alertas').html('<div class="dt-sc-error-box">'+ resposta.error +'</div>');
-                            form.find('.dt-sc-error-box').fadeIn();                    
-                        }else{
-                            form.find('.alertas').html('<div class="dt-sc-success-box">'+ resposta.sucess +'</div>');
-                            form.find('.dt-sc-success-box').fadeIn();                    
-                            //form.find('input[class!="noclear"]').val('');
-                            //form.find('textarea[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('#b_nome').html("Enviar Agora");                                
-                    }
-                    
-                });
-                
-                return false;
-            });
-            
-            // Seletor, Evento/efeitos, CallBack, Ação
-            $('.j_formsubmitcomentario').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('#b_nome').html("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        //console.clear();
-                        //console.log(resposta);
-                        $('html, body').animate({scrollTop:$('.alertas').offset().top-135}, 'slow');
-                        if(resposta.error){
-                            form.find('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
-                            form.find('.alert-message').fadeIn();                    
-                        }else{
-                            form.find('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
-                            form.find('.alert-message').fadeIn();                    
-                            form.find('input[class!="noclear"]').val('');
-                            form.find('textarea[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('#b_nome').html("Enviar Comentário");                                
-                    }
-                    
-                });        
-                return false;
-            });
-            
-            // Seletor, Evento/efeitos, CallBack, Ação
-            $('.j_formsubmitanuncioSend').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('#b_nome').html("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        //console.clear();
-                        //console.log(resposta);
-                        $('html, body').animate({scrollTop:0}, 'slow');
-                        if(resposta.error){
-                            form.find('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
-                            form.find('.alert-message').fadeIn();                    
-                        }else{
-                            form.find('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
-                            form.find('.alert-message').fadeIn();                    
-                            //form.find('input[class!="noclear"]').val('');
-                            //form.find('textarea[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('#b_nome').html("Enviar Mensagem");                                
-                    }
-                    
-                });        
-                return false;
-            });
-            
-            // Seletor, Evento/efeitos, CallBack, Ação
-            $('.j_formNewsletter').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('.b_cadastro').html("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        //console.clear();
-                        //console.log(resposta);
-                        //$('html, body').animate({scrollTop:0}, 'slow');
-                        if(resposta.error){
-                            form.find('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
-                            form.find('.alert-danger').fadeIn();                    
-                        }else{
-                            form.find('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
-                            form.find('.alert-success').fadeIn();                    
-                            //form.find('input[class!="noclear"]').val('');
-                            //form.find('textarea[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('.b_cadastro').html("Cadastrar");                                
-                    }
-                    
-                });
-                
-                return false;
-            });
-            
-            // Seletor, Evento/efeitos, CallBack, Ação
-            $('.j_formAtualiza').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('.b_atualiza').html("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        $('html, body').animate({scrollTop:0}, 'slow');
-                        if(resposta.error){
-                            form.find('.alertas').html('<div class="dt-sc-error-box">'+ resposta.error +'</div>');
-                            form.find('.dt-sc-error-box').fadeIn();                    
-                        }else{
-                            form.find('.alertas').html('<div class="dt-sc-success-box">'+ resposta.sucess +'</div>');
-                            form.find('.dt-sc-success-box').fadeIn();                    
-                            //form.find('input[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('.b_atualiza').html("Atualizar");                                
-                    }
-                    
-                });
-                
-                return false;
-            });
-            
-            
-            // Seletor, Evento/efeitos, CallBack, Ação
-            $('.j_formLogin').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('.b_login').html("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        //console.clear();
-                        //console.log(resposta);
-                        $('html, body').animate({scrollTop:0}, 'slow');
-                        if(resposta.error){
-                            form.find('.alertas').html('<div class="dt-sc-error-box">'+ resposta.error +'</div>');
-                            form.find('.dt-sc-error-box').fadeIn();                    
-                        }else{
-                            form.find('.alertas').html('<div class="dt-sc-success-box">'+ resposta.sucess +'</div>');
-                            form.find('.dt-sc-success-box').fadeIn();                    
-                            //form.find('input[class!="noclear"]').val('');
-                            //form.find('textarea[class!="noclear"]').val('');
-                            //form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('.b_login').html("<i class=\"fa fa-check-circle\"> </i> Logar");                                
-                    }
-                    
-                });
-                
-                return false;
-            });
-            
-            // Seletor, Evento/efeitos, CallBack, Ação
-            $('.j_formtoken').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('.b_token').html("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        //console.clear();
-                        //console.log(resposta);
-                        $('html, body').animate({scrollTop:0}, 'slow');
-                        if(resposta.error){
-                            form.find('.alertas').html('<div class="dt-sc-error-box">'+ resposta.error +'</div>');
-                            form.find('.dt-sc-error-box').fadeIn();                    
-                        }else if(resposta.checklogin){
-                            window.setTimeout(function(){
-                                $(location).attr('href','/atletas/' + resposta.checklogin);
-                            },1000);
-                        }else{
-                            form.find('.alertas').html('<div class="dt-sc-success-box">'+ resposta.sucess +'</div>');
-                            form.find('.dt-sc-success-box').fadeIn();                    
-                            //form.find('input[class!="noclear"]').val('');
-                            //form.find('textarea[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('.b_token').html("<i class=\"fa fa-check-circle\"> </i> Solicitar Token");                                
-                    }
-                    
-                });
-                
-                return false;
-            });
-            
-            //FUNÇÕES DO FORM DE NEWSLETTER
-            $('.j_formsearch').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        if(resposta.error){    
-                            form.find('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
-                            form.find('.alert-danger').fadeIn();
-                        }else if(resposta.returnSearch){
-                            window.setTimeout(function(){
-                                $(location).attr('href','/blog/pesquisa&search=' + resposta.returnSearch);
-                            },1000);
-                        }else{
-                            form.find('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
-                            form.find('.alert-sucess').fadeIn();
-                        }
-                    },
-                    complete: function(resposta){
-                                                        
-                    }
-                });
-                return false;
-            });
-            
-                
             
             $('#shareIcons').jsSocials({
                 //url: "http://www.google.com",
@@ -794,6 +413,7 @@
                 shareIn: "popup",
                 shares: ["email", "twitter", "facebook", "whatsapp"]
             });
+
             $('.shareIcons').jsSocials({
                 //url: "http://www.google.com",
                 showLabel: false,
@@ -803,54 +423,19 @@
             });
             
             
-            //FUNÇÕES DO FORM DE BUSCA AVANÇADA
-            $('.j_formsubmitbusca').submit(function (){
-                var form = $(this);
-                var data = $(this).serialize();
-                
-                $.ajax({
-                    url: ajaxbase,
-                    data: data,
-                    type: 'POST',
-                    dataType: 'json',
-                    
-                    beforeSend: function(){
-                        form.find('.search-button').html("Carregando...");
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(resposta){
-                        $('html, body').animate({scrollTop:100}, 'slow'); 
-                        if(resposta.error){                    
-                            form.find('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
-                            form.find('.alert-danger').fadeIn();                    
-                        }else{
-                            form.find('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
-                            form.find('.alert-sucess').fadeIn();                    
-                            form.find('input[class!="noclear"]').val('');
-                            window.setTimeout(function(){
-                                $(location).attr('href',base + 'imoveis/busca-avancada' + 
-                                '&cidade=' + $('.loadcidadeFiltro').val() + 
-                                '&bairro=' + $('.j_loadbairros').val() +
-                                '&categoria=' + $('.loadfinalidade').val() +
-                                '&subcategoria=' + $('.loadcategoria').val() +
-                                '&dormitorios=' + $('.loaddormitorios').val() +
-                                '&tipo=' + $('.loadtipo').val());
-                            },1000);                   
-                        }
-                    },
-                    complete: function(resposta){
-                        form.find('.search-button').html("Buscar Imóveis");                               
-                    }
-                });
-                return false;
-            });  
-            
-            
             
         })(jQuery);   
             
+        </script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C879Y13DRT"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            
+            gtag('config', 'G-C879Y13DRT');
         </script>
     </body>
 </html>

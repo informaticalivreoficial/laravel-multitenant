@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="send-btn text-center">
-                                        <button type="submit" id="js-contact-btn" class="button-md button-theme btn-3">Enviar Agora</button>
+                                        <button type="submit" id="b_nome" class="button-md button-theme btn-3">Enviar Agora</button>
                                     </div>
                                 </div>
                             </div>
