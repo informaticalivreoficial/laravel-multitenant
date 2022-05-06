@@ -100,11 +100,21 @@
                             </a>
                             <p style="color: #ffffff;">{!! $tenant->descricao !!}</p>             
                             <div class="footer-social-icon d-flex align-items-center mt-3">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Facbook"><i class="fa fa-facebook"></i></a>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Youtube"><i class="fa fa-youtube"></i></a>
+                                @if ($tenant->facebook)
+                                    <a target="_blank" href="{{$tenant->facebook}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                @endif
+                                @if ($tenant->instagram)
+                                    <a target="_blank" href="{{$tenant->instagram}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                @endif
+                                @if ($tenant->twitter)
+                                    <a target="_blank" href="{{$tenant->twitter}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                @endif
+                                @if ($tenant->linkedin)
+                                    <a target="_blank" href="{{$tenant->linkedin}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                                @endif
+                                @if ($tenant->youtube)
+                                    <a target="_blank" href="{{$tenant->youtube}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Youtube"><i class="fa fa-youtube"></i></a>
+                                @endif
                             </div>
                         </div>
                     </div>

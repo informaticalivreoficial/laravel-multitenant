@@ -308,11 +308,13 @@
                             @endif
                             <div class="main-title-2" style="margin-top: 20px;margin-bottom: 10px;">
                                 <h1>Cotação</h1>
-                            </div>
-                            <?php
+                            </div>                            
+                            @php
                                 // PEGA COTAÇÃO DO DOLAR VIA JSON
                                 $url = file_get_contents('https://economia.awesomeapi.com.br/json/USD-BRL/1');
+                                var_dump($url);
                                 $json = json_decode($url, true);
+                                
                                 $imprime = end($json);
                                 $cor = ($imprime['pctChange'] < '0' ? 'pos' :
                                     ($imprime['pctChange'] == '0' ? 'neutro' : 
@@ -324,7 +326,7 @@
                                 echo '<span class="value bra"> '.$imprime['name'].' R$'.number_format($imprime['ask'],'3',',','').'</span>';
                                 echo '<span class="data '.$cor.'">'.$sinal.' '.number_format($imprime['pctChange'],'2',',','').'% </span>';
                                 echo '</div>';
-                            ?>
+                            @endphp
                         </div>
                     </div>
                 </div>

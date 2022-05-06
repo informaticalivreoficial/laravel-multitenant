@@ -34,17 +34,17 @@
                             <span>
                                 @if($imovel->exibivalores == true)
                                     @if($imovel->venda == true && $imovel->locacao == false)
-                                        Valor do Imóvel: R${{str_replace(',00', '', $imovel->valor_venda)}}
+                                        Venda: R${{str_replace(',00', '', $imovel->valor_venda)}}
                                     @elseif($imovel->locacao == true && $imovel->venda == false)
-                                        Valor do Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
+                                        Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
                                     @else
                                         @if($imovel->venda == true && !empty($imovel->valor_venda) && $imovel->valor_locacao == true && !empty($imovel->valor_locacao))
-                                            Valor do Imóvel: R${{ str_replace(',00', '', $imovel->valor_venda) }} <br>
-                                                ou Valor do Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
+                                            Venda: R${{ str_replace(',00', '', $imovel->valor_venda) }} <br>
+                                                ou Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
                                         @elseif($imovel->venda == true && !empty($imovel->valor_venda))
-                                            Valor do Imóvel: R${{ str_replace(',00', '', $imovel->valor_venda) }}
+                                            Venda: R${{ str_replace(',00', '', $imovel->valor_venda) }}
                                         @elseif($imovel->locacao == true && !empty($imovel->valor_locacao))
-                                            Valor do Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
+                                            Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
                                         @else
                                         Sob Consulta
                                         @endif
@@ -364,7 +364,7 @@
                     
                     @if (!empty($imovel->notasadicionais))
                         <hr />
-                        <p style="font-size: 12px;text-align:center;width:100%;">{{$imovel->notasadicionais}}</p>
+                        <p style="font-size: 12px;width:100%;">{{$imovel->notasadicionais}}</p>
                     @endif
 
                     @if ($imovel->exibirendereco == true)
@@ -415,9 +415,7 @@
                                     </div>                                  
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group message">
-                                            <textarea class="input-text" name="mensagem" placeholder="Mensagem">
-                                                Quero ter mais informações sobre este imóvel, {{$imovel->titulo}} - {{$imovel->referencia}}
-                                            </textarea>
+                                            <textarea class="input-text" name="mensagem" placeholder="Mensagem">Quero ter mais informações sobre este imóvel, {{$imovel->titulo}} - {{$imovel->referencia}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
