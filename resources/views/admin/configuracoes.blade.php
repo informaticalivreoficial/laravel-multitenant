@@ -514,6 +514,9 @@ $config1 = [
                                                 <input class="form-check-input" type="radio" name="template" value="{{$template->name}}" {{(old('template') == '1' ? $template->name : ($config->template == $template->name ? 'checked' : ''))}}>
                                                 <label class="form-check-label">{{$template->name}}</label>
                                             </div>
+                                            @if ($template->exclusivo == 1)
+                                                <div class="tag-2 bg-active">Exclusivo</div>
+                                            @endif
                                             <img src="{{$template->getimagem()}}" alt="{{$template->name}}">                                            
                                         </div>                                                                                
                                     @endforeach
@@ -540,6 +543,22 @@ $config1 = [
 <!--tags input-->
 <link rel="stylesheet" href="{{url(asset('backend/plugins/jquery-tags-input/jquery.tagsinput.css'))}}" />
 <style>
+    .tag-2 {
+        float: left;
+        position: absolute;
+        transform: rotate(-45deg);
+        left: -5px;
+        top: 50px;
+        text-align: center;
+        width: 80px;
+        font-size: 11px;
+        margin: 0;
+        color: #fff;
+        font-weight: 500;
+        line-height: 32px;
+        background: red;
+        text-transform: uppercase;
+    }
     iframe{
         width: 100% !important;
     }
