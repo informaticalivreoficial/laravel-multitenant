@@ -401,6 +401,12 @@ return [
                 ],
             ]
         ], 
+        [
+            'text' => 'Templates',
+            'url'  => 'admin/templates',
+            'icon' => 'fas fa-columns',
+            'can'  =>  'templates', // permissão templates
+        ],
         
     ],
 

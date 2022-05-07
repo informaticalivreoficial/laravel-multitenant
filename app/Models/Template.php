@@ -18,13 +18,13 @@ class Template extends Model
         'name',
         'imagem',
         'content',
-        'status'
+        'status',
+        'exclusivo'
     ];
 
     /**
      * Scopes
      */
-
     public function scopeAvailable($query)
     {
         return $query->where('status', 1);
@@ -33,6 +33,14 @@ class Template extends Model
     public function scopeUnavailable($query)
     {
         return $query->where('status', 0);
+    }
+
+    /**
+     * Relacionamentos
+    */
+    public function countClientes()
+    {
+        return $this->hasMany(Tenant::class, 'template', 'name')->count();
     }
 
     /**

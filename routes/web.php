@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\{
     PostController,
     SitemapController,
     SlideController,
+    TemplateController,
     TenantClientConfigController,
     TenantController,
     UserController
@@ -190,6 +191,16 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('slides/create', [SlideController::class, 'create'])->name('slides.create');
     Route::post('slides/store', [SlideController::class, 'store'])->name('slides.store');
     Route::get('slides', [SlideController::class, 'index'])->name('slides.index');
+
+    //******************* Templates ************************************************/
+    Route::get('templates/set-status', [TemplateController::class, 'templateSetStatus'])->name('templates.templateSetStatus');
+    Route::get('templates/delete', [TemplateController::class, 'delete'])->name('templates.delete');
+    Route::delete('templates/deleteon', [TemplateController::class, 'deleteon'])->name('templates.deleteon');
+    Route::put('templates/{id}', [TemplateController::class, 'update'])->name('templates.update');
+    Route::get('templates/{id}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
+    Route::get('templates/create', [TemplateController::class, 'create'])->name('templates.create');
+    Route::post('templates/store', [TemplateController::class, 'store'])->name('templates.store');
+    Route::get('templates', [TemplateController::class, 'index'])->name('templates.index');
 
     /** Imóveis */
     Route::match(['post', 'get'], 'imoveis/destaque', [ImovelController::class, 'destaqueMark'])->name('imoveis.destaque');
