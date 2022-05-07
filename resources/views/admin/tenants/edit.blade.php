@@ -85,8 +85,8 @@ $config1 = [
                         <li class="nav-item">
                             <a class="nav-link" id="custom-tabs-four-seo-tab" data-toggle="pill" href="#custom-tabs-four-seo" role="tab" aria-controls="custom-tabs-four-seo" aria-selected="false">SEO</a>
                         </li>
-                       <li class="nav-item bg-teal">
-                            <a class="nav-link j_modal_suporte" data-id="{{$config->id}}" data-toggle="modal" data-target="#modal-suporte" href="javascript:void(0)" aria-selected="false">SUPORTE</a>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-tabs-four-layout-tab" data-toggle="pill" href="#custom-tabs-four-layout" role="tab" aria-controls="custom-tabs-four-layout" aria-selected="false">TEMA</a>
                         </li>
                     </ul>
                 </div>
@@ -95,8 +95,7 @@ $config1 = [
                         <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
 
                             <div class="row mb-2 text-muted">
-                                <div class="col-sm-12 bg-gray-light">                                        
-                                    <!-- checkbox -->
+                                <div class="col-sm-12 bg-gray-light"> 
                                     <div class="form-group p-3 mb-0">
                                         <h5 class="mr-3"><b>Informações Gerais</b></h5>  
                                         <p>{{ getPrimeiroNome(\Illuminate\Support\Facades\Auth::user()->name) }} aqui você pode configurar as informações do sistema.</p>                                          
@@ -484,7 +483,30 @@ $config1 = [
                                 </div>
                             </div> 
                         </div> 
-                                                       
+                        <div class="tab-pane fade" id="custom-tabs-four-layout" role="tabpanel" aria-labelledby="custom-tabs-four-layout-tab">
+                            <div class="row mb-2 text-muted">                                        
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <h5><b>Tema do Site</b></h5>  
+                                        <p>Aqui você pode escolher o Tema do site.</p>                                          
+                                    </div>
+                                </div>
+                                @if (!empty($templates) && $templates->count() > 0)
+                                    @foreach ($templates as $template)                                        
+                                        <div class="col-12 col-md-6 col-sm-6 col-lg-3">                                             
+                                            <div class="form-check my-2">
+                                                <input class="form-check-input" type="radio" name="template" value="{{$template->name}}" {{(old('template') == '1' ? $template->name : ($config->template == $template->name ? 'checked' : ''))}}>
+                                                <label class="form-check-label">{{$template->name}}</label>
+                                            </div>
+                                            @if ($template->exclusivo == 1)
+                                                <div class="tag-2 bg-active">Exclusivo</div>
+                                            @endif
+                                            <img src="{{$template->getimagem()}}" alt="{{$template->name}}">                                            
+                                        </div>                                                                                
+                                    @endforeach
+                                @endif                                                                                                       
+                            </div> 
+                        </div>                                
                     </div>
                 </div>
                 <!-- /.card -->
@@ -499,38 +521,6 @@ $config1 = [
     </div> 
 </form>
 
-<div class="modal fade" id="modal-suporte">
-    <div class="modal-dialog">
-        <div class="modal-content p-3">
-            <span class="j_param_data"></span>
-            <form class="btn_suporte form_hide" method="post" action="" autocomplete="off">
-            @csrf    
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <h5><b>Suporte ao Cliente</b></h5>  
-                        <p>Digite sua solicitação de suporte ou dúvida no campo abaixo. Iremos atender o mais breve possível.</p>                                          
-                    </div>
-                </div>
-                <hr>
-                <div class="col-sm-12 mt-2">
-                    <div class="form-group">
-                        <input type="hidden" name="username" value="{{ Auth::user()->name }}"/>
-                        <input type="hidden" name="sitename" value="{{$config->name}}"/>
-                        <input type="hidden" name="email" value="{{ Auth::user()->email }}"/>
-                        <textarea class="form-control noclear" rows="5" name="mensagem"></textarea>                                          
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <button type="submit" class="btn btn-success b_nome"><i class="nav-icon fas fa-check mr-2"></i> Enviar Solicitação</button>
-                </div>
-            </form>            
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-
-
 
 @stop
 
@@ -538,6 +528,22 @@ $config1 = [
 <!--tags input-->
 <link rel="stylesheet" href="{{url(asset('backend/plugins/jquery-tags-input/jquery.tagsinput.css'))}}" />
 <style>
+    .tag-2 {
+        float: left;
+        position: absolute;
+        transform: rotate(-45deg);
+        left: -5px;
+        top: 50px;
+        text-align: center;
+        width: 80px;
+        font-size: 11px;
+        margin: 0;
+        color: #fff;
+        font-weight: 500;
+        line-height: 32px;
+        background: red;
+        text-transform: uppercase;
+    }
     iframe{
         width: 100% !important;
     }

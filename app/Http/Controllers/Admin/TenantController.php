@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\TenantRequest;
 use Illuminate\Support\Str;
 use App\Models\Cidades;
 use App\Models\Estados;
+use App\Models\Template;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Support\Cropper;
@@ -38,6 +39,10 @@ class TenantController extends Controller
             return redirect()->back();
         }
 
+        $templates = Template::orderBy('created_at', 'DESC')
+                ->available()
+                ->get();
+
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get(); 
 
@@ -54,6 +59,7 @@ class TenantController extends Controller
             'estados' => $estados,
             'cidades' => $cidades,
             'diferenca' => $diferenca,
+            'templates' => $templates,
             'feeddatadiferenca' => $feeddatadiferenca
         ]);
     }

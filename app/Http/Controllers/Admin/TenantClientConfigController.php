@@ -29,7 +29,12 @@ class TenantClientConfigController extends Controller
         $tenant = auth()->user()->tenant;        
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get();
-        $templates = Template::orderBy('created_at', 'DESC')->available()->get();
+
+        $templates = Template::orderBy('created_at', 'DESC')
+                ->where('exclusivo', '!=', 1)
+                ->orWhere('name', $tenant->template_exclusivo)
+                ->available()
+                ->get();
 
         $sitemap = $tenant->sitemap_data ? Carbon::createFromFormat('Y-m-d', $tenant->sitemap_data) : Carbon::now();
         $datahoje = Carbon::now();

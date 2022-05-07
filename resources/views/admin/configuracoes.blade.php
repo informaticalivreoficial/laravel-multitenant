@@ -508,16 +508,14 @@ $config1 = [
                                     </div>
                                 </div>
                                 @if (!empty($templates) && $templates->count() > 0)
-                                    @foreach ($templates as $template)
-                                        @if ($template->name == $config->template_exclusivo || $template->exclusivo != 1)
-                                            <div class="col-12 col-md-6 col-sm-6 col-lg-3">                                             
-                                                <div class="form-check my-2">
-                                                    <input class="form-check-input" type="radio" name="template" value="{{$template->name}}" {{(old('template') == '1' ? $template->name : ($config->template == $template->name ? 'checked' : ''))}}>
-                                                    <label class="form-check-label">{{$template->name}}</label>
-                                                </div>
-                                                <img src="{{$template->getimagem()}}" alt="{{$template->name}}">                                            
+                                    @foreach ($templates as $template)                                        
+                                        <div class="col-12 col-md-6 col-sm-6 col-lg-3">                                             
+                                            <div class="form-check my-2">
+                                                <input class="form-check-input" type="radio" name="template" value="{{$template->name}}" {{(old('template') == '1' ? $template->name : ($config->template == $template->name ? 'checked' : ''))}}>
+                                                <label class="form-check-label">{{$template->name}}</label>
                                             </div>
-                                        @endif                                         
+                                            <img src="{{$template->getimagem()}}" alt="{{$template->name}}">                                            
+                                        </div>                                                                                
                                     @endforeach
                                 @endif                                                                                                       
                             </div> 
