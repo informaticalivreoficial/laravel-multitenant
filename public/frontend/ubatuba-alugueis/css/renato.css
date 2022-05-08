@@ -1,0 +1,45 @@
+.whatsapp-footer{
+    width: 64px;
+    display: block;
+    position: fixed;
+    bottom: 40px;
+    left: 20px;
+    text-align: center;
+    padding-top: 10px;
+    z-index: 999;
+}
+.balao{
+    display:none;
+    padding: 8px;
+    bottom: 130px;
+    left: 10px;
+    position: fixed;
+    background: #fff;
+	border-radius: 15px;
+	width: 200px;
+	height: 130px;
+    z-index: 999;
+    box-shadow: 2px 2px 4px #000000;
+}
+.balao:after{
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #fff;	
+	bottom: -20px;
+	left: 20%;
+}
+.balao textarea{
+    width: 100%;
+    height: 85px;
+    resize: none;
+    border: none;
+}
+.balao button{
+    box-shadow: none;
+    border-radius: 5px;
+    float: right;
+}

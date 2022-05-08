@@ -7,7 +7,6 @@
         <meta name="copyright" content="{{env('DESENVOLVEDOR')}}"/>       
         <meta name="author" content="Renato Montanari"/>
         <meta name="language" content="pt-br" />
-        <meta name="robots" content="INDEX,FOLLOW" />  
 
         {!! $head ?? '' !!}
 
@@ -430,14 +429,13 @@
             
         </script>
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C879Y13DRT"></script>
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{$tenant->tagmanager_id}}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            
-            gtag('config', 'G-C879Y13DRT');
+            gtag('config', '{{$tenant->tagmanager_id}}');
         </script>
     </body>
 </html>
