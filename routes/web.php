@@ -82,6 +82,7 @@ Route::group([
     Route::get('/atendimento', [SiteController::class, 'atendimento'])->name('atendimento');
     Route::get('/sendEmail', [SendEmailController::class, 'sendEmail'])->name('sendEmail');
     Route::get('/sendNewsletter', [SendEmailController::class, 'sendNewsletter'])->name('sendNewsletter');
+    Route::get('/sendReserva', [SendEmailController::class, 'sendReserva'])->name('sendReserva');
 
     //FINANCIAMENTO
     Route::get('/simulador-financiamento-imovel', [SiteController::class, 'financiamento'])->name('financiamento');

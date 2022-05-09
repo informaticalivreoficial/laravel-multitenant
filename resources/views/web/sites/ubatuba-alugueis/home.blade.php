@@ -84,74 +84,138 @@
 
         <div class="enquire-form pad-tb" id="reservar">
             <div class="container">
-              <div class="row">      
-                <div class="col-lg-12 pl0" id="form">
-                  <div class="form-block">
-                    <div class="form-header">
-                      <h2><span>Pré-reserva</span></h2>
+                <div class="row">      
+                    <div class="col-lg-12 pl0" id="form">
+                        <div class="form-block">
+                            <div class="form-header">
+                                <h2><span>Pré-reserva</span></h2>
+                            </div>
+                            <form action="" method="post" class="j_formsubmit" autocomplete="off">
+                                <div class="fieldsets"> 
+                                    <div class="row">      
+                                        <div id="js-contact-result"></div>                 
+                                    </div>
+                                    <div class="row">      
+                                        <!-- HONEYPOT -->
+                                        <input type="hidden" class="noclear" name="tenant_id" value="{{$tenant->id}}" />
+                                        <input type="hidden" class="noclear" name="bairro" value="" />
+                                        <input type="text" class="noclear" style="display: none;" name="cidade" value="" />                
+                                    </div>                          
+                                    <div class="row form_hide">      
+                                        <div class="col-md-6 col-lg-4">                                  
+                                            <label><b>Nome</b></label>
+                                            <input type="text" name="nome">
+                                        </div>
+                                        <div class="col-md-6 col-lg-4">
+                                            <label><b>Email</b></label>
+                                            <input type="text" name="email">
+                                        </div>   
+                                        <div class="col-md-6 col-lg-4">
+                                            <label><b>Telefone</b></label>
+                                            <input type="text" class="telefonemask" name="telefone">
+                                      </div>
+                                      <div class="col-md-6 col-lg-4">
+                                          <label><b>Número de pessoas</b></label>
+                                          <select name="pessoas">
+                                              <option value="">Selecione</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                              <option value="6">6</option>
+                                              <option value="7">7</option>
+                                              <option value="8">8</option>
+                                              <option value="9">9</option>
+                                              <option value="10">10</option>
+                                          </select>
+                                      </div>                           
+                                      <div class="col-md-6 col-lg-4">
+                                          <label><b>Checkin</b></label>
+                                          <input type="text" class="default-date-picker" name="checkin">
+                                      </div>
+                                      <div class="col-md-6 col-lg-4">
+                                          <label><b>Checkout</b></label>
+                                          <input type="text" class="default-date-picker" name="checkout">
+                                      </div>
+                                    </div>                          
+                                    <div class="row form_hide">      
+                                        <div class="col-lg-12">
+                                            <label><b>Informações adicionais</b></label>
+                                            <textarea rows="4" name="mensagem"></textarea>
+                                        </div>                
+                                    </div>
+                                </div>
+                                <div class="fieldsets form_hide"> 
+                                    <button type="submit" id="js-contact-btn">Enviar Agora</button> 
+                                </div>
+                                <p class="trm form_hide"><i class="fas fa-lock"></i>Não enviamos spam, respeitamos sua privacidade.</p>
+                            </form>
+                        </div>
                     </div>
-                    <form action="" method="post" class="j_formsubmit" autocomplete="off">
-                      <div class="fieldsets"> 
-                        <div class="row">      
-                          <div class="col-lg-12 alertas"></div>                
-                        </div> 
-                        <div class="row">      
-                          <div class="col-lg-4">
-                            <input class="noclear" type="hidden" name="action" value="prereserva" />
-                            <!-- HONEYPOT -->
-                            <input type="hidden" class="noclear" name="bairro" value="" />
-                            <input type="text" class="noclear" style="display: none;" name="cidade" value="" />
-                            <label><b>Nome</b></label>
-                            <input type="text" name="nome">
-                          </div>
-                          <div class="col-lg-4">
-                            <label><b>Email</b></label>
-                            <input type="text" name="email">
-                          </div>
-                          <div class="col-lg-4">
-                            <label><b>Telefone</b></label>
-                            <input type="text" name="telefone">
-                          </div>
-                        </div>
-                        <div class="row">      
-                          <div class="col-lg-4">
-                            <label><b>Checkin</b></label>
-                            <input type="text" class="default-date-picker" name="checkin">
-                          </div>
-                          <div class="col-lg-4">
-                            <label><b>Checkout</b></label>
-                            <input type="text" class="default-date-picker" name="checkout">
-                          </div>
-                          <div class="col-lg-4">
-                            <label><b>Número de pessoas</b></label>
-                            <select name="pessoas">
-                              <option value="">Selecione</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="row">      
-                          <div class="col-lg-12">
-                            <label><b>Informações adicionais</b></label>
-                            <textarea rows="4" name="mensagem"></textarea>
-                          </div>                
-                        </div>
-                      </div>
-                      <div class="fieldsets"> <button type="submit" id="b_nome">Enviar Agora</button> </div>
-                      <p class="trm"><i class="fas fa-lock"></i>Não enviamos spam, respeitamos sua privacidade.</p>
-                    </form>
-                  </div>
                 </div>
-              </div>
             </div>
         </div>
     @endif
+@endsection
+
+@section('js')
+  @if (!empty($destaque) && $destaque->count() > 0)
+    <script src="{{url(asset('backend/assets/js/jquery.mask.js'))}}"></script>
+    <script>
+        $(document).ready(function () { 
+            var $telefone = $(".telefonemask");
+            $telefone.mask('(99) 99999-9999', {reverse: false});               
+        });
+    </script>
+    <script>
+      $(function () {
+  
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+    
+            // Seletor, Evento/efeitos, CallBack, Ação
+            $('.j_formsubmit').submit(function (){
+                var form = $(this);
+                var dataString = $(form).serialize();
+    
+                $.ajax({
+                    url: "{{ route('web.sendReserva') }}",
+                    data: dataString,
+                    type: 'GET',
+                    dataType: 'JSON',
+                    beforeSend: function(){
+                        form.find("#js-contact-btn").attr("disabled", true);
+                        form.find('#js-contact-btn').html("Carregando...");                
+                        form.find('.alert').fadeOut(500, function(){
+                            $(this).remove();
+                        });
+                    },
+                    success: function(resposta){
+                        $('html, body').animate({scrollTop:$('#js-contact-result').offset().top-100}, 'slow');
+                        if(resposta.error){
+                            form.find('#js-contact-result').html('<div class="alert alert-danger error-msg">'+ resposta.error +'</div>');
+                            form.find('.error-msg').fadeIn();                    
+                        }else{
+                            form.find('#js-contact-result').html('<div class="alert alert-success error-msg">'+ resposta.sucess +'</div>');
+                            form.find('.error-msg').fadeIn();                    
+                            form.find('input[class!="noclear"]').val('');
+                            form.find('textarea[class!="noclear"]').val('');
+                            form.find('.form_hide').fadeOut(500);
+                        }
+                    },
+                    complete: function(resposta){
+                        form.find("#js-contact-btn").attr("disabled", false);
+                        form.find('#js-contact-btn').html("Enviar Agora");                                
+                    }
+                });
+    
+                return false;
+            });
+    
+        });
+    </script> 
+  @endif 
 @endsection
