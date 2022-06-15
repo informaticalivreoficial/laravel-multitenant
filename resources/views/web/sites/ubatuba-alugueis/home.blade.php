@@ -92,8 +92,10 @@
                             </div>
                             <form action="" method="post" class="j_formsubmit" autocomplete="off">
                                 <div class="fieldsets"> 
-                                    <div class="row">      
-                                        <div id="js-contact-result"></div>                 
+                                    <div class="row">  
+                                        <div class="col-12">    
+                                            <div id="js-contact-result"></div>
+                                        </div>                 
                                     </div>
                                     <div class="row">      
                                         <!-- HONEYPOT -->
@@ -214,6 +216,15 @@
     
                 return false;
             });
+
+            $('.default-date-picker').datepicker({
+                format: 'dd/mm/yyyy',
+                startDate:'0d',        
+                todayHighlight: true,
+                todayBtn: "linked"
+            });
+            $('.dpYears').datepicker();
+            $('.dpMonths').datepicker();
     
         });
     </script> 
