@@ -20,6 +20,7 @@ class TenantTableSeeder extends Seeder
                 'plan_id' => 1,
                 'uuid' => (string) Str::uuid(),
                 'name' => 'Admin',    
+                'dominio' => 'sistemaimobiliario.info',
                 //Endereço
                 'cep' => '11680000',
                 'rua' => 'Rua Primavera',

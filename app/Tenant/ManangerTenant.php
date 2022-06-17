@@ -29,11 +29,9 @@ class ManangerTenant
     }
 
     public function identify()
-    {        
+    {
         $tenant = $this->tenant();
-        if($tenant != null){
-            return $tenant->id;
-        }        
+        return $tenant->id;
     }
 
     public function getTenantIdentify()
