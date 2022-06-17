@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         Plan::observe(PlanObserver::class);
         Tenant::observe(TenantObserver::class);
 
-        //$identify = app(ManangerTenant::class)->identify();
+        $identify = app(ManangerTenant::class)->identify();
  
         //Categorias de Imóveis
         $catImoveis = DB::table('imoveis')->selectRaw('DISTINCT tipo')->get();
