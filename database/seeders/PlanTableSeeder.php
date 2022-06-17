@@ -18,6 +18,7 @@ class PlanTableSeeder extends Seeder
             [
                 'name' => 'Plano Grátis', 
                 'slug' => 'plano-gratis',
+                'stripe_id' => '1',
                 'status' => true
             ]            
         ]);
