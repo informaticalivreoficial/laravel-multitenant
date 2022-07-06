@@ -28,6 +28,7 @@ class CreateTenantsTable extends Migration
             $table->string('dominio')->nullable();
             $table->string('subdominio')->nullable();
             $table->string('template')->nullable();
+            $table->string('template_exclusivo')->nullable();
 
             /** subscription */
             $table->string('subscription_id')->nullable(); // gatway id
