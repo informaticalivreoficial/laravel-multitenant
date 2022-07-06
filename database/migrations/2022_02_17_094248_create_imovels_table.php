@@ -118,6 +118,7 @@ class CreateImovelsTable extends Migration
             $table->bigInteger('views')->default('0');
 
             $table->timestamps();
+            $table->integer('publication_type')->nullable();
 
             $table->foreign('proprietario')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('CASCADE');
