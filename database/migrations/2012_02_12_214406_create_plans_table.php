@@ -22,6 +22,7 @@ class CreatePlansTable extends Migration
             $table->integer('status')->nullable();
 
             /** pricing and values */
+            $table->integer('avaliacao')->nullable();
             $table->boolean('exibivalores')->nullable();
             $table->decimal('valor', 10, 2)->nullable();
             $table->decimal('valor_mensal', 10, 2)->nullable();            
