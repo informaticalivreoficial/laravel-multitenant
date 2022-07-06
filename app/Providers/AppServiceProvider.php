@@ -39,38 +39,38 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Plan::observe(PlanObserver::class);
-        // Tenant::observe(TenantObserver::class);
+        Plan::observe(PlanObserver::class);
+        Tenant::observe(TenantObserver::class);
 
-        // $identify = app(ManangerTenant::class)->identify();
+        $identify = app(ManangerTenant::class)->identify();
  
-        // //Categorias de Imóveis
-        // $catImoveis = DB::table('imoveis')->selectRaw('DISTINCT tipo')->get();
-        // View()->share('categoriasMenu', $catImoveis);
+        //Categorias de Imóveis
+        $catImoveis = DB::table('imoveis')->selectRaw('DISTINCT tipo')->get();
+        View()->share('categoriasMenu', $catImoveis);
 
-        // //Newsletter
-        // $newsletter = NewsletterCat::where('sistema', 1)
-        //                 ->where('tenant_id', $identify)
-        //                 ->where('status', 1)
-        //                 ->get();
-        // View()->share('newsletterForm', $newsletter);
+        //Newsletter
+        $newsletter = NewsletterCat::where('sistema', 1)
+                        ->where('tenant_id', $identify)
+                        ->where('status', 1)
+                        ->get();
+        View()->share('newsletterForm', $newsletter);
 
-        // //Lançamento
-        // $lancamento = Imovel::where('destaque', 1)
-        //                 ->where('tenant_id', $identify)
-        //                 ->where('status', 1)
-        //                 ->get();
-        // View()->share('lancamentoMenu', $lancamento);
-        // //Páginas
-        // $paginas = Post::where('tipo', 'pagina')
-        //                 ->where('tenant_id', $identify)
-        //                 ->where('status', 1)
-        //                 ->get();
-        // View()->share('paginaMenu', $paginas);
+        //Lançamento
+        $lancamento = Imovel::where('destaque', 1)
+                        ->where('tenant_id', $identify)
+                        ->where('status', 1)
+                        ->get();
+        View()->share('lancamentoMenu', $lancamento);
+        //Páginas
+        $paginas = Post::where('tipo', 'pagina')
+                        ->where('tenant_id', $identify)
+                        ->where('status', 1)
+                        ->get();
+        View()->share('paginaMenu', $paginas);
 
-        // Schema::defaultStringLength(191);
-        // Blade::aliasComponent('admin.components.message', 'message');
+        Schema::defaultStringLength(191);
+        Blade::aliasComponent('admin.components.message', 'message');
 
-        // Paginator::useBootstrap();
+        Paginator::useBootstrap();
     }
 }
