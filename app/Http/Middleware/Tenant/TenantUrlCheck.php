@@ -19,7 +19,6 @@ class TenantUrlCheck
     {
         $company = app(ManangerTenant::class); 
         $tenant = $company->tenant();
-        
         if(!$tenant && $request->url() != route('404.error')){
             return redirect()->route('404.error');
         }

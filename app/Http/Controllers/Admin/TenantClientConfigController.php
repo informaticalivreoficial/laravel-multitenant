@@ -25,7 +25,7 @@ class TenantClientConfigController extends Controller
     
     public function editar()
     {
-        //dd(now()->year);
+        //dd(config('filesystems.disks.s3.root'));
         $tenant = auth()->user()->tenant;        
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get();
