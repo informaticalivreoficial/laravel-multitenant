@@ -13,11 +13,10 @@
         "intervention/image": "^2.5",
         "jeroennoten/laravel-adminlte": "^3.8",
         "laravel/cashier": "^13.8",
-        "laravel/framework": "^8.54",
+        "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "rosell-dk/webp-convert": "2.5.0",
         "spatie/laravel-analytics": "^3.11",
         "spatie/laravel-sitemap": "^5.9"
     },
