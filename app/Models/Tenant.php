@@ -8,13 +8,14 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Support\Cropper;
+use Google\Service\Slides;
 
 class Tenant extends Model
 {
     use HasFactory;
 
     protected $table = 'tenants'; 
-    
+
     protected $fillable = [
         'name', 
         'status',
@@ -96,47 +97,62 @@ class Tenant extends Model
     */        
     public function getmetaimg()
     {
-        if(empty($this->metaimg) || !Storage::disk()->exists(env('AWS_PASTA') . $this->metaimg)) {
+        $image = $this->metaimg;        
+        if(empty($this->metaimg) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        return Storage::url($this->metaimg);
+        return Storage::url(Cropper::thumb($this->metaimg, env('METAIMG_WIDTH'), env('METAIMG_HEIGHT')));
     }
     
     public function getlogomarca()
     {
-        if(empty($this->logomarca) || !Storage::disk()->exists(env('AWS_PASTA') . $this->logomarca)) {
+        $image = $this->logomarca;        
+        if(empty($this->logomarca) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        return Storage::url($this->logomarca);
+        return Storage::url(Cropper::thumb($this->logomarca, env('LOGOMARCA_WIDTH'), env('LOGOMARCA_HEIGHT')));
     }
     
     public function getlogoadmin()
     {
-        if(empty($this->logomarca_admin) || !Storage::disk()->exists(env('AWS_PASTA') . $this->logomarca_admin)) {
-            return url(asset('backend/assets/images/image.jpg'));
+        $image = $this->logomarca_admin;        
+        if(empty($this->logomarca_admin) || !File::exists('../public/storage/' . $image)) {
+            return url(asset('backend/assets/images/logomarca-admin.png'));
         } 
-        return Storage::url($this->logomarca_admin);
+        return Storage::url(Cropper::thumb($this->logomarca_admin, env('LOGOMARCA_GERENCIADOR_WIDTH'), env('LOGOMARCA_GERENCIADOR_HEIGHT')));
     }
     
     public function getfaveicon()
     {
-        if(empty($this->favicon) || !Storage::disk()->exists(env('AWS_PASTA') . $this->favicon)) {
+        $image = $this->favicon;        
+        if(empty($this->favicon) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        return Storage::url($this->favicon);
+        return Storage::url(Cropper::thumb($this->favicon, env('FAVEICON_WIDTH'), env('FAVEICON_HEIGHT')));
     }
     
     public function getmarcadagua()
     {
-        if(empty($this->marcadagua) || !Storage::disk()->exists(env('AWS_PASTA') . $this->marcadagua)) {
+        $image = $this->marcadagua;        
+        if(empty($this->marcadagua) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        return Storage::url($this->marcadagua);
+        return Storage::url(Cropper::thumb($this->marcadagua, env('MARCADAGUA_WIDTH'), env('MARCADAGUA_HEIGHT')));
     }
     
     public function gettopodosite()
     {
-        if(empty($this->imgheader) || !Storage::disk()->exists(env('AWS_PASTA') . $this->imgheader)) {
+        $image = $this->imgheader;        
+        if(empty($this->imgheader) || !File::exists('../public/storage/' . $image)) {
+            return url(asset('backend/assets/images/image.jpg'));
+        } 
+        return Storage::url(Cropper::thumb($this->imgheader, env('IMGHEADER_WIDTH'), env('IMGHEADER_HEIGHT')));
+    }
+
+    public function getnotopodosite()
+    {
+        $image = $this->imgheader;        
+        if(empty($this->imgheader) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
         return Storage::url($this->imgheader);

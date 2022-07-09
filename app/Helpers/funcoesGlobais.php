@@ -1,7 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-
 /**
  * <b>Limita os Palavras:</b> Limita a quantidade de palavras a serem exibidas em uma string!
  * @param STRING $String = Uma string qualquer
@@ -18,27 +16,6 @@ function Words($String, $Limite, $Pointer = null) {
     $Pointer = (empty($Pointer) ? '...' : ' ' . $Pointer );
     $Result = ( $Format < $NumWords ? $NewWords . $Pointer : $content );
     return $Result;
-}
-
-function CheckinCheckoutValidate($checkin, $checkout) {
-
-    $data1 = Carbon::createFromFormat('d/m/Y', $checkin);
-    $data2 = Carbon::createFromFormat('d/m/Y', $checkout);
-    $hoje = Carbon::now()->format('d/m/Y');
-
-    if($checkin == ''){
-        return "Por favor selecione a data do Checkin!";
-    }elseif($checkout == ''){
-        return "Por favor selecione a data do Checkout!";
-    }elseif($data1->gt($data2)){
-        return "você escolheu a data do Checkin maior que a data do Checkout, escolha a data correta!";
-    }elseif($data1->gt($hoje)){
-        return "{$hoje}você escolheu a data do Checkin menor que a data de hoje, escolha a data correta!";
-    }elseif($data2->lt($data1)){
-        return "você escolheu a data do Checkout menor que a data do Checkin, escolha a data correta!";
-    }else{
-        return true;
-    }
 }
 
 //Pegar somente o embed de vídeo youtube

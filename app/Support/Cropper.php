@@ -8,13 +8,12 @@
 
 namespace App\Support;
 
-use CoffeeCode\Cropper\Cropper as CropperCropper;
 
 class Cropper
 {
     public static function thumb(string $uri, int $width, int $height = null)
     {
-        $cropper = new CropperCropper('../public/storage/cache');
+        $cropper = new \CoffeeCode\Cropper\Cropper('../public/storage/cache');
         $pathThumb = $cropper->make(config('filesystems.disks.public.root') . '/' . $uri, $width, $height);
 
         $file = 'cache/' . collect(explode('/', $pathThumb))->last();
@@ -23,7 +22,7 @@ class Cropper
 
     public static function flush(?string $path)
     {
-        $cropper = new CropperCropper('../public/storage/cache');
+        $cropper = new \CoffeeCode\Cropper\Cropper('../public/storage/cache');
 
         if(!empty($path)) {
             $cropper->flush($path);
