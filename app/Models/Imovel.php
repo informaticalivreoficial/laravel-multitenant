@@ -146,11 +146,11 @@ class Imovel extends Model
             $cover = $images->first(['path']);
         }
 
-        if(empty($cover['path']) || !File::exists('../public/storage/' . $cover['path'])) {
+        if(empty($cover['path']) || !Storage::disk()->exists($cover['path'])) {
             return url(asset('backend/assets/images/image.jpg'));
         }
 
-        return Storage::url(Cropper::thumb($cover['path'], 1440, 960));
+        return Storage::url($cover['path']);
     }
 
     public function coverSlideGallery()
@@ -163,11 +163,11 @@ class Imovel extends Model
             $cover = $images->first(['path']);
         }
 
-        if(empty($cover['path']) || !File::exists('../public/storage/' . $cover['path'])) {
+        if(empty($cover['path']) || !Storage::disk()->exists($cover['path'])) {
             return url(asset('backend/assets/images/image.jpg'));
         }
 
-        return Storage::url(Cropper::thumb($cover['path'], 750, 500));
+        return Storage::url($cover['path']);
     }
 
     public function nocover()
@@ -180,7 +180,7 @@ class Imovel extends Model
             $cover = $images->first(['path']);
         }
 
-        if(empty($cover['path']) || !File::exists('../public/storage/' . $cover['path'])) {
+        if(empty($cover['path']) || !Storage::disk()->exists($cover['path'])) {
             return url(asset('backend/assets/images/realty.jpeg'));
         }
 
