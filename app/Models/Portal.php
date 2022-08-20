@@ -78,10 +78,10 @@ class Portal extends Model
 
     public function getUrlLogomarcaAttribute()
     {
-        if (!empty($this->logomarca)) {
-            return Storage::url(Cropper::thumb($this->logomarca, 200, 200));
-        }
-        return '';
+        if(empty($this->logomarca) || !Storage::disk()->exists($this->logomarca)) {
+            return url(asset('backend/assets/images/image.jpg'));
+        } 
+        return Storage::url($this->logomarca);
     }
 
     public function setPagoAttribute($value)
