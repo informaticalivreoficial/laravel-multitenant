@@ -22,7 +22,10 @@ class EnsureUserIsSubscribed
         $admin = app(ManangerTenant::class); 
         $admin = $admin->isAdmin();
         //dd(Carbon::now()->diffInDays(Carbon::parse($request->user()->tenant->subscription)));
-        if(!$admin && $request->user() && Carbon::now()->diffInDays(Carbon::parse(Auth::user()->tenant->subscription)) > 30 && !$request->user()->subscribed('default')){
+        if(!$admin && $request->user() 
+            && Carbon::now()->diffInDays(Carbon::parse(Auth::user()->tenant->subscription)) > 30 
+            || Carbon::now()->diffInDays(Carbon::parse(Auth::user()->tenant->expires_at)) > 1
+            && !$request->user()->subscribed('default')){
             return redirect()->route('assinatura.index');
         }      
         // if ($request->user() && !$request->user()->subscribed('default')) {
