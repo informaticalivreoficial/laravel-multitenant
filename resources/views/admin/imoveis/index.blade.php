@@ -51,7 +51,7 @@
                     <tr style="{{ ($imovel->status == '1' ? '' : 'background: #fffed8 !important;')  }}">                            
                         <td class="text-center">
                             <a href="{{url($imovel->nocover())}}" data-title="{{$imovel->titulo}}" data-toggle="lightbox">
-                                <img alt="{{$imovel->name}}" src="{{url($imovel->cover())}}" width="60">
+                                <img alt="{{$imovel->titulo}}" src="{{url($imovel->cover())}}" width="60">
                             </a>
                         </td>
                         <td>{{$imovel->titulo}}</td>

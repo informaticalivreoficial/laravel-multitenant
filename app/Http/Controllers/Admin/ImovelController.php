@@ -160,7 +160,6 @@ class ImovelController extends Controller
         $imovel->setBibliotecaAttribute($request->biblioteca);
         $imovel->setChurrasqueiraAttribute($request->churrasqueira);
         $imovel->setEstacionamentoAttribute($request->estacionamento);
-        $imovel->setEspacofitnessAttribute($request->espaco_fitness);
         $imovel->setCozinhaAmericanaAttribute($request->cozinha_americana);
         $imovel->setCozinhaPlanejadaAttribute($request->cozinha_planejada);
         $imovel->setDispensaAttribute($request->dispensa);
