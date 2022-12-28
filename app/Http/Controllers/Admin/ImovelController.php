@@ -86,7 +86,7 @@ class ImovelController extends Controller
             foreach ($request->allFiles()['files'] as $image) {
                 $imovelGb = new ImovelGb();
                 $imovelGb->imovel = $criarImovel->id;
-                $imovelGb->path = $image->storeAs('imoveis/'. auth()->user()->tenant->uuid . '/' . $criarImovel->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                $imovelGb->path = $image->storeAs(env('AWS_PASTA') . 'imoveis/'. auth()->user()->tenant->uuid . '/' . $criarImovel->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
                 $imovelGb->save();
                 unset($imovelGb);
             }
@@ -213,7 +213,7 @@ class ImovelController extends Controller
             foreach ($request->allFiles()['files'] as $image) {
                 $imovelImage = new ImovelGb();
                 $imovelImage->imovel = $imovel->id;
-                $imovelImage->path = $image->storeAs('imoveis/'. $imovel->tenant->uuid . '/' . $imovel->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                $imovelImage->path = $image->storeAs(env('AWS_PASTA') . 'imoveis/'. $imovel->tenant->uuid . '/' . $imovel->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
                 $imovelImage->save();
                 unset($imovelImage);
             }
