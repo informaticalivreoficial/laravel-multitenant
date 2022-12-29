@@ -16,12 +16,12 @@ class ImovelController extends Controller
         $this->imovelService = $imovelService;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $tenant)
     {
         $per_page = (int) $request->get('per_page', 15);
 
-        $imoveis = $this->imovelService->getAllImoveis($per_page);
-
+        $imoveis = $this->imovelService->getAllImoveisTenant($per_page, $tenant);
+        
         return ImovelResource::collection($imoveis);
     }
 

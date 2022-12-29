@@ -24,6 +24,14 @@ class ImovelRepository implements ImovelRepositoryInterface
                             ->paginate($per_page);
     }
 
+    public function getAllImoveisTenant($per_page, $tenant)
+    {
+        return $this->entity->orderBy('created_at', 'DESC')
+                            ->orderBy('status', 'ASC')
+                            ->where('tenant_id', $tenant)
+                            ->paginate($per_page);
+    }
+
     public function getImovelById(int $id)
     {
         return $this->entity->where('id', $id)->first();
