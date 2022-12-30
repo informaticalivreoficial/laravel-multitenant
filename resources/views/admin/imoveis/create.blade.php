@@ -284,7 +284,7 @@ $config = [
                                                     </div>
                                                     <div class="col-12 col-md-6 col-lg-2"> 
                                                         <div class="form-group">
-                                                            <label class="labelforms"><b>CEP:</b></label>
+                                                            <label class="labelforms"><b>*CEP:</b></label>
                                                             <input type="text" class="form-control mask-zipcode" title="Digite o CEP" name="cep" value="{{old('cep')}}">
                                                         </div>
                                                     </div>
