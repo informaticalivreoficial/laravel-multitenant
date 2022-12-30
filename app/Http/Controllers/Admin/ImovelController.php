@@ -303,7 +303,6 @@ class ImovelController extends Controller
         $imageDelete = ImovelGb::where('id', $request->image)->first();
 
         Storage::delete($imageDelete->path);
-        Cropper::flush($imageDelete->path);
         $imageDelete->delete();
 
         $json = [
@@ -353,7 +352,6 @@ class ImovelController extends Controller
         if(!empty($imovel)){
             if(!empty($imageDelete)){
                 Storage::delete($imageDelete->path);
-                Cropper::flush($imageDelete->path);
                 $imageDelete->delete();
                 Storage::deleteDirectory('imoveis/'. $imovel->tenant->uuid . '/' .$request->imovel_id);
                 $imovel->delete();
