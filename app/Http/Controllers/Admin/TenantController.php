@@ -72,7 +72,6 @@ class TenantController extends Controller
 
         if(!empty($request->file('metaimg'))){
             Storage::delete($empresa->metaimg);
-            Cropper::flush($empresa->metaimg);
             $empresa->metaimg = '';
         }
         
