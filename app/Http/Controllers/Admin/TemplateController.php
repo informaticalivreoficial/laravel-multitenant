@@ -46,7 +46,7 @@ class TemplateController extends Controller
         }
 
         if(!empty($request->file('imagem'))){
-            $templateCreate->imagem = $request->file('imagem')->storeAs('templates/', $request->name  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
+            $templateCreate->imagem = $request->file('imagem')->storeAs(env('AWS_PASTA') . 'templates/', $request->name  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
             $templateCreate->save();
         }
 
@@ -77,14 +77,13 @@ class TemplateController extends Controller
 
         if(!empty($request->file('imagem'))){
             Storage::delete($template->imagem);
-            Cropper::flush($template->imagem);
             $template->imagem = '';
         }
 
         $template->fill($request->all());
 
         if(!empty($request->file('imagem'))){
-            $template->imagem = $request->file('imagem')->storeAs('templates/', $request->name  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
+            $template->imagem = $request->file('imagem')->storeAs(env('AWS_PASTA') . 'templates/', $request->name  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
         }
 
         if(!$template->save()){
@@ -126,7 +125,6 @@ class TemplateController extends Controller
         $templateR = $template->titulo;
         if(!empty($template)){
             Storage::delete($template->imagem);
-            Cropper::flush($template->imagem);
             $template->delete();
         }
         return Redirect::route('templates.index')->with([
