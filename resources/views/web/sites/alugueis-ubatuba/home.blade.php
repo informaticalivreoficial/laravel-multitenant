@@ -59,6 +59,9 @@
                                     @if ($ilocacao->internet)
                                         <li class="span2"><i class="icon-check-sign"></i>Wi-Fi</li>
                                     @endif 
+                                    @if ($ilocacao->saladetv)
+                                        <li class="span2"><i class="icon-check-sign"></i>Tv Lcd</li>
+                                    @endif 
                                 </ul>
                             </div>
                         </div>                        
