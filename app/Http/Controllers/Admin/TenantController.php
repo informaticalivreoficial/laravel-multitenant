@@ -10,7 +10,6 @@ use App\Models\Estados;
 use App\Models\Template;
 use App\Models\Tenant;
 use App\Models\User;
-use App\Support\Cropper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -77,58 +76,53 @@ class TenantController extends Controller
         
         if(!empty($request->file('logomarca'))){
             Storage::delete($empresa->logomarca);
-            Cropper::flush($empresa->logomarca);
             $empresa->logomarca = '';
         }
         
         if(!empty($request->file('logomarca_admin'))){
             Storage::delete($empresa->logomarca_admin);
-            Cropper::flush($empresa->logomarca_admin);
             $empresa->logomarca_admin = '';
         }
         
         if(!empty($request->file('favicon'))){
             Storage::delete($empresa->favicon);
-            Cropper::flush($empresa->favicon);
             $empresa->favicon = '';
         }
         
         if(!empty($request->file('marcadagua'))){
             Storage::delete($empresa->marcadagua);
-            Cropper::flush($empresa->marcadagua);
             $empresa->marcadagua = '';
         }
         
         if(!empty($request->file('imgheader'))){
             Storage::delete($empresa->imgheader);
-            Cropper::flush($empresa->imgheader);
             $empresa->imgheader = '';
         }
         
         $empresa->fill($request->all());
         
         if(!empty($request->file('metaimg'))){
-            $empresa->metaimg = $request->file('metaimg')->storeAs('configuracoes/'.$empresa->uuid, 'metaimg-'.Str::slug($request->name)  . '.' . $request->file('metaimg')->extension());
+            $empresa->metaimg = $request->file('metaimg')->storeAs(env('AWS_PASTA') . 'configuracoes/'.$empresa->uuid, 'metaimg-'.Str::slug($request->name)  . '.' . $request->file('metaimg')->extension());
         }
         
         if(!empty($request->file('logomarca'))){
-            $empresa->logomarca = $request->file('logomarca')->storeAs('configuracoes/'.$empresa->uuid, 'logomarca-'.Str::slug($request->name)  . '.' . $request->file('logomarca')->extension());
+            $empresa->logomarca = $request->file('logomarca')->storeAs(env('AWS_PASTA') . 'configuracoes/'.$empresa->uuid, 'logomarca-'.Str::slug($request->name)  . '.' . $request->file('logomarca')->extension());
         }
         
         if(!empty($request->file('logomarca_admin'))){
-            $empresa->logomarca_admin = $request->file('logomarca_admin')->storeAs('configuracoes/'.$empresa->uuid, 'logomarca-admin-'.Str::slug($request->name)  . '.' . $request->file('logomarca_admin')->extension());
+            $empresa->logomarca_admin = $request->file('logomarca_admin')->storeAs(env('AWS_PASTA') . 'configuracoes/'.$empresa->uuid, 'logomarca-admin-'.Str::slug($request->name)  . '.' . $request->file('logomarca_admin')->extension());
         }
         
         if(!empty($request->file('favicon'))){
-            $empresa->favicon = $request->file('favicon')->storeAs('configuracoes/'.$empresa->uuid, 'favivon-'.Str::slug($request->name)  . '.' . $request->file('favicon')->extension());
+            $empresa->favicon = $request->file('favicon')->storeAs(env('AWS_PASTA') . 'configuracoes/'.$empresa->uuid, 'favivon-'.Str::slug($request->name)  . '.' . $request->file('favicon')->extension());
         }
         
         if(!empty($request->file('marcadagua'))){
-            $empresa->marcadagua = $request->file('marcadagua')->storeAs('configuracoes/'.$empresa->uuid, 'marcadagua-'.Str::slug($request->name)  . '.' . $request->file('marcadagua')->extension());
+            $empresa->marcadagua = $request->file('marcadagua')->storeAs(env('AWS_PASTA') . 'configuracoes/'.$empresa->uuid, 'marcadagua-'.Str::slug($request->name)  . '.' . $request->file('marcadagua')->extension());
         }
         
         if(!empty($request->file('imgheader'))){
-            $empresa->imgheader = $request->file('imgheader')->storeAs('configuracoes/'.$empresa->uuid, 'imgheader-'.Str::slug($request->name)  . '.' . $request->file('imgheader')->extension());
+            $empresa->imgheader = $request->file('imgheader')->storeAs(env('AWS_PASTA') . 'configuracoes/'.$empresa->uuid, 'imgheader-'.Str::slug($request->name)  . '.' . $request->file('imgheader')->extension());
         }
 
         if(!$empresa->save()){
