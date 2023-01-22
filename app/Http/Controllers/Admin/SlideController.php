@@ -128,7 +128,6 @@ class SlideController extends Controller
         $slideR = $slide->titulo;
         if(!empty($slide)){
             Storage::delete($slide->imagem);
-            Cropper::flush($slide->imagem);
             $slide->delete();
         }
         return Redirect::route('slides.index')->with(['color' => 'success', 'message' => 'O slide '.$slideR.' foi removido com sucesso!']);

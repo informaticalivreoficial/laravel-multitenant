@@ -60,6 +60,7 @@ class Imovel extends Model
         'interfone', 'sistemadealarme', 'jardim', 'salaodefestas', 'permiteanimais',
         'quadrapoliesportiva', 'geradoreletrico', 'banheira', 'lareira', 'lavabo', 'lavanderia',
         'elevador', 'mobiliado', 'vista_para_mar', 'piscina', 'sauna', 'ventilador_teto',
+        'internet', 'geladeira',
         //SEO
         'titulo', 'slug', 'status', 'views', 'metatags', 'headline',
         'exibirmarcadagua',
@@ -715,6 +716,26 @@ class Imovel extends Model
     public function setVentiladorTetoAttribute($value)
     {
         $this->attributes['ventilador_teto'] = (($value === true || $value === 'on') ? 1 : 0);
+    }
+
+    /**
+     * Mutator Internet
+     *
+     * @param $value
+     */
+    public function setInternetAttribute($value)
+    {
+        $this->attributes['internet'] = (($value === true || $value === 'on') ? 1 : 0);
+    }
+
+    /**
+     * Mutator Geladeira
+     *
+     * @param $value
+     */
+    public function setGeladeiraAttribute($value)
+    {
+        $this->attributes['geladeira'] = (($value === true || $value === 'on') ? 1 : 0);
     }
     
     public function setSlug()

@@ -196,6 +196,8 @@ class ImovelController extends Controller
         $imovel->setVistaParaMarAttribute($request->vista_para_mar);
         $imovel->setPiscinaAttribute($request->piscina);
         $imovel->setVentiladorTetoAttribute($request->ventilador_teto);
+        $imovel->setInternetAttribute($request->internet);
+        $imovel->setGeladeiraAttribute($request->geladeira);
 
         $imovel->save();
         $imovel->setSlug();

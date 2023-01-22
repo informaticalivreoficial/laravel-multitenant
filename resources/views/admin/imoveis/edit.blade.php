@@ -456,16 +456,16 @@ $config = [
                                     <div class="form-check mb-2">
                                         <input id="condominiofechado" class="form-check-input" type="checkbox"  name="condominiofechado" {{ (old('condominiofechado') == 'on' || old('condominiofechado') == true ? 'checked' : ($imovel->condominiofechado == true ? 'checked' : '')) }}>
                                         <label for="condominiofechado" class="form-check-label">Condomínio fechado</label>
-                                    </div>                        
+                                    </div> 
+                                    <div class="form-check mb-2">
+                                        <input id="cozinha_planejada" class="form-check-input" type="checkbox"  name="cozinha_planejada" {{ (old('cozinha_planejada') == 'on' || old('cozinha_planejada') == true ? 'checked' : ($imovel->cozinha_planejada == true ? 'checked' : '')) }}>
+                                        <label for="cozinha_planejada" class="form-check-label">Cozinha Planejada</label>
+                                    </div>                       
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">                                        
                                 <!-- checkbox -->
-                                <div class="form-group p-3 mb-1">
-                                    <div class="form-check mb-2">
-                                        <input id="cozinha_planejada" class="form-check-input" type="checkbox"  name="cozinha_planejada" {{ (old('cozinha_planejada') == 'on' || old('cozinha_planejada') == true ? 'checked' : ($imovel->cozinha_planejada == true ? 'checked' : '')) }}>
-                                        <label for="cozinha_planejada" class="form-check-label">Cozinha Planejada</label>
-                                    </div>  
+                                <div class="form-group p-3 mb-1">                                      
                                     <div class="form-check mb-2">
                                         <input id="cozinha_americana" class="form-check-input" type="checkbox"  name="cozinha_americana" {{ (old('cozinha_americana') == 'on' || old('cozinha_americana') == true ? 'checked' : ($imovel->cozinha_americana == true ? 'checked' : '')) }}>
                                         <label for="cozinha_americana" class="form-check-label">Cozinha Americana</label>
@@ -503,8 +503,16 @@ $config = [
                                         <label for="fornodepizza" class="form-check-label">Forno de Pizza</label>
                                     </div>
                                     <div class="form-check mb-2">
+                                        <input id="geladeira" class="form-check-input" type="checkbox"  name="geladeira" {{ (old('geladeira') == 'on' || old('geladeira') == true ? 'checked' : ($imovel->geladeira == true ? 'checked' : '')) }}>
+                                        <label for="geladeira" class="form-check-label">Geladeira</label>
+                                    </div>
+                                    <div class="form-check mb-2">
                                         <input id="geradoreletrico" class="form-check-input" type="checkbox"  name="geradoreletrico" {{ (old('geradoreletrico') == 'on' || old('geradoreletrico') == true ? 'checked' : ($imovel->geradoreletrico == true ? 'checked' : '')) }}>
                                         <label for="geradoreletrico" class="form-check-label">Gerador elétrico</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input id="interfone" class="form-check-input" type="checkbox"  name="interfone" {{ (old('interfone') == 'on' || old('interfone') == true ? 'checked' : ($imovel->interfone == true ? 'checked' : '')) }}>
+                                        <label for="interfone" class="form-check-label">Interfone</label>
                                     </div>
                                 </div>
                             </div>
@@ -512,8 +520,8 @@ $config = [
                                 <!-- checkbox -->
                                 <div class="form-group p-3 mb-1"> 
                                     <div class="form-check mb-2">
-                                        <input id="interfone" class="form-check-input" type="checkbox"  name="interfone" {{ (old('interfone') == 'on' || old('interfone') == true ? 'checked' : ($imovel->interfone == true ? 'checked' : '')) }}>
-                                        <label for="interfone" class="form-check-label">Interfone</label>
+                                        <input id="internet" class="form-check-input" type="checkbox"  name="internet" {{ (old('internet') == 'on' || old('internet') == true ? 'checked' : ($imovel->internet == true ? 'checked' : '')) }}>
+                                        <label for="internet" class="form-check-label">Internet</label>
                                     </div>
                                     <div class="form-check mb-2">
                                         <input id="jardim" class="form-check-input" type="checkbox"  name="jardim" {{ (old('jardim') == 'on' || old('jardim') == true ? 'checked' : ($imovel->jardim == true ? 'checked' : '')) }}>
@@ -554,16 +562,16 @@ $config = [
                                     <div class="form-check mb-2">
                                         <input id="quintal" class="form-check-input" type="checkbox"  name="quintal" {{ (old('quintal') == 'on' || old('quintal') == true ? 'checked' : ($imovel->quintal == true ? 'checked' : '')) }}>
                                         <label for="quintal" class="form-check-label">Quintal</label>
-                                    </div>                                            
+                                    </div>  
+                                    <div class="form-check mb-2">
+                                        <input id="sauna" class="form-check-input" type="checkbox"  name="sauna" {{ (old('sauna') == 'on' || old('sauna') == true ? 'checked' : ($imovel->sauna == true ? 'checked' : '')) }}>
+                                        <label for="sauna" class="form-check-label">Sauna</label>
+                                    </div>                                          
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">                                        
                                 <!-- checkbox -->
-                                <div class="form-group p-3 mb-1">
-                                    <div class="form-check mb-2">
-                                        <input id="sauna" class="form-check-input" type="checkbox"  name="sauna" {{ (old('sauna') == 'on' || old('sauna') == true ? 'checked' : ($imovel->sauna == true ? 'checked' : '')) }}>
-                                        <label for="sauna" class="form-check-label">Sauna</label>
-                                    </div>
+                                <div class="form-group p-3 mb-1">                                    
                                     <div class="form-check mb-2">
                                         <input id="saladetv" class="form-check-input" type="checkbox"  name="saladetv" {{ (old('saladetv') == 'on' || old('saladetv') == true ? 'checked' : ($imovel->saladetv == true ? 'checked' : '')) }}>
                                         <label for="saladetv" class="form-check-label">Sala de TV</label>

@@ -111,6 +111,8 @@ class CreateImovelsTable extends Migration
             $table->boolean('quintal')->nullable();
             $table->boolean('zeladoria')->nullable();  
             $table->boolean('varandagourmet')->nullable();
+            $table->boolean('internet')->nullable();
+            $table->boolean('geladeira')->nullable();
             
             $table->boolean('exibirmarcadagua')->nullable(); 
             $table->text('youtube_video')->nullable(); 
