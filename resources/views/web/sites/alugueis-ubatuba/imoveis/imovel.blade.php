@@ -20,7 +20,7 @@
                         @if($imovel->images()->get()->count())
                             @foreach($imovel->images()->get() as $image)                                    
                                 <li>
-                                    <img style="min-height: 450px !important;" src="{{ $image->getUrlImageAttribute() }}" data-original="{{ $image->getUrlImageAttribute() }}" alt="{{$imovel->titulo}}" />
+                                    <img style="height: 450px !important;" src="{{ $image->getUrlImageAttribute() }}" data-original="{{ $image->getUrlImageAttribute() }}" alt="{{$imovel->titulo}}" />
                                 </li>
                             @endforeach
                         @endif            

@@ -74,9 +74,9 @@
                                     </p> 
                                 @endif
                                 @if ($tenant->telefone)                                        
-                                    <span><strong>Telefone: </strong><a href="tel:{{$tenant->telefone}}" title="Telefone">{{$tenant->telefone}}</a></span>
+                                    <span><strong>Telefone: </strong> <a href="tel:{{$tenant->telefone}}" title="Telefone">{{$tenant->telefone}}</a></span>
                                     @if ($tenant->celular)
-                                    <span><strong>Móvel: </strong><a href="tel:{{$tenant->celular}}" title="Celular"> {{$tenant->celular}}</a></span>
+                                    <span><strong>Móvel: </strong> <a href="tel:{{$tenant->celular}}" title="Celular"> {{$tenant->celular}}</a></span>
                                     @endif                                        
                                 @endif
                                 @if ($tenant->whatsapp)
