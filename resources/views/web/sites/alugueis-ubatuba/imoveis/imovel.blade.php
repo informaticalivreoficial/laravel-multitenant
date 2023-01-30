@@ -20,7 +20,7 @@
                         @if($imovel->images()->get()->count())
                             @foreach($imovel->images()->get() as $image)                                    
                                 <li>
-                                    <img src="{{ $image->getUrlImageAttribute() }}" data-original="{{ $image->getUrlImageAttribute() }}" alt="{{$imovel->titulo}}" />
+                                    <img style="min-height: 450px !important;" src="{{ $image->getUrlImageAttribute() }}" data-original="{{ $image->getUrlImageAttribute() }}" alt="{{$imovel->titulo}}" />
                                 </li>
                             @endforeach
                         @endif            
@@ -105,7 +105,7 @@
                         </div>
 
                         <a href="">
-                            <img data-original="" src="" class="img-polaroid" alt="{{$item->titulo}}" />
+                            <img data-original="{{$item->cover()}}" src="{{$item->cover()}}" class="img-polaroid" alt="{{$item->titulo}}" />
                         </a>
                         <h4>{{$item->titulo}}</h4>
                         <div class="description">
@@ -138,7 +138,8 @@
                         </div>
                         <div class="row" style="text-align:center;"> 
                             <br />
-                            @if($item->venda == true)
+                            @if ($imovel->exibivalores == true)
+                                @if($item->venda == true)
                                 <div class="span2" style="padding:5px 0 5px 0;"> 
                                     <div class="price-info">
                                         <span class="price">R$ {{ str_replace(',00', '', $item->valor_venda) }}</span>
@@ -173,6 +174,7 @@
                                     <p>Entre em contato com a nossa equipe comercial!</p>
                                 @endif
                             @endif
+                            @endif                            
                             <div class="span2" style="padding:5px 0 5px 0;">
                                 <a href="{{ route((session('venda') == true || (!empty($type) && $type == 'venda') || ($item->locacao == false) ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $item->slug]) }}" class="btn btn-primary">+ Detalhes</a>
                             </div>
