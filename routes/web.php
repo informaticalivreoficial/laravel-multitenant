@@ -60,10 +60,14 @@ Route::group([
 
     /** FILTRO */
     Route::match(['post', 'get'], '/filtro', [SiteController::class, 'filter'])->name('filter');
+    Route::match(['post', 'get'], '/fetchCity', [SiteController::class, 'fetchCity'])->name('fetchCity');
     
     /** Pesquisa */
     Route::get('/pesquisar-imoveis', [SiteController::class, 'pesquisaImoveis'])->name('pesquisar-imoveis');
     Route::match(['post', 'get'], '/pesquisa', [SiteController::class, 'pesquisaImoveis'])->name('pesquisa');
+
+    /** Reservas */
+    Route::get('/acomodacaoSend', [SendEmailController::class, 'acomodacaoSend'])->name('acomodacaoSend');
 
     //FILTROS
     Route::post('main-filter/search', [FilterController::class, 'search'])->name('main-filter.search');
@@ -96,7 +100,8 @@ Route::group([
     Route::get('/plano/{slug}/assinar', [ClienteController::class, 'assinar'])->name('assinar');    
 
     /** Página de Locaçãp - Específica de um imóvel */
-    Route::get('/quero-alugar/{slug}', [SiteController::class, 'rentProperty'])->name('rentProperty');    
+    Route::get('/quero-alugar/{slug}', [SiteController::class, 'rentProperty'])->name('rentProperty'); 
+    Route::match(['post', 'get'], '/reservar', [SiteController::class, 'reservar'])->name('reservar');   
 
     /** Lista todos os imóveis */
     Route::get('/imoveis/{type}', [SiteController::class, 'imoveisList'])->name('imoveisList');

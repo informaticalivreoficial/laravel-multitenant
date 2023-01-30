@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Markdown;
 
-class Atendimento extends Mailable
+class ReservaSend extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -33,14 +33,23 @@ class Atendimento extends Mailable
     {
         return $this->replyTo($this->data['reply_email'], $this->data['reply_name'])
             ->to($this->data['clisiteemail'], $this->data['sitename'])
+            ->cc('suporte@informaticalivre.com.br')
             ->from($this->data['siteemail'], $this->data['sitename'])
-            ->subject('#Atendimento: ' . $this->data['reply_name'])
-            ->markdown('emails.atendimento', [
+            ->subject('✔️ Pré-reserva: ' . $this->data['reply_name'])
+            ->markdown('emails.reserva', [
                 'nome' => $this->data['reply_name'],
                 'email' => $this->data['reply_email'],
                 'telefone' => $this->data['telefone'],
-                'assunto' => $this->data['assunto'],
-                'mensagem' => $this->data['mensagem']
+                'whatsapp' => $this->data['whatsapp'],
+                'estado' => $this->data['estado'],
+                'cidade' => $this->data['cidade'],
+                'checkin' => $this->data['checkin'],
+                'checkout' => $this->data['checkout'],
+                'adultos' => $this->data['adultos'],
+                'criancas' => $this->data['criancas'],
+                'ocupacao' => $this->data['ocupacao'],
+                'codigo' => $this->data['codigo'],
+                'imovel' => $this->data['imovel']
         ]);
     }
 }

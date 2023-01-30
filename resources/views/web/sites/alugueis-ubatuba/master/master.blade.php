@@ -55,7 +55,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="span3">
-                            <img src="{{$tenant->getlogomarca()}}" alt="{{$tenant->name}}" />
+                            <img src="{{url(asset('frontend/'.$tenant->template.'/img/logo-2.png'))}}" alt="{{$tenant->name}}" />
                         </div> 
                         <div class="span6">
                             <h3>{{$tenant->name}}</h3>

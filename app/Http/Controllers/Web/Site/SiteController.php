@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\CatPost;
+use App\Models\Cidades;
 use App\Models\Imovel;
 use App\Models\Parceiro;
 use App\Models\Post;
@@ -13,14 +14,20 @@ use Carbon\Carbon;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 
+use App\Services\EstadoService;
+
 class SiteController extends Controller
 {
-    protected $tenant;
+    protected $tenant, $estadoService;
     protected $seo;
     protected $filter;
 
-    public function __construct(ManangerTenant $tenant, FilterController $filter)
+    public function __construct(
+        ManangerTenant $tenant, 
+        FilterController $filter, 
+        EstadoService $estadoService)
     {
+        $this->estadoService = $estadoService;
         $this->tenant = $tenant->tenant();
         $this->seo = new Seo();
         $this->filter = $filter;
@@ -598,6 +605,34 @@ class SiteController extends Controller
             'head' => $head,
             'parceiro' => $parceiro
         ]);
+    }
+
+    public function reservar(Request $request)
+    {
+        $dadosForm = $request->all();
+        $imoveis = Imovel::where('tenant_id', $this->tenant->id)
+                            ->available()
+                            ->locacao()->get();
+
+        $head = $this->seo->render('Pré-reserva - ' . $this->tenant->name,
+            'Pré-reserva - ' . $this->tenant->name,
+            route('web.reservar'),
+            $this->tenant->getMetaImg() ?? 'https://informaticalivre.com/media/metaimg.jpg'
+        );
+        
+        return view('web.sites.'.$this->tenant->template.'.imoveis.reservar',[
+            'tenant' => $this->tenant,
+            'dadosForm' => $dadosForm,
+            'head' => $head,
+            'imoveis' => $imoveis,
+            'estados' => $this->estadoService->getEstados()
+        ]);
+    }
+
+    public function fetchCity(Request $request)
+    {
+        $data['cidades'] = Cidades::where("estado_id",$request->estado_id)->get(["cidade_nome", "cidade_id"]);
+        return response()->json($data);
     }
     
 }

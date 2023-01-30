@@ -27,7 +27,6 @@
                         
                         <div class="form-group form_hide">
                             <!-- HONEYPOT -->
-                            <input type="hidden" class="noclear" name="tenant_id" value="{{$tenant->id}}" />
                             <input type="hidden" class="noclear" name="bairro" value="" />
                             <input type="text" class="noclear" style="display: none;" name="cidade" value="" />
                         </div>
