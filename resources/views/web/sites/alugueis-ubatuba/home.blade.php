@@ -27,7 +27,7 @@
                     </div>                   
                 
                     @foreach($imoveisParaLocacao as $ilocacao)
-                        <div class="room span4" style="height: 450px !important;">
+                        <div class="room span4" style="height: 550px !important;">
                             <div class="btn-book-container">
                                 <a href="" class="btn-book">Reservar Agora</a>
                             </div>
