@@ -28,9 +28,6 @@
                 
                     @foreach($imoveisParaLocacao as $ilocacao)
                         <div class="room span4" style="height: 550px !important;">
-                            <div class="btn-book-container">
-                                <a href="" class="btn-book">Reservar Agora</a>
-                            </div>
                             <a href="{{ route('web.rentProperty', ['slug' => $ilocacao->slug]) }}">
                                 <img data-original="{{$ilocacao->cover()}}" src="{{$ilocacao->cover()}}" class="img-polaroid" alt="{{$ilocacao->titulo}}" />
                             </a>            

@@ -16,7 +16,7 @@
         @if(!empty($imoveis) && $imoveis->count() > 0)
             <div class="row room-list">
                 @foreach($imoveis as $imovel)
-                    <div class="room span4">
+                    <div class="room span4" style="height: 550px !important;">
                         <a href="{{ route((session('venda') == true || (!empty($type) && $type == 'venda') || ($imovel->locacao == false) ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $imovel->slug]) }}">
                             <img data-original="{{$imovel->cover()}}" src="{{$imovel->cover()}}" class="img-polaroid" alt="{{$imovel->titulo}}" />
                         </a>
