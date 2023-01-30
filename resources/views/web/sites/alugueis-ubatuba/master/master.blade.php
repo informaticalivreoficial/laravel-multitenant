@@ -129,7 +129,8 @@
                                     <ul>
                                         <li><a href="{{route('web.home')}}">Início</a></li>                           
                                         <li><a href="{{route('web.imoveisList',['type' => 'locacao'])}}">Imóveis</a></li>         
-                                        <li><a href="{{route('web.atendimento')}}">Atendimento</a></li>                          	
+                                        <li><a href="{{route('web.atendimento')}}">Atendimento</a></li> 
+                                        <li><a href="{{route('web.politica')}}" title="Política de Privacidade">Política de Privacidade</a></li>                         	
                                     </ul>
                                 </nav>
                             </div>
