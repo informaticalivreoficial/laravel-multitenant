@@ -31,7 +31,7 @@ class ReservaRetorno extends Mailable
      */
     public function build()
     {
-        return $this->replyTo($this->retorno['siteemail'], $this->retorno['sitename'])
+        return $this->replyTo($this->retorno['clisiteemail'], $this->retorno['sitename'])
             ->to($this->retorno['reply_email'], $this->retorno['reply_name'])
             ->from($this->retorno['siteemail'], $this->retorno['sitename'])
             ->subject('✔️ Pré-reserva: ' . $this->retorno['sitename'])

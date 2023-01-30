@@ -73,6 +73,7 @@ class SendEmailController extends Controller
 
             $retorno = [
                 'sitename' => $this->tenant->name,
+                'clisiteemail' => $this->tenant->email,
                 'siteemail' => env('MAIL_FROM_ADDRESS'),
                 'reply_name' => $request->nome,
                 'reply_email' => $request->email
@@ -138,6 +139,7 @@ class SendEmailController extends Controller
             $data = [
                 'sitename' => $parceiro->name,
                 'siteemail' => $parceiro->email,
+                'clisiteemail' => $this->tenant->email,
                 'reply_name' => $request->nome,
                 'reply_email' => $request->email,
                 'mensagem' => $request->mensagem,
@@ -268,6 +270,7 @@ class SendEmailController extends Controller
         
         $retorno = [
             'sitename' => $this->tenant->name,
+            'clisiteemail' => $this->tenant->email,
             'siteemail' => env('MAIL_FROM_ADDRESS'),
             'reply_name' => $request->nome,
             'reply_email' => $request->email

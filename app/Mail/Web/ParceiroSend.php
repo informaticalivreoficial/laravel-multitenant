@@ -33,7 +33,7 @@ class ParceiroSend extends Mailable
     {
         return $this->replyTo($this->data['reply_email'], $this->data['reply_name'])
             ->to($this->data['siteemail'], $this->data['sitename'])
-            ->from($this->data['siteemail'], $this->data['sitename'])
+            ->from($this->data['clisiteemail'], $this->data['sitename'])
             ->subject('⚓️ Atendimento ' . $this->data['reply_name'])
             ->markdown('emails.parceiro-send', [
                 'nome' => $this->data['reply_name'],
