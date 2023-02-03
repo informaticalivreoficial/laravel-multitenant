@@ -90,7 +90,8 @@ class SiteController extends Controller
             'experienceAltoPadrao' => $experienceAltoPadrao,
             'experienceLojasSalas' => $experienceLojasSalas,
             'experienceCompacto' => $experienceCompacto,
-            'experienceDeFrenteParaMar' => $experienceDeFrenteParaMar
+            'experienceDeFrenteParaMar' => $experienceDeFrenteParaMar,
+            'estados' => $this->estadoService->getEstados()
         ]);
     }
 

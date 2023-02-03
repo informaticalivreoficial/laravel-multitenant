@@ -19,8 +19,6 @@
         <link rel="stylesheet" href="{{url(asset('frontend/'.$tenant->template.'/css/owl.carousel.min.css'))}}">
         <link rel="stylesheet" href="{{url(asset('frontend/'.$tenant->template.'/css/all.min.css'))}}">
 
-        <link rel="stylesheet" href="{{url(asset('frontend/'.$tenant->template.'/js/bootstrap-datepicker/css/datepicker-custom.css'))}}" />
-
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap" rel="stylesheet">
         
         <link rel="stylesheet" type="text/css" href="{{url(asset('frontend/'.$tenant->template.'/css/style.css'))}}">
@@ -61,7 +59,7 @@
               <div class="row">
                 <div class="col-lg-4">
                     <div class="footer-">
-                        <a><img src="{{$tenant->getlogomarca()}}" alt="{{$tenant->name}}"/></a>
+                        <a><img src="{{url(asset('frontend/'.$tenant->template.'/images/logomarcafooter.png'))}}" alt="{{$tenant->name}}"/></a>
                     </div>
                     <p>{{$tenant->descricao}}</p>
                 </div>
@@ -151,8 +149,6 @@
         <script src="{{url(asset('frontend/'.$tenant->template.'/js/jquery.magnific-popup.min.js'))}}"></script>
         <script src="{{url(asset('frontend/'.$tenant->template.'/js/owl.carousel.js'))}}"></script>
         <script src="{{url(asset('frontend/'.$tenant->template.'/js/SmoothScroll.min.js'))}}"></script>  
-        
-        <script src="{{url(asset('frontend/'.$tenant->template.'/js/bootstrap-datepicker/js/bootstrap-datepicker.js'))}}"></script>
         
         <script src="{{url(asset('frontend/'.$tenant->template.'/js/main.js'))}}"></script>
 
