@@ -55,7 +55,7 @@ class SiteController extends Controller
                             ->where('expira', '>=', Carbon::now())
                             ->get();
 
-        $destaque = Imovel::where('destaque', 1)->available()->first();
+        $destaque = Imovel::where('destaque', 1)->where('tenant_id', $this->tenant->id)->available()->first();
 
         $artigos = Post::orderBy('created_at', 'DESC')
                             ->where('tipo', 'artigo')
