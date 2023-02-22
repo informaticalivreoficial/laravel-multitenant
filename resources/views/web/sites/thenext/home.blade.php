@@ -282,7 +282,7 @@
                                 @if($ivenda->exibivalores == true)
                                     <div class="property-price">R$ {{str_replace(',00', '', $ivenda->valor_venda)}}</div>
                                 @endif                                
-                                <img style="max-height: 262px !important;" src="{{$ivenda->cover()}}" alt="{{$ivenda->titulo}}" class="img-fluid">
+                                <img style="max-height: 262px !important;max-width: 100%;" src="{{$ivenda->cover()}}" alt="{{$ivenda->titulo}}">
                                 <div class="property-overlay">
                                     <a href="{{route('web.buyProperty', ['slug' => $ivenda->slug])}}" class="overlay-link">
                                         <i class="fa fa-link"></i>
