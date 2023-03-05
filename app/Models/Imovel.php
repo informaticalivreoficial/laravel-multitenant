@@ -182,7 +182,7 @@ class Imovel extends Model
         }
 
         if(empty($cover['path']) || !Storage::disk()->exists($cover['path'])) {
-            return url(asset('backend/assets/images/realty.jpeg'));
+            return url(asset('backend/assets/images/image.jpg'));
         }
 
         return Storage::url($cover['path']);

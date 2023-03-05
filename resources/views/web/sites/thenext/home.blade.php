@@ -282,7 +282,7 @@
                                 @if($ivenda->exibivalores == true)
                                     <div class="property-price">R$ {{str_replace(',00', '', $ivenda->valor_venda)}}</div>
                                 @endif                                
-                                <img style="max-height: 262px !important;max-width: 100%;" src="{{$ivenda->cover()}}" alt="{{$ivenda->titulo}}">
+                                <img style="min-height:262px !important;max-height: 262px !important;max-width: 100%;" src="{{$ivenda->cover()}}" alt="{{$ivenda->titulo}}">
                                 <div class="property-overlay">
                                     <a href="{{route('web.buyProperty', ['slug' => $ivenda->slug])}}" class="overlay-link">
                                         <i class="fa fa-link"></i>
@@ -361,7 +361,7 @@
                                 @if($ilocacao->exibivalores == true)
                                     <div class="property-price">R${{str_replace(',00', '', $ilocacao->valor_venda)}}/mês</div>
                                 @endif                                
-                                <img src="{{$ilocacao->cover()}}" alt="fp" class="img-fluid">
+                                <img style="min-height:262px !important;max-height: 262px !important;max-width: 100%;" src="{{$ilocacao->cover()}}" alt="{{$ilocacao->titulo}}">
                                 <div class="property-overlay">
                                     <a href="{{ route('web.rentProperty', ['slug' => $ilocacao->slug]) }}" class="overlay-link">
                                         <i class="fa fa-link"></i>
@@ -573,7 +573,7 @@
                 @foreach ($artigos as $artigo)
                     <div class="item slide-box wow fadeInUp delay-04s">
                         <div class="blog-2">
-                            <img src="{{$artigo->cover()}}" alt="{{$artigo->titulo}}" class="img-fluid w-100">
+                            <img style="min-height: 250px;max-height:250px;" src="{{$artigo->cover()}}" alt="{{$artigo->titulo}}" class="w-100">
                             <div class="blog-info">
                                 <h3><a href="{{route('web.blog.artigo',['slug' => $artigo->slug])}}">{{$artigo->titulo}}</a></h3>
                             </div>
