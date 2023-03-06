@@ -2,15 +2,7 @@
 
 @section('content')
 
-<div class="main_property">
-    @if(empty($imovel))
-    <div class="main_property_header bg-light py-3">
-        <div class="container">
-            <h1 class="text-front">Desculpe Imóvel não Localizado</h1>
-            <p>Em caso de dúvida entre em contato com o suporte</p>            
-        </div>
-    </div>
-    @else
+<div class="main_property">    
     <div class="main_property_header bg-light py-3">
         <div class="container">
             <h1 class="text-front">{{$imovel->titulo}}</h1>
@@ -369,8 +361,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    @endif    
+    </div>  
 </div>
 @endsection
 
@@ -472,4 +463,4 @@
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v11.0&appId=1787040554899561&autoLogAppEvents=1" nonce="1eBNUT9J"></script>
 @endsection
-@endif
+
