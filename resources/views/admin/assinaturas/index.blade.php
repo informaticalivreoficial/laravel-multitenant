@@ -32,7 +32,7 @@
                     {{-- dd() --}}
                     <b>Data Início:</b>  {{\Carbon\Carbon::parse(Auth::user()->tenant->subscription)->format('d/m/Y')}}<br>
                     <b>Situação:</b>
-                    @if (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->tenant->subscription)) >= 30)
+                    @if (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->tenant->subscription)) >= 30 && \Carbon\Carbon::parse(Auth::user()->tenant->expires_at)->isPast())
                         <span class="text-danger">Expirado <i class="fas fa-frown"></i></span>
                     @else
                         <span class="text-success">Ativa <i class="fas fa-smile"></i> expira em 
