@@ -102,7 +102,7 @@
                     <div class="col-lg-2 p-1">
                         <div class="portfolio-item car-magnify-gallery" style="margin-bottom: 0px;">
                             <a href="{{ $image->url_image }}">
-                                <img src="{{ $image->url_cropped_slide_gallery }}" class="img-responsive" alt="{{$imovel->titulo}}">
+                                <img src="{{ $image->url_cropped_slide_gallery }}" alt="{{$imovel->titulo}}">
                             </a>
                             <div class="portfolio-content">
                                 <div class="portfolio-content-inner">
@@ -459,6 +459,15 @@
     </div>
 </div>
 
+@endsection
+
+@section('css')
+    <style>
+        .portfolio-item img {
+            width: 120px;
+            max-height:79px !important;
+        }
+    </style>    
 @endsection
 
 @section('js')

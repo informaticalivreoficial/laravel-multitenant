@@ -416,7 +416,9 @@
                     </ul>
                 </div>
                 <div class="col-12 text-center my-3">
-                    <a target="_blank" href="{{env('DESENVOLVEDOR_URL')}}" title="{{env('DESENVOLVEDOR')}}"><img src="{{env('DESENVOLVEDOR_LOGO')}}" alt="{{env('DESENVOLVEDOR')}}"></a>
+                    <a target="_blank" href="{{env('DESENVOLVEDOR_URL')}}" title="{{env('DESENVOLVEDOR')}}">
+                        <img src="{{env('DESENVOLVEDOR_LOGO')}}" alt="{{env('DESENVOLVEDOR')}}">
+                    </a>
                 </div>
             </div>
         </div>

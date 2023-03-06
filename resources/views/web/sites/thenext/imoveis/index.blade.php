@@ -49,7 +49,7 @@
                                         @endif
                                     @endif
                                 </div>
-                                <img src="{{$imovel->cover()}}" alt="{{$imovel->titulo}}" class="img-fluid">
+                                <img style="min-height:262px !important;max-height: 262px !important;max-width: 100%;" src="{{$imovel->cover()}}" alt="{{$imovel->titulo}}">
                                 <div class="property-overlay">
                                     <a href="{{ route((session('venda') == true || (!empty($type) && $type == 'venda') || ($imovel->locacao == false) ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $imovel->slug]) }}" class="overlay-link">
                                         <i class="fa fa-link"></i>

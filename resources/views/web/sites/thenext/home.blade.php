@@ -422,7 +422,12 @@
     </div>
 @endif
 
-@if (!empty($experienceCobertura) || !empty($experienceAltoPadrao) || !empty($experienceDeFrenteParaMar) || !empty($experienceCondominioFechado) || !empty($experienceLojasSalas) || !empty($experienceCompacto))
+@if (!empty($experienceCobertura) && $experienceCobertura->count() > 0 
+    || !empty($experienceAltoPadrao) && $experienceAltoPadrao->count() > 0 
+    || !empty($experienceDeFrenteParaMar) && $experienceDeFrenteParaMar->count() > 0 
+    || !empty($experienceCondominioFechado) && $experienceCondominioFechado->count() > 0 
+    || !empty($experienceLojasSalas) && $experienceLojasSalas->count() > 0 
+    || !empty($experienceCompacto) && $experienceCompacto->count() > 0)
     <!-- Experiências -->
 <div class="popular-places content-area-12">
     <div class="container">
