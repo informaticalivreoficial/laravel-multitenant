@@ -35,6 +35,8 @@ class CreateImovelsTable extends Migration
             
             $table->string('titulo');
             $table->string('slug')->nullable();
+            $table->string('url_booking')->nullable();
+            $table->string('url_arbnb')->nullable();
             $table->string('headline')->nullable();
             $table->string('experience')->nullable();
             $table->text('metatags')->nullable();

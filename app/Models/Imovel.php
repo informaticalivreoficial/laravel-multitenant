@@ -62,7 +62,7 @@ class Imovel extends Model
         'elevador', 'mobiliado', 'vista_para_mar', 'piscina', 'sauna', 'ventilador_teto',
         'internet', 'geladeira',
         //SEO
-        'titulo', 'slug', 'status', 'views', 'metatags', 'headline',
+        'titulo', 'slug', 'url_booking', 'url_arbnb', 'status', 'views', 'metatags', 'headline',
         'exibirmarcadagua',
         'youtube_video',
         'legendaimgcapa',

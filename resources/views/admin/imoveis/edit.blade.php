@@ -90,7 +90,7 @@ $config = [
                              <div class="col-sm-12 bg-gray-light">                                        
                                  <!-- checkbox -->
                                  <div class="form-group p-3 mb-0">
-                                     <span class="mr-3"><b>Finalidade:</b></span>  
+                                     <span class="mr-3 text-muted"><b>Finalidade:</b></span>  
                                      <div class="form-check d-inline mx-2">
                                          <input id="venda" class="form-check-input" type="checkbox" name="venda" {{ (old('venda') == 'on' || old('venda') == true ? 'checked' : ($imovel->venda == true ? 'checked' : '')) }}>
                                          <label for="venda" class="form-check-label">Venda</label>
@@ -102,10 +102,24 @@ $config = [
                                  </div>
                              </div>
                          </div>
+                        <div class="row mb-4 links-locacao">
+                            <div class="col-12 col-md-6 col-lg-6 mb-2">
+                                <div class="form-group">
+                                    <label class="labelforms text-muted"><b>Link Booking.com</b></label>
+                                    <input type="text" class="form-control" placeholder="Link Booking.com" name="url_booking" value="{{ old('url_booking') ?? $imovel->url_booking }}">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 mb-2">
+                                <div class="form-group">
+                                    <label class="labelforms text-muted"><b>Link Airbnb</b></label>
+                                    <input type="text" class="form-control" placeholder="Link Airbnb" name="url_arbnb" value="{{ old('url_arbnb') ?? $imovel->url_arbnb }}">
+                                </div>
+                            </div>
+                         </div>
                          <div class="row mb-4">
                              <div class="col-12 col-md-6 col-lg-4"> 
                                  <div class="form-group">
-                                     <label class="labelforms"><b>*Proprietário</b></label>
+                                     <label class="labelforms text-muted"><b>*Proprietário</b></label>
                                      <select class="form-control" name="proprietario">
                                          <option value="">Selecione o proprietário</option>
                                          @foreach($users as $user)
@@ -118,7 +132,7 @@ $config = [
                              </div>
                              <div class="col-12 col-md-6 col-lg-3"> 
                                  <div class="form-group">
-                                     <label class="labelforms"><b>*Categoria</b></label>
+                                     <label class="labelforms text-muted"><b>*Categoria</b></label>
                                      <select class="form-control" name="categoria">
                                          <option value=""> Selecione </option>
                                          <option value="Imóvel Residencial" {{(old('categoria') == 'Imóvel Residencial' ? 'selected' : ($imovel->categoria == 'Imóvel Residencial' ? 'selected' : '')) }}>Imóvel Residencial</option>
@@ -130,7 +144,7 @@ $config = [
                              </div>
                              <div class="col-12 col-md-6 col-lg-3"> 
                                  <div class="form-group">
-                                    <label class="labelforms"><b>*Tipo</b></label>
+                                    <label class="labelforms text-muted"><b>*Tipo</b></label>
                                     <select class="form-control" name="tipo">
                                          <option value=""> Selecione </option>
                                          <option value="Casa" {{(old('tipo') == 'Casa' ? 'selected' : ($imovel->tipo == 'Casa' ? 'selected' : ''))}}>Casa</option>
@@ -154,7 +168,7 @@ $config = [
                              </div>
                              <div class="col-12 col-md-6 col-lg-2"> 
                                  <div class="form-group">
-                                     <label class="labelforms"><b>Referência</b></label>
+                                     <label class="labelforms text-muted"><b>Referência</b></label>
                                      <input type="text" class="form-control" name="referencia" value="{{ old('referencia') ?? $imovel->referencia }}">
                                  </div>
                              </div>                                    
@@ -175,7 +189,7 @@ $config = [
                                          <div class="row mb-2">
                                              <div class="col-12"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Deseja exibir os valores?</b> <small class="text-info">(valores exibidos no layout do cliente)</small></label>
+                                                     <label class="labelforms text-muted"><b>Deseja exibir os valores?</b> <small class="text-info">(valores exibidos no layout do cliente)</small></label>
                                                      <div class="form-check">
                                                          <input id="exibivaloresim" class="form-check-input" type="radio" value="1" name="exibivalores" {{(old('exibivalores') == '1' ? 'checked' : ($imovel->exibivalores == '1' ? 'checked' : ''))}}>
                                                          <label for="exibivaloressim" class="form-check-label mr-5">Sim</label>
@@ -186,25 +200,25 @@ $config = [
                                              </div>
                                              <div class="col-12 col-md-3 col-lg-3"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Valor de Venda</b></label>
+                                                     <label class="labelforms text-muted"><b>Valor de Venda</b></label>
                                                      <input type="text" class="form-control mask-money" name="valor_venda" value="{{ old('valor_venda') ?? $imovel->valor_venda }}">
                                                  </div>
                                              </div>
                                              <div class="col-12 col-md-3 col-lg-3"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Valor de Locação</b></label>
+                                                     <label class="labelforms text-muted"><b>Valor de Locação</b></label>
                                                      <input type="text" class="form-control mask-money" name="valor_locacao" value="{{ old('valor_locacao') ?? $imovel->valor_locacao }}">
                                                  </div>
                                              </div>
                                              <div class="col-12 col-md-3 col-lg-3"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Valor IPTU</b></label>
+                                                     <label class="labelforms text-muted"><b>Valor IPTU</b></label>
                                                      <input type="text" class="form-control mask-money" name="iptu" value="{{ old('iptu') ?? $imovel->iptu }}">
                                                  </div>
                                              </div>
                                              <div class="col-12 col-md-3 col-lg-3"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Valor Condomínio</b></label>
+                                                     <label class="labelforms text-muted"><b>Valor Condomínio</b></label>
                                                      <input type="text" class="form-control mask-money" name="condominio" value="{{ old('condominio') ?? $imovel->condominio }}">
                                                  </div>
                                              </div>
@@ -225,7 +239,7 @@ $config = [
                                          <div class="row mb-2">
                                              <div class="col-12"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Deseja exibir o endereço? </b><small class="text-info">(opção não exibir retornará somente a cidade e estado)</small></label>
+                                                     <label class="labelforms text-muted"><b>Deseja exibir o endereço? </b><small class="text-info">(opção não exibir retornará somente a cidade e estado)</small></label>
                                                      <div class="form-check">
                                                          <input id="exibirenderecosim" class="form-check-input" type="radio" value="1" name="exibirendereco" {{(old('exibirendereco') == '1' ? 'checked' : ($imovel->exibirendereco == '1' ? 'checked' : ''))}}>
                                                          <label for="exibirenderecosim" class="form-check-label mr-5">Sim</label>
@@ -236,7 +250,7 @@ $config = [
                                              </div>
                                              <div class="col-12 col-md-4 col-lg-4"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>*Estado:</b></label>
+                                                     <label class="labelforms text-muted"><b>*Estado:</b></label>
                                                      <select id="state-dd" class="form-control" name="uf">
                                                          @if(!empty($estados))
                                                              <option value="">Selecione o Estado</option>
@@ -249,7 +263,7 @@ $config = [
                                              </div>
                                              <div class="col-12 col-md-4 col-lg-4"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>*Cidade:</b></label>
+                                                     <label class="labelforms text-muted"><b>*Cidade:</b></label>
                                                      <select id="city-dd" class="form-control" name="cidade">
                                                          @if(!empty($cidades)))
                                                              <option value="">Selecione o Estado</option>
@@ -262,7 +276,7 @@ $config = [
                                              </div>
                                              <div class="col-12 col-md-4 col-lg-4"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Bairro:</b></label>
+                                                     <label class="labelforms text-muted"><b>Bairro:</b></label>
                                                      <input type="text" class="form-control" title="Bairro" name="bairro" value="{{ old('bairro') ?? $imovel->bairro }}">
                                                  </div>
                                              </div>
@@ -270,25 +284,25 @@ $config = [
                                          <div class="row mb-2">
                                              <div class="col-12 col-md-6 col-lg-5"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Endereço:</b></label>
+                                                     <label class="labelforms text-muted"><b>Endereço:</b></label>
                                                      <input type="text" class="form-control" title="Endereço Completo" name="rua" value="{{ old('rua') ?? $imovel->rua }}">
                                                  </div>
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Número:</b></label>
+                                                     <label class="labelforms text-muted"><b>Número:</b></label>
                                                      <input type="text" class="form-control" title="Número do Endereço" name="num" value="{{ old('num') ?? $imovel->num }}">
                                                  </div>
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-3"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Complemento:</b></label>
+                                                     <label class="labelforms text-muted"><b>Complemento:</b></label>
                                                      <input type="text" class="form-control" title="Completo (Opcional)" name="complemento" value="{{ old('complemento') ?? $imovel->complemento }}">
                                                  </div>
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2"> 
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>*CEP:</b></label>
+                                                     <label class="labelforms text-muted"><b>*CEP:</b></label>
                                                      <input type="text" class="form-control mask-zipcode" title="Digite o CEP" name="cep" value="{{ old('cep') ?? $imovel->cep }}">
                                                  </div>
                                              </div>
@@ -310,61 +324,61 @@ $config = [
                                          <div class="row mb-2">
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>*Dormitórios</b></label>
+                                                     <label class="labelforms text-muted"><b>*Dormitórios</b></label>
                                                      <input type="text" class="form-control" title="Quantidade de Dormitórios" name="dormitorios" value="{{ old('dormitorios') ?? $imovel->dormitorios }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Suítes</b></label>
+                                                     <label class="labelforms text-muted"><b>Suítes</b></label>
                                                      <input type="text" class="form-control" title="Quantidade de Suítes" name="suites" value="{{ old('suites') ?? $imovel->suites }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Banheiros</b></label>
+                                                     <label class="labelforms text-muted"><b>Banheiros</b></label>
                                                      <input type="text" class="form-control" title="Quantidade de Banheiros" name="banheiros" value="{{ old('banheiros') ?? $imovel->banheiros }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Salas</b></label>
+                                                     <label class="labelforms text-muted"><b>Salas</b></label>
                                                      <input type="text" class="form-control" title="Quantidade de Salas" name="salas" value="{{ old('salas') ?? $imovel->salas }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Garagem</b></label>
+                                                     <label class="labelforms text-muted"><b>Garagem</b></label>
                                                      <input type="text" class="form-control" title="Quantidade de Garagem" name="garagem" value="{{ old('garagem') ?? $imovel->garagem }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Garagem Coberta</b></label>
+                                                     <label class="labelforms text-muted"><b>Garagem Coberta</b></label>
                                                      <input type="text" class="form-control" title="Garagem Coberta" name="garagem_coberta" value="{{ old('garagem_coberta') ?? $imovel->garagem_coberta }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Ano de Construção</b></label>
+                                                     <label class="labelforms text-muted"><b>Ano de Construção</b></label>
                                                      <input type="text" class="form-control" title="Ano de Construção" name="anodeconstrucao" value="{{ old('anodeconstrucao') ?? $imovel->anodeconstrucao }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Área Total</b></label>
+                                                     <label class="labelforms text-muted"><b>Área Total</b></label>
                                                      <input type="text" class="form-control" title="Área Total" name="area_total" value="{{ old('area_total') ?? $imovel->area_total }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Área Útil</b></label>
+                                                     <label class="labelforms text-muted"><b>Área Útil</b></label>
                                                      <input type="text" class="form-control" title="Área Útil" name="area_util" value="{{ old('area_util') ?? $imovel->area_util }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Medidas</b></label>
+                                                     <label class="labelforms text-muted"><b>Medidas</b></label>
                                                      <select class="form-control" name="medidas">
                                                          <option value=""> Selecione </option>
                                                          <option value="m²" {{(old('medidas') == 'm²' ? 'selected' : ($imovel->medidas == 'm²' ? 'selected' : ''))}}>m²</option>
@@ -376,26 +390,26 @@ $config = [
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Latitude</b></label>
+                                                     <label class="labelforms text-muted"><b>Latitude</b></label>
                                                      <input type="text" class="form-control" title="Latitude" name="latitude" value="{{ old('latitude') ?? $imovel->latitude }}">
                                                  </div>                                                    
                                              </div>
                                              <div class="col-12 col-md-6 col-lg-2">   
                                                  <div class="form-group">
-                                                     <label class="labelforms"><b>Longitude</b></label>
+                                                     <label class="labelforms text-muted"><b>Longitude</b></label>
                                                      <input type="text" class="form-control" title="Longitude" name="longitude" value="{{ old('longitude') ?? $imovel->longitude }}">
                                                  </div>                                                    
                                              </div>
                                          </div>
                                          <div class="row mb-2">
                                              <div class="col-12">   
-                                                 <label class="labelforms"><b>Descrição do Imóvel</b></label>
+                                                 <label class="labelforms text-muted"><b>Descrição do Imóvel</b></label>
                                                  <x-adminlte-text-editor name="descricao" v placeholder="Descrição do Imóvel..." :config="$config">{{ old('descricao') ?? $imovel->descricao }}</x-adminlte-text-editor>                                                      
                                              </div>
                                          </div>                                                
                                          <div class="row mb-2">
                                              <div class="col-12">   
-                                                 <label class="labelforms"><b>Notas Adicionais</b></label>
+                                                 <label class="labelforms text-muted"><b>Notas Adicionais</b></label>
                                                  <textarea id="inputDescription" class="form-control" rows="5" name="notasadicionais">{{ old('notasadicionais') ?? $imovel->notasadicionais }}</textarea>                                                      
                                              </div>
                                          </div>                                                
@@ -615,7 +629,7 @@ $config = [
 
                     <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
                                 
-                        <div class="row mb-4">
+                        <div class="row mb-4 text-muted">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6"> 
                                 <div class="form-group">
                                     <label class="labelforms"><b>Deseja exibir uma Marca D'agua? </b><small class="text-info">(esta opção permite inserir uma marca em todas as imagens)</small></label>
@@ -857,6 +871,24 @@ $config = [
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function getlocacaoCheck(){
+            if ($('#locacao').is(':checked')) {
+                $(".links-locacao").attr("style", "display:flex");
+            }else{
+                $(".links-locacao").attr("style", "display:none");
+            }
+        }
+
+        getlocacaoCheck();
+
+        $("#locacao").on('change',function() {
+            if (this.checked) {
+                $(".links-locacao").attr("style", "display:flex");
+            } else {
+                $(".links-locacao").attr("style", "display:none");
             }
         });
         
