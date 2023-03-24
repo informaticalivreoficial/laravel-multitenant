@@ -69,8 +69,8 @@
                                             <div class="form-group">
                                                 <div class="thumb_user_admin">
                                                     @php
-                                                        if(!empty($user->avatar) && \Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . $user->avatar)){
-                                                            $cover = url('storage/'.$user->avatar);
+                                                        if(!empty($user->avatar) && env('AWS_PASTA') . \Illuminate\Support\Facades\Storage::exists($user->avatar)){
+                                                            $cover = \Illuminate\Support\Facades\Storage::url($user->avatar);
                                                         } else {
                                                             $cover = url(asset('backend/assets/images/image.jpg'));
                                                         }
@@ -297,6 +297,12 @@
                                                                 <input type="text" class="form-control" placeholder="Usuário Skype" name="skype" value="{{old('skype') ?? $user->skype}}">
                                                             </div>
                                                         </div>
+                                                        <div class="col-12 col-md-6 col-lg-4"> 
+                                                            <div class="form-group">
+                                                                <label class="labelforms text-muted"><b>Telegram:</b></label>
+                                                                <input type="text" class="form-control" placeholder="Telegram" name="telegram" value="{{old('telegram') ?? $user->telegram}}">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -490,19 +496,7 @@
                                                 <label class="labelforms text-muted"><b>Linkedin:</b></label>
                                                 <input type="text" class="form-control text-muted" placeholder="Linkedin" name="linkedin" value="{{old('linkedin') ?? $user->linkedin}}">
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-4"> 
-                                            <div class="form-group">
-                                                <label class="labelforms text-muted"><b>Sound Cloud:</b></label>
-                                                <input type="text" class="form-control text-muted" placeholder="Linkedin" name="soundclound" value="{{old('soundclound') ?? $user->soundclound}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-4"> 
-                                            <div class="form-group">
-                                                <label class="labelforms text-muted"><b>SnapChat:</b></label>
-                                                <input type="text" class="form-control text-muted" placeholder="SnapChat" name="snapchat" value="{{old('snapchat') ?? $user->snapchat}}">
-                                            </div>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </div>                                
                                 <div class="tab-pane fade" id="custom-tabs-four-permissoes" role="tabpanel" aria-labelledby="custom-tabs-four-permissoes-tab">

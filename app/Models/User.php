@@ -44,9 +44,9 @@ class User extends Authenticatable
         //Endereço
         'cep', 'rua', 'num', 'complemento', 'bairro', 'uf', 'cidade',
         //Contato
-        'telefone', 'celular', 'whatsapp', 'skype',
+        'telefone', 'celular', 'whatsapp', 'skype', 'telegram',
         //Redes Sociais
-        'facebook', 'twitter', 'instagram', 'linkedin', 'vimeo', 'youtube', 'fliccr', 'soundclound', 'snapchat',
+        'facebook', 'twitter', 'instagram', 'linkedin', 'vimeo', 'youtube', 'fliccr',
         'tipo_de_comunhao',
         'nome_conjuje',
         'genero_conjuje',

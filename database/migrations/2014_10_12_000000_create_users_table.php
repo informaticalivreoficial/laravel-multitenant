@@ -78,8 +78,6 @@ class CreateUsersTable extends Migration
             $table->string('linkedin')->nullable();
             $table->string('instagram')->nullable();
             $table->string('fliccr')->nullable();
-            $table->string('soundclound')->nullable();
-            $table->string('snapchat')->nullable();
 
             /** access */
             $table->boolean('admin')->nullable();

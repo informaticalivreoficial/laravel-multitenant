@@ -291,6 +291,12 @@
                                                                 <input type="text" class="form-control" placeholder="Usuário Skype" name="skype" value="{{old('skype')}}">
                                                             </div>
                                                         </div>
+                                                        <div class="col-12 col-md-6 col-lg-4"> 
+                                                            <div class="form-group">
+                                                                <label class="labelforms text-muted"><b>Telegram:</b></label>
+                                                                <input type="text" class="form-control" placeholder="Telegram" name="telegram" value="{{old('telegram')}}">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -484,19 +490,7 @@
                                                 <label class="labelforms text-muted"><b>Linkedin:</b></label>
                                                 <input type="text" class="form-control text-muted" placeholder="Linkedin" name="linkedin" value="{{old('linkedin')}}">
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-4"> 
-                                            <div class="form-group">
-                                                <label class="labelforms text-muted"><b>Sound Cloud:</b></label>
-                                                <input type="text" class="form-control text-muted" placeholder="Linkedin" name="soundclound" value="{{old('soundclound')}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-4"> 
-                                            <div class="form-group">
-                                                <label class="labelforms text-muted"><b>SnapChat:</b></label>
-                                                <input type="text" class="form-control text-muted" placeholder="SnapChat" name="snapchat" value="{{old('snapchat')}}">
-                                            </div>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </div>                                
                                 <div class="tab-pane fade" id="custom-tabs-four-permissoes" role="tabpanel" aria-labelledby="custom-tabs-four-permissoes-tab">
