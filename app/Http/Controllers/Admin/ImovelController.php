@@ -42,7 +42,7 @@ class ImovelController extends Controller
         //             ->route('nome.rota')
         //             ->with('message', 'Não pode cadastrar');
         // }
-        $imoveis = $this->imovelService->getAllImoveis(30);
+        $imoveis = $this->imovelService->getAllImoveis(50);
         return view('admin.imoveis.index', [
             'imoveis' => $imoveis,
         ]);
@@ -50,6 +50,14 @@ class ImovelController extends Controller
     
     public function create()
     {
+        $imoveis = $this->imovelService->getAllImoveisCount(auth()->user()->tenant->id);
+        if($imoveis && $imoveis >= auth()->user()->tenant->plan->quantidade_imoveis){
+            return redirect()->back()->withInput()->with([
+                'color' => 'danger',
+                'message' => 'Seu Plano só permite o cadastro de ' . auth()->user()->tenant->plan->quantidade_imoveis . ' imóveis!!',
+            ]);
+        }
+        
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get();
         $users = $this->userService->getClientes();

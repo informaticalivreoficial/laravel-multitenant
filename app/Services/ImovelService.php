@@ -13,6 +13,11 @@ class ImovelService
         $this->repository = $repository;
     }
 
+    public function getAllImoveisCount(int $tenant)
+    {
+        return $this->repository->getImoveisCount($tenant);
+    }
+
     public function getAllImoveis(int $per_page)
     {
         return $this->repository->getAllImoveis($per_page);

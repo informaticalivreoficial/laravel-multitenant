@@ -15,6 +15,11 @@ class ImovelRepository implements ImovelRepositoryInterface
         $this->entity = $imovel;
     }
 
+    public function getImoveisCount($tenant)
+    {
+        return $this->entity->where('tenant_id', $tenant)->count();
+    }
+
     public function getAllImoveis($per_page)
     {
         $tenant = app(ManangerTenant::class)->getTenantIdentify();

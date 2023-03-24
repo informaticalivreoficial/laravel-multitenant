@@ -14,6 +14,7 @@ class Plan extends Model
     protected $fillable = [
         'name',
         'quantidade_fotos',
+        'quantidade_imoveis',
         'content',
         'slug',
         'exibivalores',
