@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Imovel as ImovelRequest;
 use App\Models\ImovelGb;
-use App\Support\Cropper;
 use Image;
-use App\Models\Configuracoes;
 use App\Models\Estados;
 use App\Models\Cidades;
 use App\Models\Imovel;
@@ -73,22 +71,32 @@ class ImovelController extends Controller
 
         $criarImovel->setSlug();
 
-        $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
+        $validator = Validator::make($request->only('files'), [
+            'files.*' => 'image'
+        ]);
 
         if ($validator->fails() === true) {
             return redirect()->back()->withInput()->with([
-                'color' => 'orange',
+                'color' => 'danger',
                 'message' => 'Todas as imagens devem ser do tipo jpg, jpeg ou png.',
             ]);
         }
-        
-        if ($request->allFiles()) {
-            foreach ($request->allFiles()['files'] as $image) {
-                $imovelGb = new ImovelGb();
-                $imovelGb->imovel = $criarImovel->id;
-                $imovelGb->path = $image->storeAs(env('AWS_PASTA') . 'imoveis/'. auth()->user()->tenant->uuid . '/' . $criarImovel->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
-                $imovelGb->save();
-                unset($imovelGb);
+
+        if($request->allFiles()){
+            $files = count($request->allFiles());
+            if($files > auth()->user()->tenant->plan->quantidade_fotos){
+                return redirect()->back()->withInput()->with([
+                    'color' => 'danger',
+                    'message' => 'Seu Plano só permite ' . auth()->user()->tenant->plan->quantidade_fotos . ' fotos por Imóvel!!',
+                ]);
+            }else{
+                foreach ($request->allFiles()['files'] as $image) {
+                    $imovelGb = new ImovelGb();
+                    $imovelGb->imovel = $criarImovel->id;
+                    $imovelGb->path = $image->storeAs(env('AWS_PASTA') . 'imoveis/'. auth()->user()->tenant->uuid . '/' . $criarImovel->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                    $imovelGb->save();
+                    unset($imovelGb);
+                }
             }
         }
 
@@ -200,24 +208,34 @@ class ImovelController extends Controller
         $imovel->setGeladeiraAttribute($request->geladeira);
 
         $imovel->save();
-        $imovel->setSlug();
+        $imovel->setSlug();  
 
         $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
 
         if ($validator->fails() === true) {
             return redirect()->back()->withInput()->with([
-                'color' => 'orange',
+                'color' => 'danger',
                 'message' => 'Todas as imagens devem ser do tipo jpg, jpeg ou png.',
             ]);
         }
-
-        if ($request->allFiles()) {
-            foreach ($request->allFiles()['files'] as $image) {
-                $imovelImage = new ImovelGb();
-                $imovelImage->imovel = $imovel->id;
-                $imovelImage->path = $image->storeAs(env('AWS_PASTA') . 'imoveis/'. $imovel->tenant->uuid . '/' . $imovel->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
-                $imovelImage->save();
-                unset($imovelImage);
+        
+        if($request->allFiles()){
+            $files = count($request->allFiles());
+            $imovelGbCount = ImovelGb::where('imovel', $imovel->id)->count();            
+            $filesTotal = ($files + $imovelGbCount);
+            if(!empty($imovelGbCount) && $filesTotal > auth()->user()->tenant->plan->quantidade_fotos){
+                return redirect()->back()->withInput()->with([
+                    'color' => 'danger',
+                    'message' => 'Seu Plano só permite ' . auth()->user()->tenant->plan->quantidade_fotos . ' fotos por Imóvel!!',
+                ]);
+            }else{
+                foreach ($request->allFiles()['files'] as $image) {
+                    $imovelImage = new ImovelGb();
+                    $imovelImage->imovel = $imovel->id;
+                    $imovelImage->path = $image->storeAs(env('AWS_PASTA') . 'imoveis/'. $imovel->tenant->uuid . '/' . $imovel->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                    $imovelImage->save();
+                    unset($imovelImage);
+                }
             }
         }
 

@@ -16,6 +16,7 @@ class CreatePlansTable extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('quantidade_fotos');
             $table->string('stripe_id')->unique();
             $table->text('content')->nullable();
             $table->string('slug')->nullable();

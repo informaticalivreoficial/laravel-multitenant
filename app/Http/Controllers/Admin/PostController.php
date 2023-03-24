@@ -92,7 +92,7 @@ class PostController extends Controller
             foreach ($request->allFiles()['files'] as $image) {
                 $postGb = new PostGb();
                 $postGb->post = $criarPost->id;
-                $postGb->path = $image->storeAs($secao.'/'. auth()->user()->tenant->uuid . '/' . $criarPost->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                $postGb->path = $image->storeAs(env('AWS_PASTA') . $secao.'/'. auth()->user()->tenant->uuid . '/' . $criarPost->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
                 $postGb->save();
                 unset($postGb);
             }
@@ -153,7 +153,7 @@ class PostController extends Controller
             foreach ($request->allFiles()['files'] as $image) {
                 $postImage = new PostGb();
                 $postImage->post = $postUpdate->id;
-                $postImage->path = $image->storeAs($secao.'/' . auth()->user()->tenant->uuid . '/' . $postUpdate->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                $postImage->path = $image->storeAs(env('AWS_PASTA') . $secao.'/' . auth()->user()->tenant->uuid . '/' . $postUpdate->id, Str::slug($request->titulo) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
                 $postImage->save();
                 unset($postImage);
             }
@@ -196,7 +196,6 @@ class PostController extends Controller
     {
         $imageDelete = PostGb::where('id', $request->image)->first();
         Storage::delete($imageDelete->path);
-        Cropper::flush($imageDelete->path);
         $imageDelete->delete();
         $json = [
             'success' => true,
@@ -256,7 +255,6 @@ class PostController extends Controller
         if(!empty($postdelete)){
             if(!empty($imageDelete)){
                 Storage::delete($imageDelete->path);
-                Cropper::flush($imageDelete->path);
                 $imageDelete->delete();
                 Storage::deleteDirectory($secao.'/'.$postdelete->id);
                 $postdelete->delete();

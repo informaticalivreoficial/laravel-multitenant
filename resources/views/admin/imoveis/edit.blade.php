@@ -646,7 +646,7 @@ $config = [
                                     @foreach($imovel->images()->get() as $image)
                                         <div class="property_image_item">
                                             <a href="{{ $image->getUrlImageAttribute() }}" data-toggle="lightbox" data-gallery="property-gallery" data-type="image">
-                                                <img src="{{ $image->url_cropped }}" alt="">
+                                                <img style="max-height: 134px;min-width:237px;" src="{{ $image->url_cropped }}" alt="{{old('titulo') ?? $imovel->titulo}}">
                                             </a>
                                             <div class="property_image_actions">
                                                 <a href="javascript:void(0)" class="btn btn-xs {{ ($image->cover == true ? 'btn-success' : 'btn-default') }} icon-notext image-set-cover" data-action="{{ route('imoveis.imageSetCover', ['image' => $image->id]) }}"><i class="nav-icon fas fa-check"></i> </a>
@@ -783,7 +783,6 @@ $config = [
     div.tagsinput span.tag a {
         color: #43886e;    
     }
-    /* Lista de ImÃ³veis */
     img {
         max-width: 100%;
     }

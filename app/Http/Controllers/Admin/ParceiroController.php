@@ -49,7 +49,7 @@ class ParceiroController extends Controller
         $parceiroCreate->fill($request->all());
 
         if(!empty($request->hasFile('logomarca'))){
-            $parceiroCreate->logomarca = $request->file('logomarca')->storeAs('parceiros/' . auth()->user()->tenant->uuid . '/', 
+            $parceiroCreate->logomarca = $request->file('logomarca')->storeAs(env('AWS_PASTA') . 'parceiros/' . auth()->user()->tenant->uuid . '/', 
             Str::slug($request->name)  . '-' . str_replace('.',
              '', microtime(true)) . '.' . $request->file('logomarca')->extension());
         }
@@ -69,7 +69,7 @@ class ParceiroController extends Controller
             foreach ($request->allFiles()['files'] as $image) {
                 $parceiroGb = new ParceiroGb();
                 $parceiroGb->parceiro_id = $parceiroCreate->id;
-                $parceiroGb->path = $image->storeAs('parceiros/' . auth()->user()->tenant->uuid . '/' . $parceiroCreate->id, Str::slug($request->name) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                $parceiroGb->path = $image->storeAs(env('AWS_PASTA') . 'parceiros/' . auth()->user()->tenant->uuid . '/' . $parceiroCreate->id, Str::slug($request->name) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
                 $parceiroGb->save();
                 unset($parceiroGb);
             }
@@ -99,14 +99,13 @@ class ParceiroController extends Controller
 
         if(!empty($request->hasFile('logomarca'))){
             Storage::delete($parceiro->logomarca);
-            Cropper::flush($parceiro->logomarca);
             $parceiro->logomarca = '';
         }
 
         $parceiro->fill($request->all());
 
         if(!empty($request->hasFile('logomarca'))){
-            $parceiro->logomarca = $request->file('logomarca')->storeAs('parceiros/' . auth()->user()->tenant->uuid . '/', 
+            $parceiro->logomarca = $request->file('logomarca')->storeAs(env('AWS_PASTA') . 'parceiros/' . auth()->user()->tenant->uuid . '/', 
             Str::slug($request->name)  . '-' . str_replace('.',
              '', microtime(true)) . '.' . $request->file('logomarca')->extension());
         }
@@ -127,7 +126,7 @@ class ParceiroController extends Controller
             foreach ($request->allFiles()['files'] as $image) {
                 $parceiroImage = new ParceiroGb();
                 $parceiroImage->parceiro_id = $parceiro->id;
-                $parceiroImage->path = $image->storeAs('parceiros/' . auth()->user()->tenant->uuid . '/' . $parceiro->id, Str::slug($request->name) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
+                $parceiroImage->path = $image->storeAs(env('AWS_PASTA') . 'parceiros/' . auth()->user()->tenant->uuid . '/' . $parceiro->id, Str::slug($request->name) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
                 $parceiroImage->save();
                 unset($parceiroImage);
             }
@@ -177,7 +176,6 @@ class ParceiroController extends Controller
         $imageDelete = ParceiroGb::where('id', $request->image)->first();
 
         Storage::delete($imageDelete->path);
-        Cropper::flush($imageDelete->path);
         $imageDelete->delete();
 
         $json = [
@@ -215,14 +213,12 @@ class ParceiroController extends Controller
             //Remove Imagens
             if(!empty($imageDelete)){
                 Storage::delete($imageDelete->path);
-                Cropper::flush($imageDelete->path);
                 $imageDelete->delete();
                 Storage::deleteDirectory('parceiros/' . auth()->user()->tenant->uuid . '/'.$parceirodelete->id);
                 $parceirodelete->delete();
             }
             //Remove Logomarca
             Storage::delete($parceirodelete->logomarca);
-            Cropper::flush($parceirodelete->logomarca);
             $parceirodelete->delete();
         }
 
