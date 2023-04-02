@@ -145,7 +145,7 @@ class UserController extends Controller
         $user->senha = $request->password;
         
         if(!empty($request->file('avatar'))){
-            $user->avatar = $request->file('avatar')->storeAs(env('AWS_PASTA') . 'user/' . auth()->user()->tenant->uuid . '/', Str::slug($request->name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('avatar')->extension());
+            $user->avatar = $request->file('avatar')->storeAs(env('AWS_PASTA') . 'user/' . auth()->user()->tenant->uuid, Str::slug($request->name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('avatar')->extension());
         }
 
         if(!$user->save()){
