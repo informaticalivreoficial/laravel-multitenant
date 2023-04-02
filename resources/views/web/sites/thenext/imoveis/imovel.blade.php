@@ -21,7 +21,7 @@
 <div class="properties-details-page content-area">
     <div class="container">
         <div class="row mb-20">
-            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 wow fadeInUp delay-03s">
                 <!-- Header properties start -->
                 <div class="heading-properties clearfix sidebar-widget">
                     <div class="pull-left">
@@ -52,26 +52,47 @@
                    
                 <div class="property-img">
                     <img src="{{$imovel->coverSlideGallery()}}" alt="{{$imovel->titulo}}" class="img-fluid w-100">
-                                      
-                </div>
-                
-                <div class="row">
-                    @if($imovel->images()->get()->count())
-                        @foreach($imovel->images()->get() as $image)                    
-                            <div class="col-lg-2 p-1">
-                                <div class="portfolio-item car-magnify-gallery" style="margin-bottom: 0px;">
-                                    <a href="{{ $image->url_image }}">
-                                        <img src="{{ $image->url_cropped_slide_gallery }}" alt="{{$imovel->titulo}}">
-                                    </a>
-                                    <div class="portfolio-content">
-                                        <div class="portfolio-content-inner">
-                                            
+                       
+                    {{-- <div class="property-overlay">
+                        @if($imovel->images()->get()->count())
+                                                
+                                @foreach($imovel->images()->get() as $image)                    
+                                    <a href="{{ $image->url_image }}" class="hidden"></a>                              
+                                @endforeach
+                            
+                        @endif
+                    </div> --}}
+
+
+                    <div class="row">
+                        @if($imovel->images()->get()->count())
+                            @foreach($imovel->images()->get() as $image)                    
+                                <div class="col-lg-2 p-1">
+                                    <div class="portfolio-item car-magnify-gallery" style="margin-bottom: 0px;">
+                                        <a href="{{ $image->url_image }}">
+                                            <img src="{{ $image->url_cropped_slide_gallery }}" alt="{{$imovel->titulo}}">
+                                        </a>
+                                        <div class="portfolio-content">
+                                            <div class="portfolio-content-inner">
+                                                
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>  
-                            </div>                              
-                        @endforeach
-                    @endif
+                                    </div>  
+                                </div>                              
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+
+                
+                
+                
+
+                <div class="main-title-2">
+                    <h1 style="margin-top:10px;"><span>Informações</span></h1>
+                    <br />
+                    <!-- Social list -->
+                    <div id="shareIcons"></div>            
                 </div>
                
                 <div class="heading-properties clearfix sidebar-widget sw2">
@@ -105,7 +126,7 @@
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Descrição</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Características</button>
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Condições do Imóvel</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Estrutura</button>
@@ -387,7 +408,11 @@
                             <div class="main-title-2">
                                 <h1><span>Localização</span></h1>
                             </div>
-                            <div id="map" style="width: 100%; min-height: 400px;"></div>
+                            <div id="map" class="contact-map" style="position: relative; overflow: hidden;">
+                                <div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px;">
+                                    {!!$configuracoes->mapa_google!!}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endif
@@ -727,6 +752,8 @@
 @endsection
 
 @section('css')
+<link rel="stylesheet" href="{{url(asset('frontend/'.$tenant->template.'/js/jsSocials/jssocials.css'))}}" />
+<link rel="stylesheet" href="{{url(asset('frontend/'.$tenant->template.'/js/jsSocials/jssocials-theme-flat.css'))}}" />
     <style>
         .portfolio-item img {
             width: 120px;
@@ -735,8 +762,8 @@
     </style>    
 @endsection
 
-
 @section('js')
+<script src="{{url(asset('frontend/'.$tenant->template.'/js/jsSocials/jssocials.min.js'))}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
 <script>
     $(function () {
@@ -745,6 +772,21 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        $('#shareIcons').jsSocials({
+            //url: "http://www.google.com",
+            showLabel: false,
+            showCount: false,
+            shareIn: "popup",
+            shares: ["email", "twitter", "facebook", "whatsapp"]
+        });
+        $('.shareIcons').jsSocials({
+            //url: "http://www.google.com",
+            showLabel: false,
+            showCount: false,
+            shareIn: "popup",
+            shares: ["email", "twitter", "facebook", "whatsapp"]
         });
 
         $('.open_filter').on('click', function (event) {
@@ -854,52 +896,9 @@
 
             return false;
         });
-
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-            alwaysShowClose: true
-            });
-        });
+        
 
         });
-
-    function markMap() {
-
-        var locationJson = $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address={{ $imovel->rua }},+{{ $imovel->num }}+{{ getCidadeNome($imovel->cidade, 'cidades') }}+{{ $imovel->bairro }}&key=AIzaSyCYSFkpHgtfdOA9WNnUOVjt2PLlBfC9xvU', function(response){
-
-            lat = response.results[0].geometry.location.lat;
-            lng = response.results[0].geometry.location.lng;
-
-            var citymap = {
-                property: {
-                    center: {lat: lat, lng: lng},
-                    population: 100
-                }
-            };
-
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: {lat: lat, lng: lng},
-                mapTypeId: 'terrain'
-            });
-
-            for (var city in citymap) {
-                var cityCircle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: citymap[city].center,
-                    radius: Math.sqrt(citymap[city].population) * 100
-                });
-            }
-        });
-    }
-
     
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYSFkpHgtfdOA9WNnUOVjt2PLlBfC9xvU&callback=markMap"></script>
 @endsection

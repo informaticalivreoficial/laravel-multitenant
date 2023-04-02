@@ -89,7 +89,7 @@ class UserController extends Controller
 
         $userCreate = User::create($data);
         if(!empty($request->file('avatar'))){
-            $userCreate->avatar = $request->file('avatar')->storeAs(env('AWS_PASTA') . 'user/' . auth()->user()->tenant->uuid . '/', Str::slug($request->name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('avatar')->extension());
+            $userCreate->avatar = $request->file('avatar')->storeAs(env('AWS_PASTA') . 'user/' . auth()->user()->tenant->uuid, Str::slug($request->name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('avatar')->extension());
             $userCreate->save();
         }
         return redirect()->route('users.edit', $userCreate->id)->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);        
