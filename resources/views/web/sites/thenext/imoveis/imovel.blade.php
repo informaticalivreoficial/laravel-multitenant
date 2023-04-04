@@ -410,7 +410,7 @@
                             </div>
                             <div id="map" class="contact-map" style="position: relative; overflow: hidden;">
                                 <div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px;">
-                                    {!!$configuracoes->mapa_google!!}
+                                    {!!$imovel->mapadogoogle!!}
                                 </div>
                             </div>
                         </div>

@@ -67,8 +67,7 @@
                         @endif                        
                     </div>
                     <div class="main_property_content_descripition">
-                        <div class="fb-share-button" data-href="{{url()->current()}}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartilhar</a></div>
-                        <a style="background-color: #6ebf58;color:#fff;border:none;padding:2px 10px;margin-top:-8px" class="btn btn-front icon-whatsapp" target="_blank" href="https://web.whatsapp.com/send?text={{url()->current()}}" data-action="share/whatsapp/share">Compartilhar</a>
+                        <div class="shareIcons"></div>
                         <h2 class="text-front">Conheça mais o imóvel</h2>
                         {!! $imovel->descricao !!}
                     </div>
@@ -291,7 +290,9 @@
                     
                     <div class="main_property_content_location mb-3">
                         <h2 class="text-front">Localização</h2>
-                        <div id="map" style="width: 100%; min-height: 400px;"></div>
+                        <div>
+                            {!!$imovel->mapadogoogle!!}
+                        </div>
                     </div>
                 </div>
                 
@@ -365,9 +366,23 @@
 </div>
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="{{url(asset('frontend/'.$tenant->template.'/fonts/font-awesome/css/font-awesome.min.css'))}}">
+<link rel="stylesheet" href="{{url(asset('frontend/'.$tenant->template.'/assets/js/jsSocials/jssocials.css'))}}" />
+@endsection
+
 @section('js')    
+<script src="{{url(asset('frontend/'.$tenant->template.'/assets/js/jsSocials/jssocials.min.js'))}}"></script>
 <script>    
     $(function () {
+
+        $('.shareIcons').jsSocials({
+            //url: "http://www.google.com",
+            showLabel: false,
+            showCount: false,
+            shareIn: "popup",
+            shares: ["email", "twitter", "facebook", "whatsapp"]
+        });
 
         // Seletor, Evento/efeitos, CallBack, Ação
         $('.j_formsubmit').submit(function (){
