@@ -121,6 +121,7 @@ Route::group([
     //** FEED */    
     Route::get('/feed', [RssFeedController::class, 'feed'])->name('feed');
     Route::get('/politica-de-privacidade', [SiteController::class, 'politica'])->name('politica');
+    Route::get('/sitemap', [SiteController::class, 'sitemap'])->name('sitemap');
 
     //****************************** Notícias ***********************************************/
     Route::get('/noticia/{slug}', [SiteController::class, 'noticia'])->name('noticia');

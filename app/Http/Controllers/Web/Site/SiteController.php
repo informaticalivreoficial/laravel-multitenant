@@ -635,5 +635,12 @@ class SiteController extends Controller
         $data['cidades'] = Cidades::where("estado_id",$request->estado_id)->get(["cidade_nome", "cidade_id"]);
         return response()->json($data);
     }
+
+    public function sitemap()
+    {
+        $url = $this->tenant->sitemap;
+        $data = file_get_contents($url);
+        return response($data, 200, ['Content-Type' => 'application/xml']);
+    }
     
 }
