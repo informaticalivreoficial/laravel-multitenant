@@ -287,7 +287,7 @@ class SiteController extends Controller
             'tenant' => $this->tenant,
             'head' => $head,
             'imoveis' => $imoveis,
-            'type' => $type
+            'type' => $type ?? null
         ]);
     }
 
