@@ -58,7 +58,9 @@
                         <div class="d-flex col-4 col-md-6 col-lg-4 justify-content-center align-items-center p-2 text-white">
                             <i class="icon-whatsapp"></i>
                             <p class="my-auto ml-3">
-                                <a class="linktopo" href="mailto:{{$tenant->email}}" title="Email {{$tenant->email}}">{{$tenant->email}}</a><br> <a class="linktopo" target="_blank" title="WhatsApp {{$tenant->whatsapp}}" href="{{getNumZap($tenant->whatsapp,'Atendimento '.$tenant->nomedosite)}}">{{$tenant->whatsapp}}</a></p>
+                                <a class="linktopo" href="mailto:{{$tenant->email}}" title="Email {{$tenant->email}}">{{$tenant->email}}</a><br> 
+                                <a class="linktopo sharezap" target="_blank" title="WhatsApp {{$tenant->whatsapp}}" href="">{{$tenant->whatsapp}}</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -247,6 +249,28 @@
                     return false;
                 });
 
+            });
+        </script>
+        <script>
+            $(function () {
+    
+            function checkDevice() { 
+                if( navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                ){
+                    $('.sharezap').attr("href", "https://api.whatsapp.com/send?l=pt_pt&phone="+{{ \App\Helpers\Renato::limpatelefone($tenant->whatsapp) }}+"&text=Atendimento");
+                    return true; // está utilizando celular
+                }
+                else {
+                    $('.sharezap').attr("href", "https://web.whatsapp.com/send?l=pt_pt&phone="+{{ \App\Helpers\Renato::limpatelefone($tenant->whatsapp) }}+"&text=Atendimento");
+                    return false; // não é celular
+                }
+            }
             });
         </script>
 

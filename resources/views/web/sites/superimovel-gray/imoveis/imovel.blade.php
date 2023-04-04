@@ -296,7 +296,7 @@
                 </div>
                 
                 <div class="col-12 col-lg-4">
-                    <a target="_blank" href="{{getNumZap($tenant->whatsapp,'Atendimento '.$tenant->name)}}" title="WhatsApp" class="btn btn-outline-success btn-lg btn-block icon-whatsapp mb-3">Converse com um corretor</a>
+                    <a target="_blank" href="" title="WhatsApp" class="btn btn-outline-success btn-lg btn-block icon-whatsapp mb-3 sharezap">Converse com um corretor</a>
                     
                     <div class="main_property_contact">
                         <h2 class="bg-front text-white">Entre em contato</h2>
@@ -338,7 +338,7 @@
                         </p>
                         <p>
                            @if(!empty($tenant->whatsapp))
-                                <i class="icon-whatsapp text-front"></i> <a href="tel:55+ {{$tenant->whatsapp}}" class="text-front">{{$tenant->whatsapp}}</a>
+                                <i class="icon-whatsapp text-front"></i> <a target="_blank" href="" class="text-front sharezap">{{$tenant->whatsapp}}</a>
                             @endif  
                         </p>
                     </div>
@@ -365,7 +365,7 @@
 </div>
 @endsection
 
-@section('js')
+@section('js')    
 <script>
     function markMap() {
 
