@@ -52,11 +52,11 @@
             <item>
                 <title><![CDATA[{{ $imovel->titulo }}]]></title>
                 @if(!empty($type) && $type == 'venda')
-                    <link>{{ url('quero-comprar/'.$imovel->slug) }}</link>
+                    <link>{{ url('imoveis/quero-comprar/'.$imovel->slug) }}</link>
                 @elseif(!empty($type) && $type == 'locacao')
-                    <link>{{ url('quero-alugar/'.$imovel->slug) }}</link>
+                    <link>{{ url('imoveis/quero-alugar/'.$imovel->slug) }}</link>
                 @else
-                    <link>{{ url('quero-comprar/'.$imovel->slug) }}</link>
+                    <link>{{ url('imoveis/quero-comprar/'.$imovel->slug) }}</link>
                 @endif                
                 <image>{{ $imovel->cover() }}</image>
                 <description><![CDATA[{!! $imovel->getContentWebAttribute() !!}]]></description>
