@@ -104,13 +104,13 @@ Route::group([
     Route::match(['post', 'get'], '/reservar', [SiteController::class, 'reservar'])->name('reservar');   
 
     /** Lista todos os imóveis */
-    Route::get('/{type}', [SiteController::class, 'imoveisList'])->name('imoveisList');
+    Route::get('/imoveis/{type}', [SiteController::class, 'imoveisList'])->name('imoveisList');
 
     /** Lista todos os imóveis por categoria */
     Route::get('/imoveis/categoria/{categoria}', [SiteController::class, 'imoveisCategoria'])->name('imoveisCategoria');
 
     /** Página de Compra - Específica de um imóvel */
-    Route::match(['get', 'post'],'/quero-comprar/{slug}', [SiteController::class, 'buyProperty'])->name('buyProperty');  
+    Route::match(['get', 'post'],'/imoveis/quero-comprar/{slug}', [SiteController::class, 'buyProperty'])->name('buyProperty');  
     
     /** Página de Lançamento */
     Route::get('/lancamento', [SiteController::class, 'lancamento'])->name('lancamento');
