@@ -210,6 +210,24 @@
                     }
                 });
 
+                function checkDevice() { 
+                    if( navigator.userAgent.match(/Android/i)
+                    || navigator.userAgent.match(/webOS/i)
+                    || navigator.userAgent.match(/iPhone/i)
+                    || navigator.userAgent.match(/iPad/i)
+                    || navigator.userAgent.match(/iPod/i)
+                    || navigator.userAgent.match(/BlackBerry/i)
+                    || navigator.userAgent.match(/Windows Phone/i)
+                    ){
+                        $('.sharezap').attr("href", "https://api.whatsapp.com/send?l=pt_pt&phone="+{{ \App\Helpers\Renato::limpatelefone($tenant->whatsapp) }}+"&text=Atendimento");
+                        return true; // está utilizando celular
+                    }
+                    else {
+                        $('.sharezap').attr("href", "https://web.whatsapp.com/send?l=pt_pt&phone="+{{ \App\Helpers\Renato::limpatelefone($tenant->whatsapp) }}+"&text=Atendimento");
+                        return false; // não é celular
+                    }
+                }
+
                 // Seletor, Evento/efeitos, CallBack, Ação
                 $('.j_submitnewsletter').submit(function (){
                     var form = $(this);
@@ -251,29 +269,7 @@
 
             });
         </script>
-        <script>
-            $(function () {
-    
-            function checkDevice() { 
-                if( navigator.userAgent.match(/Android/i)
-                || navigator.userAgent.match(/webOS/i)
-                || navigator.userAgent.match(/iPhone/i)
-                || navigator.userAgent.match(/iPad/i)
-                || navigator.userAgent.match(/iPod/i)
-                || navigator.userAgent.match(/BlackBerry/i)
-                || navigator.userAgent.match(/Windows Phone/i)
-                ){
-                    $('.sharezap').attr("href", "https://api.whatsapp.com/send?l=pt_pt&phone="+{{ \App\Helpers\Renato::limpatelefone($tenant->whatsapp) }}+"&text=Atendimento");
-                    return true; // está utilizando celular
-                }
-                else {
-                    $('.sharezap').attr("href", "https://web.whatsapp.com/send?l=pt_pt&phone="+{{ \App\Helpers\Renato::limpatelefone($tenant->whatsapp) }}+"&text=Atendimento");
-                    return false; // não é celular
-                }
-            }
-            });
-        </script>
-
+        
         <!-- Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id={{$tenant->tagmanager_id}}"></script>
         <script>
