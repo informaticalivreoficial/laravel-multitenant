@@ -210,23 +210,16 @@
                     }
                 });
 
-                function checkDevice() { 
-                    if( navigator.userAgent.match(/Android/i)
-                    || navigator.userAgent.match(/webOS/i)
-                    || navigator.userAgent.match(/iPhone/i)
-                    || navigator.userAgent.match(/iPad/i)
-                    || navigator.userAgent.match(/iPod/i)
-                    || navigator.userAgent.match(/BlackBerry/i)
-                    || navigator.userAgent.match(/Windows Phone/i)
-                    ){
+                $(function() {      
+                    let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+                    if (isMobile) {
                         $('.sharezap').attr("href", "https://api.whatsapp.com/send?l=pt_pt&phone="+{{ \App\Helpers\Renato::limpatelefone($tenant->whatsapp) }}+"&text=Atendimento");
-                        return true; // está utilizando celular
                     }
-                    else {
+                    else{
                         $('.sharezap').attr("href", "https://web.whatsapp.com/send?l=pt_pt&phone="+{{ \App\Helpers\Renato::limpatelefone($tenant->whatsapp) }}+"&text=Atendimento");
-                        return false; // não é celular
                     }
-                }
+                });
 
                 // Seletor, Evento/efeitos, CallBack, Ação
                 $('.j_submitnewsletter').submit(function (){

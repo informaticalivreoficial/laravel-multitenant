@@ -418,7 +418,5 @@
 
     });
 </script>
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v11.0&appId=264170880377379&autoLogAppEvents=1" nonce="1eBNUT9J"></script>
 @endsection
 
