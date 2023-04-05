@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Tenant\Traits\TenantTrait;
 
 class PortalImoveis extends Model
 {
+    use HasFactory, TenantTrait;
+
     protected $table = 'portais_imoveis';
 
     protected $fillable = [
@@ -25,5 +28,10 @@ class PortalImoveis extends Model
     public function imovel()
     {
         return $this->belongsTo(Imovel::class, 'imovel', 'id');
-    }    
+    }  
+    
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }

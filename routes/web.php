@@ -36,7 +36,8 @@ use App\Http\Controllers\Web\Site\{
     FilterController,
     RssFeedController,
     SendEmailController,
-    SiteController
+    SiteController,
+    PortalfeedController
 };
 
 use Illuminate\Support\Facades\Route;
@@ -140,6 +141,8 @@ Route::group([
     Route::get('/blog/categoria/{slug}', [SiteController::class, 'categoria'])->name('blog.categoria');
     Route::get('/blog/artigos', [SiteController::class, 'artigos'])->name('blog.artigos');    
     Route::match(['get', 'post'],'/blog/pesquisar', [WebController::class, 'searchBlog'])->name('blog.searchBlog');
+
+    Route::get('/portais/nuroa', [PortalfeedController::class, 'portalnuroa'])->name('portalnuroa');
 });
 
 
