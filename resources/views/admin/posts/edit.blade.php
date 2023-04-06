@@ -91,7 +91,9 @@ $config = [
                                             <select class="form-control" name="autor">
                                                 <option value="">Selecione o Autor</option>
                                                 @foreach($users as $user)
-                                                    <option value="{{ $user->id }}" {{ (old('autor') == $user->id ? 'selected' : ($user->id == $post->autor ? 'selected' : '')) }}>{{ $user->name }}</option>
+                                                    @if ($user->admin == 1 || $user->editor == 1)
+                                                        <option value="{{ $user->id }}" {{ (old('autor') == $user->id ? 'selected' : ($user->id == $post->autor ? 'selected' : '')) }}>{{ $user->name }}</option>
+                                                    @endif                                                    
                                                 @endforeach
                                             </select>
                                         </div>
