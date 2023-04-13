@@ -9,6 +9,25 @@
         <language>pt-br</language>
         <pubDate>{{ now() }}</pubDate>
 
+        @foreach($imoveis as $imovel)
+            <item>
+                <title><![CDATA[{{ $imovel->titulo }}]]></title>
+                @if(!empty($type) && $type == 'venda')
+                    <link>{{ url('quero-comprar/'.$imovel->slug) }}</link>
+                @elseif(!empty($type) && $type == 'locacao')
+                    <link>{{ url('imoveis/quero-alugar/'.$imovel->slug) }}</link>
+                @else
+                    <link>{{ url('imoveis/quero-comprar/'.$imovel->slug) }}</link>
+                @endif                
+                <image>{{ $imovel->cover() }}</image>
+                <description><![CDATA[{!! $imovel->getContentWebAttribute() !!}]]></description>
+                <category>{{ $imovel->categoria }}</category>
+                <author><![CDATA[ {{ $tenant->name }} ]]></author>
+                <guid>{{ $imovel->id }}</guid>
+                <pubDate>{{ $imovel->created_at }}</pubDate>
+            </item>
+        @endforeach
+
         @foreach($posts as $post)
             <item>
                 <title><![CDATA[{{ $post->titulo }}]]></title>
@@ -47,24 +66,5 @@
                 <pubDate>{{ $noticia->created_at }}</pubDate>
             </item>
         @endforeach
-
-        @foreach($imoveis as $imovel)
-            <item>
-                <title><![CDATA[{{ $imovel->titulo }}]]></title>
-                @if(!empty($type) && $type == 'venda')
-                    <link>{{ url('quero-comprar/'.$imovel->slug) }}</link>
-                @elseif(!empty($type) && $type == 'locacao')
-                    <link>{{ url('imoveis/quero-alugar/'.$imovel->slug) }}</link>
-                @else
-                    <link>{{ url('imoveis/quero-comprar/'.$imovel->slug) }}</link>
-                @endif                
-                <image>{{ $imovel->cover() }}</image>
-                <description><![CDATA[{!! $imovel->getContentWebAttribute() !!}]]></description>
-                <category>{{ $imovel->categoria }}</category>
-                <author><![CDATA[ {{ $tenant->name }} ]]></author>
-                <guid>{{ $imovel->id }}</guid>
-                <pubDate>{{ $imovel->created_at }}</pubDate>
-            </item>
-        @endforeach        
     </channel>
 </rss>
