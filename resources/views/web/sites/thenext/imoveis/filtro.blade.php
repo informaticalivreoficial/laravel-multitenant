@@ -26,33 +26,35 @@
                             <div class="property fp2">
                                 <!-- Property img -->
                                 <div class="property-img">
-                                    <div class="property-tag button alt featured">Ref.: {{$imovel->referencia}}</div>
-                                <div class="property-tag button sale">{{$imovel->tipo}}</div>
-                                    <div class="property-price">
-                                        @if(!empty($type) && $type == 'venda')
-                                            R$ {{str_replace(',00', '', $imovel->valor_venda)}}                                                        
-                                        @elseif(!empty($type) && $type == 'locacao')
-                                            R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
-                                        @else
-                                            @if($imovel->venda == true && !empty($imovel->valor_venda) && $imovel->valor_locacao == true && !empty($imovel->valor_locacao))                                            
-                                                    Venda: R${{ str_replace(',00', '', $imovel->valor_venda) }}<br>
-                                                    Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês                                            
-                                            @elseif($imovel->venda == true && !empty($imovel->valor_venda))
-                                                    R${{ str_replace(',00', '', $imovel->valor_venda) }}
-                                            @elseif($imovel->locacao == true && !empty($imovel->valor_locacao))
-                                                    R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês
+                                    @if ($imovel->referencia)
+                                        <div class="property-tag button alt featured">Ref.: {{$imovel->referencia}}</div>
+                                    @endif 
+                                    <div class="property-tag button sale">{{$imovel->tipo}}</div>
+                                        <div class="property-price">
+                                            @if(!empty($type) && $type == 'venda')
+                                                R$ {{str_replace(',00', '', $imovel->valor_venda)}}                                                        
+                                            @elseif(!empty($type) && $type == 'locacao')
+                                                R${{ str_replace(',00', '', $imovel->valor_locacao) }}/{{$imovel->getLocacaoPeriodo()}}
                                             @else
-                                                Sob Consulta
+                                                @if($imovel->venda == true && !empty($imovel->valor_venda) && $imovel->valor_locacao == true && !empty($imovel->valor_locacao))                                            
+                                                        Venda: R${{ str_replace(',00', '', $imovel->valor_venda) }}<br>
+                                                        Aluguel: R${{ str_replace(',00', '', $imovel->valor_locacao) }}/{{$imovel->getLocacaoPeriodo()}}                                            
+                                                @elseif($imovel->venda == true && !empty($imovel->valor_venda))
+                                                        R${{ str_replace(',00', '', $imovel->valor_venda) }}
+                                                @elseif($imovel->locacao == true && !empty($imovel->valor_locacao))
+                                                        R${{ str_replace(',00', '', $imovel->valor_locacao) }}/{{$imovel->getLocacaoPeriodo()}}
+                                                @else
+                                                    Sob Consulta
+                                                @endif
                                             @endif
-                                        @endif
+                                        </div>
+                                        <img style="min-height:262px !important;max-height: 262px !important;max-width: 100%;" src="{{$imovel->cover()}}" alt="{{$imovel->titulo}}">
+                                        <div class="property-overlay">
+                                            <a href="{{ route((session('venda') == true || (!empty($type) && $type == 'venda') || ($imovel->locacao == false) ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $imovel->slug]) }}" class="overlay-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>                                        
+                                        </div>
                                     </div>
-                                    <img style="min-height:262px !important;max-height: 262px !important;max-width: 100%;" src="{{$imovel->cover()}}" alt="{{$imovel->titulo}}">
-                                    <div class="property-overlay">
-                                        <a href="{{ route((session('venda') == true || (!empty($type) && $type == 'venda') || ($imovel->locacao == false) ? 'web.buyProperty' : 'web.rentProperty'), ['slug' => $imovel->slug]) }}" class="overlay-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>                                        
-                                    </div>
-                                </div>
                                 <!-- Property content -->
                                 <div class="property-content">
                                     <!-- info -->

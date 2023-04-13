@@ -184,47 +184,64 @@ $config = [
                                          </a>
                                      </h4>
                                  </div>
-                                 <div id="collapseValores" class="panel-collapse collapse show">
-                                     <div class="card-body">
-                                         <div class="row mb-2">
-                                             <div class="col-12"> 
-                                                 <div class="form-group">
-                                                     <label class="labelforms text-muted"><b>Deseja exibir os valores?</b> <small class="text-info">(valores exibidos no layout do cliente)</small></label>
-                                                     <div class="form-check">
-                                                         <input id="exibivaloresim" class="form-check-input" type="radio" value="1" name="exibivalores" {{(old('exibivalores') == '1' ? 'checked' : ($imovel->exibivalores == '1' ? 'checked' : ''))}}>
-                                                         <label for="exibivaloressim" class="form-check-label mr-5">Sim</label>
-                                                         <input id="exibivaloresnao" class="form-check-input" type="radio" value="0" name="exibivalores" {{(old('exibivalores') == '0' ? 'checked' : ($imovel->exibivalores == '0' ? 'checked' : ''))}}>
-                                                         <label for="exibivaloresnao" class="form-check-label">Não</label>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                             <div class="col-12 col-md-3 col-lg-3"> 
-                                                 <div class="form-group">
-                                                     <label class="labelforms text-muted"><b>Valor de Venda</b></label>
-                                                     <input type="text" class="form-control mask-money" name="valor_venda" value="{{ old('valor_venda') ?? $imovel->valor_venda }}">
-                                                 </div>
-                                             </div>
-                                             <div class="col-12 col-md-3 col-lg-3"> 
-                                                 <div class="form-group">
-                                                     <label class="labelforms text-muted"><b>Valor de Locação</b></label>
-                                                     <input type="text" class="form-control mask-money" name="valor_locacao" value="{{ old('valor_locacao') ?? $imovel->valor_locacao }}">
-                                                 </div>
-                                             </div>
-                                             <div class="col-12 col-md-3 col-lg-3"> 
-                                                 <div class="form-group">
-                                                     <label class="labelforms text-muted"><b>Valor IPTU</b></label>
-                                                     <input type="text" class="form-control mask-money" name="iptu" value="{{ old('iptu') ?? $imovel->iptu }}">
-                                                 </div>
-                                             </div>
-                                             <div class="col-12 col-md-3 col-lg-3"> 
-                                                 <div class="form-group">
-                                                     <label class="labelforms text-muted"><b>Valor Condomínio</b></label>
-                                                     <input type="text" class="form-control mask-money" name="condominio" value="{{ old('condominio') ?? $imovel->condominio }}">
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
+                                    <div id="collapseValores" class="panel-collapse collapse show">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col-12"> 
+                                                    <div class="form-group">
+                                                        <label class="labelforms text-muted"><b>Deseja exibir os valores?</b> <small class="text-info">(valores exibidos no layout do cliente)</small></label>
+                                                        <div class="form-check">
+                                                            <input id="exibivaloresim" class="form-check-input" type="radio" value="1" name="exibivalores" {{(old('exibivalores') == '1' ? 'checked' : ($imovel->exibivalores == '1' ? 'checked' : ''))}}>
+                                                            <label for="exibivaloressim" class="form-check-label mr-5">Sim</label>
+                                                            <input id="exibivaloresnao" class="form-check-input" type="radio" value="0" name="exibivalores" {{(old('exibivalores') == '0' ? 'checked' : ($imovel->exibivalores == '0' ? 'checked' : ''))}}>
+                                                            <label for="exibivaloresnao" class="form-check-label">Não</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3"> 
+                                                    <div class="form-group">
+                                                        <label class="labelforms text-muted"><b>Valor de Venda</b></label>
+                                                        <input type="text" class="form-control mask-money valor_venda" name="valor_venda" value="{{ old('valor_venda') ?? $imovel->valor_venda }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3"> 
+                                                    <div class="form-group">
+                                                        <label class="labelforms text-muted"><b>Valor de Locação</b></label>
+                                                        <input type="text" class="form-control mask-money valor_locacao" name="valor_locacao" value="{{ old('valor_locacao') ?? $imovel->valor_locacao }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3"> 
+                                                    <div class="form-group">
+                                                        <label class="labelforms text-muted"><b>Valor IPTU</b></label>
+                                                        <input type="text" class="form-control mask-money" name="iptu" value="{{ old('iptu') ?? $imovel->iptu }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3"> 
+                                                    <div class="form-group">
+                                                        <label class="labelforms text-muted"><b>Valor Condomínio</b></label>
+                                                        <input type="text" class="form-control mask-money" name="condominio" value="{{ old('condominio') ?? $imovel->condominio }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2 links-locacao">
+                                                <div class="col-12 col-md-6 col-lg-3"> 
+                                                    <div class="form-group">
+                                                       <label class="labelforms text-muted"><b>Período da Locação</b></label>
+                                                       <select class="form-control" name="locacao_periodo">
+                                                            <option value=""> Selecione </option>
+                                                            <option value="1" {{(old('locacao_periodo') == '1' ? 'selected' : ($imovel->locacao_periodo == '1' ? 'selected' : ''))}}>Diária</option>
+                                                            <option value="2" {{(old('locacao_periodo') == '2' ? 'selected' : ($imovel->locacao_periodo == '2' ? 'selected' : ''))}}>Quinzenal</option>
+                                                            <option value="3" {{(old('locacao_periodo') == '3' ? 'selected' : ($imovel->locacao_periodo == '3' ? 'selected' : ''))}}>Mensal</option>
+                                                            <option value="4" {{(old('locacao_periodo') == '4' ? 'selected' : ($imovel->locacao_periodo == '4' ? 'selected' : ''))}}>Trimestral</option>
+                                                            <option value="5" {{(old('locacao_periodo') == '5' ? 'selected' : ($imovel->locacao_periodo == '5' ? 'selected' : ''))}}>Semestral</option>
+                                                            <option value="6" {{(old('locacao_periodo') == '6' ? 'selected' : ($imovel->locacao_periodo == '6' ? 'selected' : ''))}}>Anual</option>
+                                                            <option value="7" {{(old('locacao_periodo') == '7' ? 'selected' : ($imovel->locacao_periodo == '7' ? 'selected' : ''))}}>Bianual</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                              </div>
                              <div class="card">
                                  <div class="card-header">
@@ -879,16 +896,36 @@ $config = [
                 $(".links-locacao").attr("style", "display:flex");
             }else{
                 $(".links-locacao").attr("style", "display:none");
+                $('.valor_locacao').attr('disabled', true);
+            }
+        }
+
+        function getVendaCheck(){
+            if ($('#venda').is(':checked')) {
+                $('.valor_venda').attr('disabled', false);
+            }else{
+                $('.valor_venda').attr('disabled', true);
             }
         }
 
         getlocacaoCheck();
+        getVendaCheck();
 
         $("#locacao").on('change',function() {
             if (this.checked) {
                 $(".links-locacao").attr("style", "display:flex");
+                $('.valor_locacao').attr('disabled', false);
             } else {
                 $(".links-locacao").attr("style", "display:none");
+                $('.valor_locacao').attr('disabled', true);
+            }
+        });
+
+        $("#venda").on('change',function() {
+            if (this.checked) {
+                $('.valor_venda').attr('disabled', false);
+            } else {
+                $('.valor_venda').attr('disabled', true);
             }
         });
         

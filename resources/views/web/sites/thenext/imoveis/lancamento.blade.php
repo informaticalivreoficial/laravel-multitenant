@@ -42,15 +42,15 @@
                             @if($imovel->venda == true && $imovel->locacao == false)
                                 <p><b>Valor do Imóvel:</b> R${{str_replace(',00', '', $imovel->valor_venda)}}</p>
                             @elseif($imovel->locacao == true && $imovel->venda == false)
-                                <p><b>Valor do Aluguel:</b> R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês</p>
+                                <p><b>Valor do Aluguel:</b> R${{ str_replace(',00', '', $imovel->valor_locacao) }}/{{$imovel->getLocacaoPeriodo()}}</p>
                             @else
                                 @if($imovel->venda == true && !empty($imovel->valor_venda) && $imovel->valor_locacao == true && !empty($imovel->valor_locacao))
                                     <p><b>Valor do Imóvel:</b> R${{ str_replace(',00', '', $imovel->valor_venda) }} <br>
-                                        <b>ou Valor do Aluguel:</b> R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês</p>
+                                        <b>ou Valor do Aluguel:</b> R${{ str_replace(',00', '', $imovel->valor_locacao) }}/{{$imovel->getLocacaoPeriodo()}}</p>
                                 @elseif($imovel->venda == true && !empty($imovel->valor_venda))
                                     <p><b>Valor do Imóvel:</b> R${{ str_replace(',00', '', $imovel->valor_venda) }}</p>
                                 @elseif($imovel->locacao == true && !empty($imovel->valor_locacao))
-                                    <p><b>Valor do Aluguel:</b> R${{ str_replace(',00', '', $imovel->valor_locacao) }}/mês</p>
+                                    <p><b>Valor do Aluguel:</b> R${{ str_replace(',00', '', $imovel->valor_locacao) }}/{{$imovel->getLocacaoPeriodo()}}</p>
                                 @else
                                     <p>Entre em contato com a nossa equipe comercial!</p>
                                 @endif

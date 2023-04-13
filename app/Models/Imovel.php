@@ -24,6 +24,7 @@ class Imovel extends Model
         'exibivalores',
         'valor_venda',
         'valor_locacao',
+        'locacao_periodo',
         'iptu',
         'ano_construcao',
         'referencia',
@@ -131,6 +132,23 @@ class Imovel extends Model
     /**
      * Accerssors and Mutators
      */
+    public function getLocacaoPeriodo()
+    {
+        if (empty($this->locacao_periodo)) {
+            return null;
+        }
+
+        $periodo = ($this->locacao_periodo == 1 ? 'Diária' : 
+                   ($this->locacao_periodo == 2 ? 'Quinzenal' : 
+                   ($this->locacao_periodo == 3 ? 'Mensal' : 
+                   ($this->locacao_periodo == 4 ? 'Trimestral' : 
+                   ($this->locacao_periodo == 5 ? 'Semestral' : 
+                   ($this->locacao_periodo == 6 ? 'Anual' : 
+                   ($this->locacao_periodo == 7 ? 'Bianual' : 'Diária')))))));
+
+        return $periodo;
+    }
+
     public function getContentWebAttribute()
     {
         return Str::words($this->descricao, '20', ' ...');

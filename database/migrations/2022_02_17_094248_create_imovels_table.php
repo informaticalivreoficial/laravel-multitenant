@@ -28,6 +28,7 @@ class CreateImovelsTable extends Migration
             $table->boolean('exibivalores')->nullable();
             $table->decimal('valor_venda', 10, 2)->nullable();
             $table->decimal('valor_locacao', 10, 2)->nullable();
+            $table->integer('locacao_periodo')->nullable();
             $table->decimal('iptu', 10, 2)->nullable();
             $table->decimal('condominio', 10, 2)->nullable();
             

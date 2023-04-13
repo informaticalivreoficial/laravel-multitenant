@@ -196,13 +196,13 @@ $config = [
                                                     <div class="col-12 col-md-3 col-lg-3"> 
                                                         <div class="form-group">
                                                             <label class="labelforms text-muted"><b>Valor de Venda</b></label>
-                                                            <input type="text" class="form-control mask-money" name="valor_venda" value="{{old('valor_venda')}}">
+                                                            <input type="text" class="form-control mask-money valor_venda" name="valor_venda" value="{{old('valor_venda')}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-md-3 col-lg-3"> 
                                                         <div class="form-group">
                                                             <label class="labelforms text-muted"><b>Valor de Locação</b></label>
-                                                            <input type="text" class="form-control mask-money" name="valor_locacao" value="{{old('valor_locacao')}}">
+                                                            <input type="text" class="form-control mask-money valor_locacao" name="valor_locacao" value="{{old('valor_locacao')}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-md-3 col-lg-3"> 
@@ -215,6 +215,23 @@ $config = [
                                                         <div class="form-group">
                                                             <label class="labelforms text-muted"><b>Valor Condomínio</b></label>
                                                             <input type="text" class="form-control mask-money" name="condominio" value="{{old('condominio')}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2 links-locacao">
+                                                    <div class="col-12 col-md-6 col-lg-3"> 
+                                                        <div class="form-group">
+                                                           <label class="labelforms text-muted"><b>Período da Locação</b></label>
+                                                           <select class="form-control" name="locacao_periodo">
+                                                                <option value=""> Selecione </option>
+                                                                <option value="1" {{(old('locacao_periodo') == '1' ? 'selected' : '')}}>Diária</option>
+                                                                <option value="2" {{(old('locacao_periodo') == '2' ? 'selected' : '')}}>Quinzenal</option>
+                                                                <option value="3" {{(old('locacao_periodo') == '3' ? 'selected' : '')}}>Mensal</option>
+                                                                <option value="4" {{(old('locacao_periodo') == '4' ? 'selected' : '')}}>Trimestral</option>
+                                                                <option value="5" {{(old('locacao_periodo') == '5' ? 'selected' : '')}}>Semestral</option>
+                                                                <option value="6" {{(old('locacao_periodo') == '6' ? 'selected' : '')}}>Anual</option>
+                                                                <option value="7" {{(old('locacao_periodo') == '7' ? 'selected' : '')}}>Bianual</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -853,13 +870,26 @@ $config = [
             }
         });
 
+        $('.valor_locacao').attr('disabled', true);
+        $('.valor_venda').attr('disabled', true);
+
         $("#locacao").on('change',function() {
             if (this.checked) {
                 $(".links-locacao").attr("style", "display:flex");
+                $('.valor_locacao').attr('disabled', false);
             } else {
                 $(".links-locacao").attr("style", "display:none");
+                $('.valor_locacao').attr('disabled', true);
             }
-        });        
+        });    
+        
+        $("#venda").on('change',function() {
+            if (this.checked) {
+                $('.valor_venda').attr('disabled', false);
+            } else {
+                $('.valor_venda').attr('disabled', true);
+            }
+        });
         
         $('#state-dd').on('change', function () {
             var idState = this.value;

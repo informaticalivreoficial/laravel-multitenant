@@ -359,7 +359,7 @@
                                 <div class="property-tag button alt featured">Ref.: {{$ilocacao->referencia}}</div>
                                 <div class="property-tag button sale">{{$ilocacao->tipo}}</div>
                                 @if($ilocacao->exibivalores == true)
-                                    <div class="property-price">R${{str_replace(',00', '', $ilocacao->valor_venda)}}/mês</div>
+                                    <div class="property-price">R${{str_replace(',00', '', $ilocacao->valor_locacao)}}/{{$ilocacao->getLocacaoPeriodo()}}</div>
                                 @endif                                
                                 <img style="min-height:262px !important;max-height: 262px !important;max-width: 100%;" src="{{$ilocacao->cover()}}" alt="{{$ilocacao->titulo}}">
                                 <div class="property-overlay">
