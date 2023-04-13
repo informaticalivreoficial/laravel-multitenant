@@ -9,10 +9,10 @@
         <language>pt-br</language>
         <pubDate>{{ now() }}</pubDate>
 
-        @foreach($imoveisVenda as $imovel)
+        @foreach($imoveisLocacao as $imovel)
             <item>
                 <title><![CDATA[{{ $imovel->titulo }}]]></title>
-                <link>{{ url('imoveis/quero-comprar/'.$imovel->slug) }}</link>                
+                <link>{{ url('imoveis/quero-alugar/'.$imovel->slug) }}</link>                
                 <image>{{ $imovel->cover() }}</image>
                 <description><![CDATA[{!! $imovel->getContentWebAttribute() !!}]]></description>
                 <category>{{ $imovel->categoria }}</category>
@@ -22,10 +22,10 @@
             </item>
         @endforeach
 
-        @foreach($imoveisLocacao as $imovel)
+        @foreach($imoveisVenda as $imovel)
             <item>
                 <title><![CDATA[{{ $imovel->titulo }}]]></title>
-                <link>{{ url('imoveis/quero-alugar/'.$imovel->slug) }}</link>                
+                <link>{{ url('imoveis/quero-comprar/'.$imovel->slug) }}</link>                
                 <image>{{ $imovel->cover() }}</image>
                 <description><![CDATA[{!! $imovel->getContentWebAttribute() !!}]]></description>
                 <category>{{ $imovel->categoria }}</category>
