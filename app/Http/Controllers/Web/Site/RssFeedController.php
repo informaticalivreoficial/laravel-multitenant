@@ -39,8 +39,15 @@ class RssFeedController extends Controller
                         ->postson()
                         ->limit(10)
                         ->get();
-        $imoveis = Imovel::orderBy('created_at', 'DESC')
+        $imoveisVenda = Imovel::orderBy('created_at', 'DESC')
                         ->where('tenant_id', $this->tenant->id)
+                        ->venda()
+                        ->available()
+                        ->limit(50)
+                        ->get();
+        $imoveisLocacao = Imovel::orderBy('created_at', 'DESC')
+                        ->where('tenant_id', $this->tenant->id)
+                        ->locacao()
                         ->available()
                         ->limit(50)
                         ->get();
@@ -50,7 +57,8 @@ class RssFeedController extends Controller
             'posts' => $posts,
             'paginas' => $paginas,
             'noticias' => $noticias,
-            'imoveis' => $imoveis
+            'imoveisVenda' => $imoveisVenda,
+            'imoveisLocacao' => $imoveisLocacao
         ])->header('Content-Type', 'application/xml');
         
     }
