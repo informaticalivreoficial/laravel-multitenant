@@ -398,7 +398,7 @@
                 <!-- Property description end -->
 
                 <!-- Properties description start -->
-                <div class="properties-description mb-30">
+                <div class="properties-description mb-20">
                     <hr>                        
                     <p>*{{$imovel->notasadicionais}}</p>
                 </div>
@@ -417,10 +417,24 @@
                             </div>
                         </div>
                     </div>
-                @endif
+                @endif                
 
                 <!-- Contact 1 start -->
-                <div class="contact-1 sidebar-widget mb-30">
+                <div class="contact-1 sidebar-widget mb-30" style="padding: 10px;box-sizing: border-box !important;">
+                    @if ($imovel->url_booking || $imovel->url_arbnb)
+                        <p class="pb-3 pt-3 text-center">
+                            @if ($imovel->url_booking)
+                                <a href="{{$imovel->url_booking}}" target="_blank">
+                                    <img class="img-shadow mb-4" src="{{url(asset('frontend/'.$tenant->template.'/img/btn-arbnb.jpg'))}}" alt="Airbnb">
+                                </a>                                
+                            @endif
+                            @if ($imovel->url_arbnb)
+                                <a href="{{$imovel->url_arbnb}}" target="_blank">
+                                    <img class="img-shadow mb-4" src="{{url(asset('frontend/'.$tenant->template.'/img/btn-booking.jpg'))}}" alt="Booking">
+                                </a>                                
+                            @endif
+                        </p>
+                    @endif
                     <div class="main-title-2">
                         <h1>Consultar este imóvel</h1>
                     </div>
@@ -760,6 +774,13 @@
         .portfolio-item img {
             width: 120px;
             max-height:79px !important;
+        }
+        .img-shadow {
+            border:2px solid #fff;
+            box-shadow: 10px 10px 5px #ccc;
+            -moz-box-shadow: 10px 10px 5px #ccc;
+            -webkit-box-shadow: 10px 10px 5px #ccc;
+            -khtml-box-shadow: 10px 10px 5px #ccc;
         }
     </style>    
 @endsection

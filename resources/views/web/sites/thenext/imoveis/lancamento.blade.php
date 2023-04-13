@@ -397,7 +397,7 @@
                 </div>
                 <!-- Properties details section end -->
 
-                <div class="properties-description mb-30">
+                <div class="properties-description mb-20">
                     <hr>                        
                     <p>*{{$imovel->notasadicionais}}</p>
                 </div>
@@ -415,8 +415,22 @@
                 
                 <!-- Contact 1 start -->
                 <div class="contact-1 sidebar-widget mb-30">
+                    @if ($imovel->url_booking || $imovel->url_arbnb)
+                        <p class="pb-3 pt-3">
+                            @if ($imovel->url_booking)
+                                <a href="{{$imovel->url_booking}}" target="_blank">
+                                    <img style="margin-right: 20px;" class="img-shadow mb-4" src="{{url(asset('frontend/'.$tenant->template.'/img/btn-arbnb.jpg'))}}" alt="Airbnb">
+                                </a>                                
+                            @endif
+                            @if ($imovel->url_arbnb)
+                                <a href="{{$imovel->url_arbnb}}" target="_blank">
+                                    <img class="img-shadow mb-4" src="{{url(asset('frontend/'.$tenant->template.'/img/btn-booking.jpg'))}}" alt="Booking">
+                                </a>                                
+                            @endif
+                        </p>
+                    @endif                    
                     <div class="main-title-2">
-                        <h1>Consultar este imóvel</h1>
+                        <h1>Consultar este imóvel direto com o Corretor</h1>
                     </div>
                     <div class="contact-form">
                         <form action="" method="POST" class="j_formsubmit" autocomplete="off">
@@ -467,7 +481,14 @@
             width: 120px;
             max-height:79px !important;
         }
-    </style>    
+        .img-shadow {
+            border:2px solid #fff;
+            box-shadow: 10px 10px 5px #ccc;
+            -moz-box-shadow: 10px 10px 5px #ccc;
+            -webkit-box-shadow: 10px 10px 5px #ccc;
+            -khtml-box-shadow: 10px 10px 5px #ccc;
+        }
+    </style>   
 @endsection
 
 @section('js')
