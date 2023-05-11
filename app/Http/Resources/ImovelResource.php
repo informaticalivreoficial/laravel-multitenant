@@ -15,13 +15,10 @@ class ImovelResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
-    {
-        $image = ImovelGb::where('imovel', $this->id)->orderBy('cover', 'ASC');
-        $cover = $image->where('cover', 1)->first(['path']);
-
+    {        
         return [
             'titulo'    => $this->titulo,
-            'image'     => (empty($cover['path']) || !Storage::disk()->exists($cover['path']) ? Storage::url($cover['path']) : url(asset('backend/assets/images/image.jpg'))),
+            'image'     => $this->cover(),
             'venda'     => $this->venda,
             'locacao'   => $this->locacao,
             'categoria' => $this->categoria,

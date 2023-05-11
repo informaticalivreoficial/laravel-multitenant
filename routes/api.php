@@ -14,7 +14,8 @@ Route::group([
     
     /********************** Imóveis ************************************/
     Route::get('/imoveis/{id}', [ImovelController::class, 'show']);
-    Route::get('/imoveis/empresa/{tenant}', [ImovelController::class, 'index']);
+    Route::get('/empresa/{id}/imoveis', [ImovelController::class, 'index']);
+    Route::get('/empresa/{id}/imovel/destaque', [ImovelController::class, 'destaque']);
 
     /********************** Tenants ************************************/
     Route::get('/tenants/{uuid}', [TenantApiController::class, 'show']);

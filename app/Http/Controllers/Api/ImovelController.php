@@ -33,4 +33,13 @@ class ImovelController extends Controller
 
         return new ImovelResource($imovel);
     }
+
+    public function destaque($tenant)
+    {
+        if (!$imovel = $this->imovelService->getImovelDestaqueByTenant($tenant)) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+
+        return new ImovelResource($imovel);
+    }
 }

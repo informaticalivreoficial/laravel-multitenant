@@ -28,6 +28,11 @@ class ImovelService
         return $this->repository->getAllImoveisTenant($per_page, $tenant);
     }
 
+    public function getImovelDestaqueByTenant(int $tenant)
+    {
+        return $this->repository->getImovelDestaque($tenant);
+    }
+
     public function getImovelById(int $id)
     {
         return $this->repository->getImovelById($id);
