@@ -25,7 +25,7 @@ class TenantAnalyticsId
         $company = app(ManangerTenant::class); 
         $tenant = $company->tenant();
 
-        config(['analytics.view_id' => ($tenant->analytics_view ?? '253901480')]);
+        config(['analytics.view_id' => ($tenant->tagmanager_id ?? '278089316')]);
 
         return $next($request);
     }

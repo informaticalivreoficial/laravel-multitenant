@@ -3,10 +3,10 @@
 return [
 
     'admins' => [
-        'suporte@informaticalivre.com',
+        'suporte@informaticalivre.com.br',
     ],
     'domainMain' => [
-        'superimoveis.info',
+        'laravel.test',
     ],
 
 ];

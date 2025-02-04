@@ -1,39 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-        <loc>http://superimoveis.com/Laravel-Multi-Tenant/public</loc>
-        <lastmod>2022-03-02T21:47:27-03:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>http://superimoveis.com/Laravel-Multi-Tenant/public/atendimento</loc>
-        <lastmod>2022-03-01T00:00:00-03:00</lastmod>
+        <loc>http://laravel.test/atendimento</loc>
+        <lastmod>2025-02-02T00:00:00-03:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.1</priority>
-    </url>
+            </url>
     <url>
-        <loc>http://superimoveis.com/Laravel-Multi-Tenant/public/blog/artigos</loc>
-        <lastmod>2022-03-02T21:47:27-03:00</lastmod>
-        <changefreq>daily</changefreq>
+        <loc>http://laravel.test</loc>
+            <changefreq>daily</changefreq>
         <priority>0.8</priority>
-    </url>
+            </url>
     <url>
-        <loc>http://superimoveis.com/Laravel-Multi-Tenant/public/noticias</loc>
-        <lastmod>2022-03-02T21:47:27-03:00</lastmod>
-        <changefreq>daily</changefreq>
+        <loc>http://laravel.test/blog/artigos</loc>
+            <changefreq>daily</changefreq>
         <priority>0.8</priority>
-    </url>
+            </url>
     <url>
-        <loc>http://superimoveis.com/Laravel-Multi-Tenant/public/planos</loc>
-        <lastmod>2022-03-02T21:47:27-03:00</lastmod>
-        <changefreq>daily</changefreq>
+        <loc>http://laravel.test/noticias</loc>
+            <changefreq>daily</changefreq>
         <priority>0.8</priority>
-    </url>
+            </url>
     <url>
-        <loc>http://superimoveis.com/Laravel-Multi-Tenant/public/quem-somos</loc>
-        <lastmod>2022-03-02T21:47:27-03:00</lastmod>
-        <changefreq>daily</changefreq>
+        <loc>http://laravel.test/quem-somos</loc>
+            <changefreq>daily</changefreq>
         <priority>0.8</priority>
-    </url>
+            </url>
+    <url>
+        <loc>http://laravel.test/planos</loc>
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
 </urlset>

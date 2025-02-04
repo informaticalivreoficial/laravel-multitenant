@@ -322,8 +322,8 @@
 
         var areaChartData = {
             labels  : [
-            @foreach($analyticsData->rows as $dataMonth)                
-                'Mês/{{substr($dataMonth[0], -2)}}',                                 
+            @foreach($analyticsData as $analitics)                
+                'Mês/{{$analitics['month']}}',                                 
             @endforeach
             ],
             datasets: [
@@ -337,9 +337,9 @@
                 pointHighlightFill  : '#fff',
                 pointHighlightStroke: 'rgba(60,141,188,1)',
                 data                : [
-                                    @foreach($analyticsData->rows as $dataMonth)                
-                                        '{{$dataMonth[2]}}',                                 
-                                    @endforeach
+                                        @foreach($analyticsData as $analitics)                
+                                            '{{$analitics['totalUsers']}}',                                 
+                                        @endforeach
                                     ]
                 },
                 {
@@ -352,9 +352,9 @@
                 pointHighlightFill  : '#fff',
                 pointHighlightStroke: 'rgba(220,220,220,1)',
                 data                : [
-                                    @foreach($analyticsData->rows as $dataMonth)                
-                                        '{{$dataMonth[1]}}',                                 
-                                    @endforeach
+                                        @foreach($analyticsData as $analitics)                
+                                            '{{$analitics['sessions']}}',                                 
+                                        @endforeach
                                     ]
                 },
             ]
@@ -413,9 +413,9 @@
             {
               data: [
                 @if(!empty($top_browser))
-                  @foreach($top_browser as $key => $browser)
-                    {{$browser['sessions']}},
-                  @endforeach
+                    @foreach($top_browser as $key => $browser)
+                        {{$browser['screenPageViews']}},
+                    @endforeach
                 @else
                   700,500,400,600,300,100
                 @endif                
