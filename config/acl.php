@@ -6,7 +6,7 @@ return [
         'suporte@informaticalivre.com.br',
     ],
     'domainMain' => [
-        'laravel.test',
+        'sistemaimobiliario.info',
     ],
 
 ];
